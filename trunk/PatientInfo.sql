@@ -10,15 +10,17 @@ go
 use PI
 go
 
-create table PTable(
-FullName varchar(50),
-Age int,
-Sex char,
-sick varchar(125) 
+create table tblPatient(
+PFullName varchar(50),
+PAddress varchar(50),
+PAge int,
+PSex varchar(5),
+PDescription varchar(125),
+PSick varchar(125),
+DateIn smalldatetime,
+DateOut smalldatetime,
 )
 
-
-
-
+select * from tblPatient
 
  
