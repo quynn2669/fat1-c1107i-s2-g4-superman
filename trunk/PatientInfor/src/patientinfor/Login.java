@@ -4,10 +4,11 @@
  */
 package patientinfor;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,14 +26,70 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         try {
+            setTitle("Dang nhap he thong!");
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI","sa","123456");
-            
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
         
     }
+     public String encrypMD5(String pass) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.reset();
+            md.update(pass.getBytes());
+
+            byte[] digest = md.digest();
+            BigInteger bigInterger = new BigInteger(1, digest);
+
+            String hashText = bigInterger.toString(16);
+            while (hashText.length() < 32) {
+                hashText = "0" + hashText;
+            }
+            return hashText;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+    }
+     
+     
+        
+     public void DNBS(){
+        try {
+            CallableStatement cs = conn.prepareCall("{call DNBS(?,?)}");
+            cs.setString(1, txtTaiKhoan.getText());
+            cs.setString(2,encrypMD5(new String(pass.getPassword())));
+            ResultSet rs = cs.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(this, "Dang Nhap Thanh Cong!");
+            }else{    
+                JOptionPane.showMessageDialog(this, "Sai Tai khoan hoac mat khau!");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+         
+     }
+     public void DNNV(){
+        try {
+            CallableStatement cs = conn.prepareCall("{call DNNV(?,?)}");
+            cs.setString(1, txtTaiKhoan.getText());
+            cs.setString(2,encrypMD5(new String(pass.getPassword())));
+            ResultSet rs = cs.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(this, "Dang Nhap Thanh Cong!");
+            }else{    
+                JOptionPane.showMessageDialog(this, "Sai Tai khoan hoac mat khau!");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+         
+     }
     
 
     /**
@@ -46,24 +103,24 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        txtName = new javax.swing.JTextField();
+        txtTaiKhoan = new javax.swing.JTextField();
         rbtnBacSi = new javax.swing.JRadioButton();
         rbtnNhanVien = new javax.swing.JRadioButton();
         btnLogin = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btnDangKy = new javax.swing.JButton();
+        pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Ma So");
+        jLabel1.setText("Tai Khoan");
 
-        jLabel2.setText("Ho Ten");
+        jLabel2.setText("Mat Khau");
 
-        txtID.addActionListener(new java.awt.event.ActionListener() {
+        txtTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
+                txtTaiKhoanActionPerformed(evt);
             }
         });
 
@@ -130,9 +187,10 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(rbtnBacSi)
                         .addGap(49, 49, 49)
                         .addComponent(rbtnNhanVien))
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(pass, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtTaiKhoan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,11 +198,11 @@ public class Login extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnBacSi)
@@ -161,12 +219,23 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+    private void txtTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaiKhoanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
+    }//GEN-LAST:event_txtTaiKhoanActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        if(txtTaiKhoan.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Chua nhap ten tai khoan!");
+        }else if(new String (pass.getPassword()).isEmpty()){
+            JOptionPane.showMessageDialog(this, "Chua nhap mat khau!");
+        } else if ("BS".equals(choice)) {
+            DNBS();
+        } else if ("NV".equals(choice)) {
+            DNNV();
+        } else {
+            JOptionPane.showMessageDialog(this, "Chua Chon chuc vu!");
+        }
        
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -182,9 +251,11 @@ public class Login extends javax.swing.JFrame {
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
-        txtID.setText("");
-        txtName.setText("");
+        txtTaiKhoan.setText("");
+        pass.setText("");
         choice ="";
+        rbtnBacSi.setSelected(false);
+        rbtnNhanVien.setSelected(false);
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
@@ -242,9 +313,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPasswordField pass;
     private javax.swing.JRadioButton rbtnBacSi;
     private javax.swing.JRadioButton rbtnNhanVien;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

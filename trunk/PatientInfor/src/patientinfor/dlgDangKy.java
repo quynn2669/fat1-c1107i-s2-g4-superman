@@ -25,6 +25,7 @@ public class dlgDangKy extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         try {
+            setTitle("Dang ky tai khoan!");
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
 
@@ -79,29 +80,21 @@ public class dlgDangKy extends javax.swing.JDialog {
                     cs1.setString(4, sPass);
                     cs1.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                    JOptionPane.showMessageDialog(this, "qua");
                 } else {
-                    for (int i = 1; i >= 0; i++) {
-                        if (rsp.isAfterLast()) {
-                            if (rsp.getString(i).equals(sTaiKhoan)) {
-                                JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
-                                break;
-                            } else {
-                                CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
-
-                                cs1.setString(1, sID);
-                                cs1.setString(2, sName);
-                                cs1.setString(3, sTaiKhoan);
-                                cs1.setString(4, sPass);
-                                cs1.executeUpdate();
-                                JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                                JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                                break;
-                            }
-                        } else if (rsp.getString(i).equals(sTaiKhoan)) {
+                    for (int i = 1; i <= rsp.getRow(); i++) {
+                        if (rsp.getString(i).equals(sTaiKhoan)) {
                             JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
                             break;
+                        } else {
+                            CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
 
+                            cs1.setString(1, sID);
+                            cs1.setString(2, sName);
+                            cs1.setString(3, sTaiKhoan);
+                            cs1.setString(4, sPass);
+                            cs1.executeUpdate();
+                            JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                            break;
                         }
 
                     }
@@ -116,7 +109,7 @@ public class dlgDangKy extends javax.swing.JDialog {
 
     }
 
-   public void DKNV() {
+    public void DKNV() {
         try {
             String sID = txtID.getText();
             String sName = txtHoTen.getText();
@@ -142,26 +135,20 @@ public class dlgDangKy extends javax.swing.JDialog {
                     cs1.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
                 } else {
-                    for (int i = 1; i >= 0; i++) {
-                        if (rsp.isAfterLast()) {
-                            if (rsp.getString(i).equals(sTaiKhoan)) {
-                                JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
-                                break;
-                            } else {
-                                CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
-
-                                cs1.setString(1, sID);
-                                cs1.setString(2, sName);
-                                cs1.setString(3, sTaiKhoan);
-                                cs1.setString(4, sPass);
-                                cs1.executeUpdate();
-                                JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                                break;
-                            }
-                        } else if (rsp.getString(i).equals(sTaiKhoan)) {
+                    for (int i = 1; i <= rsp.getRow(); i++) {
+                        if (rsp.getString(i).equals(sTaiKhoan)) {
                             JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
                             break;
+                        } else {
+                            CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
 
+                            cs1.setString(1, sID);
+                            cs1.setString(2, sName);
+                            cs1.setString(3, sTaiKhoan);
+                            cs1.setString(4, sPass);
+                            cs1.executeUpdate();
+                            JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                            break;
                         }
 
                     }
@@ -312,14 +299,14 @@ public class dlgDangKy extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Chua nhap tai khoan!");
         } else if (new String(pass.getPassword()).isEmpty()) {
             JOptionPane.showMessageDialog(this, "Chua nhap Mat khau!");
-        } else if (choice == "BS") {
+        } else if ("BS".equals(choice)) {
             DKBS();
-        } else if (choice == "NV") {
+        } else if ("NV".equals(choice)) {
             DKNV();
         } else {
             JOptionPane.showMessageDialog(this, "Chua Chon chuc vu!");
         }
-       
+
     }//GEN-LAST:event_btnDangKyActionPerformed
 
     private void rbtnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNhanVienActionPerformed
