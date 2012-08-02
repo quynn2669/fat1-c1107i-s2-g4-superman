@@ -35,10 +35,7 @@ TaiKhoan varchar (12),
 MatKhau varchar(50)
 )
 go
-insert into tblBacSi values('BS0001','Duong Van Tung','Ha Noi',19,'Nam','','')
-go
-select * from tblBacSi
-
+--insert into tblBacSi values('BS0001','Duong Van Tung','Ha Noi',19,'Nam','','')
 go
 
 create table tblNhanVien(
@@ -51,10 +48,9 @@ TaiKhoan varchar (12),
 MatKhau varchar(50)
 )
 go
-insert into tblNhanVien values('NV0001','Nguyen Van A','Ha Noi',19,'Nam','','')
+--insert into tblNhanVien values('NV0001','Nguyen Van A','Ha Noi',19,'Nam','','')
  go
-select * from tblNhanVien
-go
+
  -- Tao proc tim kiem nhan vien trong bang bac si
  create proc timKiemBS
  @ID varchar(12),
@@ -102,5 +98,21 @@ go
  set MatKhau = @MatKhau
  where ID = @ID and HoTen = @HoTen
  go
- 
- 
+ -- Tao proc kiem tra tai khoan va mat khau trong tblBacSi
+ create proc DNBS
+ @TaiKhoan varchar(12),
+ @MatKhau varchar(50)
+ as
+ SELECT * FROM tblBacSi where TaiKhoan =@TaiKhoan AND MatKhau =@MatKhau
+ go
+ -- Tao proc kiem tra tai khoan va mat khau trong tblNhanVien
+ create proc DNNV
+ @TaiKhoan varchar(12),
+ @MatKhau varchar(50)
+ as
+ SELECT * FROM tblNhanVien where TaiKhoan =@TaiKhoan AND MatKhau =@MatKhau
+ go
+ select * from tblBacSi
+go
+select * from tblNhanVien
+go
