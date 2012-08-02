@@ -53,7 +53,7 @@ public class Login extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnDangKy = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,10 +97,10 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("Chuc nang");
 
-        jButton1.setText("Dang ky");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDangKy.setText("Dang ky");
+        btnDangKy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDangKyActionPerformed(evt);
             }
         });
 
@@ -125,7 +125,7 @@ public class Login extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnDangKy))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(rbtnBacSi)
                         .addGap(49, 49, 49)
@@ -154,7 +154,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnReset)
-                    .addComponent(jButton1))
+                    .addComponent(btnDangKy))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -187,11 +187,11 @@ public class Login extends javax.swing.JFrame {
         choice ="";
     }//GEN-LAST:event_btnResetActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         // TODO add your handling code here:
-        new DangKy().setVisible(true);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+        new dlgDangKy(this, rootPaneCheckingEnabled).setVisible(true);
+    }//GEN-LAST:event_btnDangKyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,9 +236,9 @@ public class Login extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDangKy;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnReset;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

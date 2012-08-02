@@ -77,7 +77,7 @@ public class dlgDangKy extends javax.swing.JDialog {
                     cs1.setString(4, sPass);
                     cs1.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                    new DangKy().setVisible(false);
+                    
                 } else {
                     for (int i = 1; i >= 0; i++) {
                         if (rsp.getString(i) == sTaiKhoan) {
@@ -91,7 +91,58 @@ public class dlgDangKy extends javax.swing.JDialog {
                             cs1.setString(4, sPass);
                             cs1.executeUpdate();
                             JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                            new DangKy().setVisible(false);
+                           
+                        }
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Nhap Sai ID hoac Ten");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void DKNV() {
+        try {
+            String sID = txtID.getText();
+            String sName = txtHoTen.getText();
+            CallableStatement cs = conn.prepareCall("{call timKiemNV(?,?)}");
+            cs.setString(1, sID);
+            cs.setString(2, sName);
+
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                String sTaiKhoan = txtTaiKhoan.getText();
+                String sPass = encrypMD5(new String(pass.getPassword()));
+
+                String sSelect = "SELECT TaiKhoan FROM tblNhanVien";
+                PreparedStatement pstmt = conn.prepareStatement(sSelect);
+                ResultSet rsp = pstmt.executeQuery();
+                if (rsp.next()) {
+                    CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
+                    cs1.setString(1, sID);
+                    cs1.setString(2, sName);
+                    cs1.setString(3, sTaiKhoan);
+                    cs1.setString(4, sPass);
+                    cs1.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                 } else {
+                    for (int i = 1; i >= 0; i++) {
+                        if (rsp.getString(i) == sTaiKhoan) {
+                            JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
+                            break;
+                        } else if (rsp.getString(i).isEmpty()) {
+                            CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
+                            cs1.setString(1, sID);
+                            cs1.setString(2, sName);
+                            cs1.setString(3, sTaiKhoan);
+                            cs1.setString(4, sPass);
+                            cs1.executeUpdate();
+                            JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                            
                         }
                     }
                 }
