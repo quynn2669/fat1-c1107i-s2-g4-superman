@@ -35,7 +35,7 @@ TaiKhoan varchar (12),
 MatKhau varchar(50)
 )
 go
---insert into tblBacSi values('BS0001','Duong Van Tung','Ha Noi',19,'Nam','','')
+insert into tblBacSi values('BS0001','Duong Van Tung','Ha Noi',19,'Nam','','')
 go
 
 create table tblNhanVien(
@@ -48,7 +48,7 @@ TaiKhoan varchar (12),
 MatKhau varchar(50)
 )
 go
---insert into tblNhanVien values('NV0001','Nguyen Van A','Ha Noi',19,'Nam','','')
+insert into tblNhanVien values('NV0001','Nguyen Van A','Ha Noi',19,'Nam','','')
  go
 
  -- Tao proc tim kiem nhan vien trong bang bac si

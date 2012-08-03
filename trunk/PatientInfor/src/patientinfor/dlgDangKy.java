@@ -172,6 +172,7 @@ public class dlgDangKy extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupChucVu = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -210,6 +211,7 @@ public class dlgDangKy extends javax.swing.JDialog {
             }
         });
 
+        btnGroupChucVu.add(rbtnBacSi);
         rbtnBacSi.setText("Bac Si");
         rbtnBacSi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,6 +219,7 @@ public class dlgDangKy extends javax.swing.JDialog {
             }
         });
 
+        btnGroupChucVu.add(rbtnNhanVien);
         rbtnNhanVien.setText("Nhan Vien");
         rbtnNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,8 +329,7 @@ public class dlgDangKy extends javax.swing.JDialog {
         txtID.setText(null);
         txtTaiKhoan.setText(null);
         pass.setText(null);
-        rbtnBacSi.setSelected(false);
-        rbtnNhanVien.setSelected(false);
+        btnGroupChucVu.clearSelection();
     }//GEN-LAST:event_btnResetActionPerformed
 
     /**
@@ -381,6 +383,7 @@ public class dlgDangKy extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangKy;
+    private javax.swing.ButtonGroup btnGroupChucVu;
     private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -101,6 +101,7 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btngroupChucVu = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtTaiKhoan = new javax.swing.JTextField();
@@ -124,6 +125,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        btngroupChucVu.add(rbtnBacSi);
         rbtnBacSi.setText("Bac Si");
         rbtnBacSi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +133,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        btngroupChucVu.add(rbtnNhanVien);
         rbtnNhanVien.setText("Nhan Vien");
         rbtnNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,19 +178,16 @@ public class Login extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(rbtnBacSi)
-                                .addGap(49, 49, 49)
-                                .addComponent(rbtnNhanVien))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtTaiKhoan, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(pass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)))
-                        .addGap(30, 30, 30))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbtnNhanVien)
+                                .addGap(79, 79, 79))
+                            .addComponent(pass)
+                            .addComponent(txtTaiKhoan)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -258,8 +258,7 @@ public class Login extends javax.swing.JFrame {
         txtTaiKhoan.setText("");
         pass.setText("");
         choice ="";
-        rbtnBacSi.setSelected(false);
-        rbtnNhanVien.setSelected(false);
+        btngroupChucVu.clearSelection();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
@@ -314,6 +313,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnDangKy;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnReset;
+    private javax.swing.ButtonGroup btngroupChucVu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
