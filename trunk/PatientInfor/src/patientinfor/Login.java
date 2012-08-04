@@ -30,7 +30,7 @@ public class Login extends javax.swing.JFrame {
             setTitle("Dang nhap he thong!");
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI","sa","123456");
-           
+           JOptionPane.showMessageDialog(this, "Ket Noi Thanh Cong!");
         } catch (Exception e) {
             e.printStackTrace();
         }
