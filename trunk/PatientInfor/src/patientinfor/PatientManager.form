@@ -123,10 +123,10 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="--Ch&#x1ecd;n"/>
-            <StringItem index="1" value="Ngo&#x1ea1;i"/>
-            <StringItem index="2" value="N&#x1ed9;i"/>
-            <StringItem index="3" value="Tim M&#x1ea1;ch"/>
+            <StringItem index="0" value="--Chon"/>
+            <StringItem index="1" value="Khoa Ngoai"/>
+            <StringItem index="2" value="Khoa Noi"/>
+            <StringItem index="3" value="Khoa Tim Mach"/>
           </StringArray>
         </Property>
       </Properties>
@@ -138,7 +138,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng Th&#xe1;i"/>
+        <Property name="text" type="java.lang.String" value="Trang Thai"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
