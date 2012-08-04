@@ -131,6 +131,7 @@ public class PatientManager extends javax.swing.JFrame {
 
     private void btOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOutActionPerformed
         // TODO add your handling code here:
+        new Out(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_btOutActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
