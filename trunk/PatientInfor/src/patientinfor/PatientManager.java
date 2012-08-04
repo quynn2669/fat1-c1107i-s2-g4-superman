@@ -58,7 +58,6 @@ public class PatientManager extends javax.swing.JFrame {
         jLabel2.setText("Trạng Thái");
 
         jButton1.setText("Next");
-        jButton1.setActionCommand("Next");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -121,7 +120,7 @@ public class PatientManager extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btOut)
                     .addComponent(btExit))
                 .addContainerGap(38, Short.MAX_VALUE))
