@@ -308,8 +308,7 @@ public class dlgDangKy extends javax.swing.JDialog {
             DKNV();
         } else {
             JOptionPane.showMessageDialog(this, "Chua Chon chuc vu!");
-        }
-
+        }  
     }//GEN-LAST:event_btnDangKyActionPerformed
 
     private void rbtnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNhanVienActionPerformed
