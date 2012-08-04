@@ -18,9 +18,7 @@ public class dlginforpatint extends javax.swing.JDialog {
         initComponents();
     }
 
-    dlginforpatint(dlgDoctor aThis, boolean b) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+    
 
     
 
