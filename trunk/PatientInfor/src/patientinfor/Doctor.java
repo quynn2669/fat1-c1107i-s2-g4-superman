@@ -125,7 +125,7 @@ public class Doctor extends javax.swing.JFrame {
 
     private void btnNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapActionPerformed
         // TODO add your handling code here:
-        new dlginforpatint(this, rootPaneCheckingEnabled).setVisible(true);
+     //   new dlginforpatint(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_btnNhapActionPerformed
 
     /**
