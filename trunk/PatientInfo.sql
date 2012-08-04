@@ -23,7 +23,8 @@ NgayNhap smalldatetime default getdate(),
 NgayRa smalldatetime default getdate(),
 NhapHoacKhong varchar(3) default 'Out'
 )
-
+go 
+insert into tblBenhNhan values('BN1','Tung','HN',12,'Nam','Noi','Om','Yeu','12/12/2012','12/12/2012','Out')
 select * from tblBenhNhan
 go
 create table tblBacSi(
