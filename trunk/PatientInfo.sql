@@ -25,6 +25,8 @@ NhapHoacKhong varchar(3) default 'Out'
 )
 go 
 insert into tblBenhNhan values('BN1','Tung','HN',12,'Nam','Noi','Om','Yeu','12/12/2012','12/12/2012','Out')
+insert into tblBenhNhan values('BN2','Thien','HN',11,'Nam','Noi','Cum','Yeu','10/12/2012','12/12/2012','Out')
+insert into tblBenhNhan values('BN3','TungSuper','HN',12,'Nu','Noi','GOm','Yeu','11/12/2012','12/12/2012','Out')
 select * from tblBenhNhan
 go
 create table tblBacSi(
