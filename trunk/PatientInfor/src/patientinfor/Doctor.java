@@ -7,6 +7,7 @@ package patientinfor;
 import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
@@ -40,6 +41,7 @@ public class Doctor extends javax.swing.JFrame {
             rs =  stmt.executeQuery(sSelect);
             
             if(rs.next()){
+                
                 textIDBenhNhan.setText(rs.getString(1));
                 TextNameBenhNhan.setText(rs.getString(2));
                 TextTrieuChung.setText(rs.getString(3));
@@ -48,7 +50,20 @@ public class Doctor extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+    public void SetIDBenhNhan(){
+        try {
+        textIDBenhNhan.setText(rs.getString(1));
+            
+        } catch (Exception e) {
+        }
+        
+    }
+    public void SetNameBN(){
+        TextNameBenhNhan.setColumns(2);
+    }
+    public void SetTrieuChung(){
+        TextTrieuChung.setColumns(3);
+    }
     private void viewPatient(){
         try {
             rs.moveToCurrentRow();
@@ -178,6 +193,26 @@ public class Doctor extends javax.swing.JFrame {
     private void btnNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapActionPerformed
         // TODO add your handling code here:
         new dlgPatientinfor(this, rootPaneCheckingEnabled).setVisible(true);
+        try {
+            
+        
+         String sInsert = "INSERT INTO tblBenhNhan VALUES(?,?,NULL,NULL,?,?,?,?,?,?,?)";
+            PreparedStatement pstm = conn.prepareStatement(sInsert);
+            pstm.setString(1, textIDBenhNhan.getText());
+            pstm.setString(2, TextNameBenhNhan.getText());
+           // pstm.setString(3, "");
+           // pstm.setString(4, "");
+           // pstm.setString(5, "");
+           // pstm.setString(6, "");
+            pstm.setString(7, TextTrieuChung.getText());
+           // pstm.setString(8, "");
+           // pstm.setString(9, "");
+           // pstm.setString(10, "");
+           // pstm.setString(11, "");
+            pstm.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+        }
     }//GEN-LAST:event_btnNhapActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed

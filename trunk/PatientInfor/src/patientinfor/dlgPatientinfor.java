@@ -6,6 +6,7 @@ package patientinfor;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -40,13 +41,13 @@ public class dlgPatientinfor extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         textBenh = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         Nam = new javax.swing.JRadioButton();
         Nu = new javax.swing.JRadioButton();
-        btKhoa = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         textTuoi = new javax.swing.JTextField();
@@ -55,7 +56,9 @@ public class dlgPatientinfor extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         textNgayRa = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
+        rdKhoaNoi = new javax.swing.JRadioButton();
+        rdKhoaNgoai = new javax.swing.JRadioButton();
+        rdKhoaTim = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -68,8 +71,6 @@ public class dlgPatientinfor extends javax.swing.JDialog {
 
         buttonGroup1.add(Nu);
         Nu.setText("Nu");
-
-        btKhoa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Khoa Nội", "Khoa Ngoại", "Khoa Tim Mạch" }));
 
         jLabel3.setText("Khoa");
 
@@ -86,12 +87,14 @@ public class dlgPatientinfor extends javax.swing.JDialog {
             }
         });
 
-        btnExit.setText("Exit");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
+        buttonGroup2.add(rdKhoaNoi);
+        rdKhoaNoi.setText("Khoa Noi");
+
+        buttonGroup2.add(rdKhoaNgoai);
+        rdKhoaNgoai.setText("Khoa Ngoai");
+
+        buttonGroup2.add(rdKhoaTim);
+        rdKhoaTim.setText("Khoa Tim Mach");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,12 +108,9 @@ public class dlgPatientinfor extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(btnSave))
+                    .addComponent(jLabel6))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExit)
-                    .addComponent(btKhoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textBenh, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -118,10 +118,18 @@ public class dlgPatientinfor extends javax.swing.JDialog {
                             .addComponent(Nam, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(Nu))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(textNgayRa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                        .addComponent(textNgayNhap, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(101, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rdKhoaNoi)
+                        .addGap(18, 18, 18)
+                        .addComponent(rdKhoaNgoai))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnSave)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rdKhoaTim)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(textNgayRa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(textNgayNhap, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,41 +147,71 @@ public class dlgPatientinfor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(textTuoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(btKhoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rdKhoaNoi)
+                    .addComponent(rdKhoaNgoai))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(rdKhoaTim)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(textNgayNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(textNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(textNgayRa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnExit))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(textNgayRa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSave)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(46, 46, 46))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
-
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         try {
             String sBenh = textBenh.getText();
-            String sTuoi  = textTuoi.getText();
+            int sTuoi  = Integer.parseInt(textTuoi.getText());
             String sNgayNhap = textNgayNhap.getText();
             String sNgayRa = textNgayRa.getText();
+            String sKhoa = null;
+            if(rdKhoaNgoai.isSelected()){
+                sKhoa = rdKhoaNgoai.getText();
+            }else if(rdKhoaNoi.isSelected()){
+                sKhoa = rdKhoaNoi.getText();
+            }
+            else{
+                sKhoa = rdKhoaTim.getText();
+            }
+            String sGioiTinh = null;
+            if(Nam.isSelected()){
+                sGioiTinh = Nam.getText();
+            }else{
+                sGioiTinh = Nu.getText();
+            }
+            Doctor kham = new Doctor();
+            String sInsert = "INSERT INTO tblBenhNhan VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pstm = conn.prepareStatement(sInsert);
+            pstm.setString(1, "");
+            pstm.setString(2, "");
+            pstm.setString(3, "");
+            pstm.setInt(4, sTuoi);
+            pstm.setString(5, sGioiTinh);
+            pstm.setString(6, sKhoa);
+            pstm.setString(7, "");
+            pstm.setString(8, sBenh);
+            pstm.setString(9, sNgayNhap);
+            pstm.setString(10, "");
+            pstm.setString(11, "");
+            pstm.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -230,16 +268,18 @@ public class dlgPatientinfor extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton Nam;
     private javax.swing.JRadioButton Nu;
-    private javax.swing.JComboBox btKhoa;
-    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSave;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JRadioButton rdKhoaNgoai;
+    private javax.swing.JRadioButton rdKhoaNoi;
+    private javax.swing.JRadioButton rdKhoaTim;
     private javax.swing.JTextField textBenh;
     private javax.swing.JTextField textNgayNhap;
     private javax.swing.JTextField textNgayRa;
