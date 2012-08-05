@@ -16,6 +16,7 @@ public class dlgThongke extends javax.swing.JDialog {
     
     DefaultTableModel model = new DefaultTableModel();
     Connection conn = null;
+    ResultSet rs = null;
     /**
      * Creates new form dlgThongke
      */
@@ -62,7 +63,7 @@ public class dlgThongke extends javax.swing.JDialog {
                 
                 model.addRow(v);
             }
-            rs.close();
+           // rs.close();
             stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,8 +82,8 @@ public class dlgThongke extends javax.swing.JDialog {
 
         JScrollPane = new javax.swing.JScrollPane();
         TableTKBN = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnConnert = new javax.swing.JButton();
+        btnExxit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -99,12 +100,17 @@ public class dlgThongke extends javax.swing.JDialog {
         ));
         JScrollPane.setViewportView(TableTKBN);
 
-        jButton1.setText("jButton1");
-
-        jButton2.setText("Exit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnConnert.setText("Connert");
+        btnConnert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnConnertActionPerformed(evt);
+            }
+        });
+
+        btnExxit.setText("Exit");
+        btnExxit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExxitActionPerformed(evt);
             }
         });
 
@@ -119,9 +125,9 @@ public class dlgThongke extends javax.swing.JDialog {
                         .addComponent(JScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(147, 147, 147)
-                        .addComponent(jButton1)
+                        .addComponent(btnConnert)
                         .addGap(44, 44, 44)
-                        .addComponent(jButton2)))
+                        .addComponent(btnExxit)))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -131,18 +137,27 @@ public class dlgThongke extends javax.swing.JDialog {
                 .addComponent(JScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnConnert)
+                    .addComponent(btnExxit))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnExxitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExxitActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnExxitActionPerformed
+
+    private void btnConnertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnertActionPerformed
+        // TODO add your handling code here:
+        try {
+            loadClass();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnConnertActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,7 +211,7 @@ public class dlgThongke extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane JScrollPane;
     private javax.swing.JTable TableTKBN;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnConnert;
+    private javax.swing.JButton btnExxit;
     // End of variables declaration//GEN-END:variables
 }
