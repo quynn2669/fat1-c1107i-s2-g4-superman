@@ -20,6 +20,7 @@ public class dlgDangKy extends javax.swing.JDialog {
      */
     Connection conn = null;
     String choice = "";
+    String gioiTinh = "";
 
     public dlgDangKy(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -57,111 +58,124 @@ public class dlgDangKy extends javax.swing.JDialog {
 
     public void DKBS() {
         try {
+            int check = 0;
             String sName = txtHoTen.getText();
             String sID = txtID.getText();
-            CallableStatement cs = conn.prepareCall("{call timKiemBS}");
-            ResultSet rs = cs.executeQuery();
-            for (int i = 1; i <= rs.getRow(); i++) {
-                if (rs.getString(i).equals(sID)) {
-                    JOptionPane.showMessageDialog(this, "ID bi trung`");
-                    break;
+            String sDiaChi = txtDiaChi.getText();
+            int tuoi = 0;
+            try {
+                tuoi = Integer.parseInt(txtTuoi.getText());
+            } catch (NumberFormatException e) {
+                check = 3;
+            }
+            if (check == 0) {
+
+                CallableStatement cs = conn.prepareCall("{call timKiemBS(?)}");
+                cs.setString(1, sID);
+                ResultSet rs = cs.executeQuery();
+                if (rs.next()) {
+                    check = 1;
+                } else {
+                    check = 0;
+                }
+
+                if (check == 1) {
+                    JOptionPane.showMessageDialog(this, "ID bi trung!!!");
                 } else {
                     String sTaiKhoan = txtTaiKhoan.getText();
                     String sPass = encrypMD5(new String(pass.getPassword()));
 
-                    String sSelect = "SELECT TaiKhoan FROM tblBacSi";
-                    PreparedStatement pstmt = conn.prepareStatement(sSelect);
-                    ResultSet rsp = pstmt.executeQuery();
-                    if (!rsp.next()) {
-                        CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
-                        cs1.setString(1, sID);
-                        cs1.setString(2, sName);
-                        cs1.setString(3, sTaiKhoan);
-                        cs1.setString(4, sPass);
-                        cs1.executeUpdate();
-                        JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                        break;
+                    CallableStatement cs1 = conn.prepareCall("{call timKiemTKBS(?)}");
+                    cs1.setString(1, sTaiKhoan);
+                    ResultSet rs1 = cs1.executeQuery();
+                    if (rs1.next()) {
+                        check = 2;
                     } else {
-                        for (int y = 1; y <= rsp.getRow(); y++) {
-                            if (rsp.getString(y).equals(sTaiKhoan)) {
-                                JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
-                                break;
-                            } else {
-                                CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
-
-                                cs1.setString(1, sID);
-                                cs1.setString(2, sName);
-                                cs1.setString(3, sTaiKhoan);
-                                cs1.setString(4, sPass);
-                                cs1.executeUpdate();
-                                JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                                break;
-                            }
-
-                        }
+                        check = 0;
                     }
+                    if (check == 2){
+                        JOptionPane.showMessageDialog(this, "Tai khoan bi trung!!!");
+                    } else{
+                        CallableStatement cs2 = conn.prepareCall("{call ghiBS(?,?,?,?,?,?,?)}");
+                        cs2.setString(1, sID);
+                        cs2.setString(2, sName);
+                        cs2.setString(3, sDiaChi);
+                        cs2.setInt(4, tuoi);
+                        cs2.setString(5, gioiTinh);
+                        cs2.setString(6, sTaiKhoan);
+                        cs2.setString(7, sPass);
+                        cs2.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
 
+                    }
                 }
-
+            } else {
+                JOptionPane.showMessageDialog(this, "Nhap sai tuoi!");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public void DKNV() {
+   public void DKNV() {
         try {
+            int check = 0;
             String sName = txtHoTen.getText();
             String sID = txtID.getText();
-            CallableStatement cs = conn.prepareCall("{call timKiemNV}");
-            ResultSet rs = cs.executeQuery();
-            for (int i = 1; i <= rs.getRow(); i++) {
-                if (rs.getString(i).equals(sID)) {
-                    JOptionPane.showMessageDialog(this, "ID bi trung`");
-                    break;
+            String sDiaChi = txtDiaChi.getText();
+            int tuoi = 0;
+            try {
+                tuoi = Integer.parseInt(txtTuoi.getText());
+            } catch (NumberFormatException e) {
+                check = 3;
+            }
+            if (check == 0) {
+
+                CallableStatement cs = conn.prepareCall("{call timKiemNV(?)}");
+                cs.setString(1, sID);
+                ResultSet rs = cs.executeQuery();
+                if (rs.next()) {
+                    check = 1;
+                } else {
+                    check = 0;
+                }
+
+                if (check == 1) {
+                    JOptionPane.showMessageDialog(this, "ID bi trung!!!");
                 } else {
                     String sTaiKhoan = txtTaiKhoan.getText();
                     String sPass = encrypMD5(new String(pass.getPassword()));
 
-                    String sSelect = "SELECT TaiKhoan FROM tblNhanVien";
-                    PreparedStatement pstmt = conn.prepareStatement(sSelect);
-                    ResultSet rsp = pstmt.executeQuery();
-                    if (!rsp.next()) {
-                        CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
-                        cs1.setString(1, sID);
-                        cs1.setString(2, sName);
-                        cs1.setString(3, sTaiKhoan);
-                        cs1.setString(4, sPass);
-                        cs1.executeUpdate();
-                        JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                    CallableStatement cs1 = conn.prepareCall("{call timKiemTKNV(?)}");
+                    cs1.setString(1, sTaiKhoan);
+                    ResultSet rs1 = cs1.executeQuery();
+                    if (rs1.next()) {
+                        check = 2;
                     } else {
-                        for (int y = 1; y <= rsp.getRow(); y++) {
-                            if (rsp.getString(y).equals(sTaiKhoan)) {
-                                JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
-                                break;
-                            } else {
-                                CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
-
-                                cs1.setString(1, sID);
-                                cs1.setString(2, sName);
-                                cs1.setString(3, sTaiKhoan);
-                                cs1.setString(4, sPass);
-                                cs1.executeUpdate();
-                                JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                                break;
-                            }
-
-                        }
+                        check = 0;
                     }
+                    if (check == 2){
+                        JOptionPane.showMessageDialog(this, "Tai khoan bi trung!!!");
+                    } else{
+                        CallableStatement cs2 = conn.prepareCall("{call ghiNV(?,?,?,?,?,?,?)}");
+                        cs2.setString(1, sID);
+                        cs2.setString(2, sName);
+                        cs2.setString(3, sDiaChi);
+                        cs2.setInt(4, tuoi);
+                        cs2.setString(5, gioiTinh);
+                        cs2.setString(6, sTaiKhoan);
+                        cs2.setString(7, sPass);
+                        cs2.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
 
+                    }
                 }
-
+            } else {
+                JOptionPane.showMessageDialog(this, "Nhap sai tuoi!");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -174,6 +188,7 @@ public class dlgDangKy extends javax.swing.JDialog {
     private void initComponents() {
 
         btnGroupChucVu = new javax.swing.ButtonGroup();
+        btnGroupGioiTinh = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -187,6 +202,13 @@ public class dlgDangKy extends javax.swing.JDialog {
         rbtnBacSi = new javax.swing.JRadioButton();
         rbtnNhanVien = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtDiaChi = new javax.swing.JTextField();
+        txtTuoi = new javax.swing.JTextField();
+        rbtnNam = new javax.swing.JRadioButton();
+        rbtnNu = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -230,6 +252,34 @@ public class dlgDangKy extends javax.swing.JDialog {
 
         jLabel5.setText("Chuc Vu");
 
+        jLabel6.setText("Dia Chi");
+
+        jLabel7.setText("Tuoi");
+
+        jLabel8.setText("Gioi Tinh");
+
+        txtDiaChi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDiaChiActionPerformed(evt);
+            }
+        });
+
+        btnGroupGioiTinh.add(rbtnNam);
+        rbtnNam.setText("Nam");
+        rbtnNam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnNamActionPerformed(evt);
+            }
+        });
+
+        btnGroupGioiTinh.add(rbtnNu);
+        rbtnNu.setText("Nu");
+        rbtnNu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnNuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -239,15 +289,15 @@ public class dlgDangKy extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(rbtnBacSi)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtnNhanVien))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnDangKy, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,7 +306,17 @@ public class dlgDangKy extends javax.swing.JDialog {
                         .addComponent(txtTaiKhoan)
                         .addComponent(txtHoTen)
                         .addComponent(txtID)
-                        .addComponent(pass)))
+                        .addComponent(pass)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(rbtnBacSi)
+                            .addGap(18, 18, 18)
+                            .addComponent(rbtnNhanVien))
+                        .addComponent(txtDiaChi)
+                        .addComponent(txtTuoi))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rbtnNam)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtnNu)))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -266,28 +326,41 @@ public class dlgDangKy extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtTuoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(rbtnNam)
+                    .addComponent(rbtnNu))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rbtnBacSi)
-                    .addComponent(rbtnNhanVien)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                    .addComponent(rbtnNhanVien))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDangKy)
                     .addComponent(btnReset))
-                .addGap(46, 46, 46))
+                .addContainerGap())
         );
 
         pack();
@@ -299,6 +372,8 @@ public class dlgDangKy extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Chua nhap ma so!");
         } else if (txtHoTen.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Chua nhap ho ten!");
+        } else if (gioiTinh == "") {
+            JOptionPane.showMessageDialog(this, "Chua nhap chon gioi tinh!");
         } else if (txtTaiKhoan.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Chua nhap tai khoan!");
         } else if (new String(pass.getPassword()).isEmpty()) {
@@ -325,12 +400,29 @@ public class dlgDangKy extends javax.swing.JDialog {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
         choice = "";
+        txtDiaChi.setText(null);
+        txtTuoi.setText(null);
         txtHoTen.setText(null);
         txtID.setText(null);
         txtTaiKhoan.setText(null);
         pass.setText(null);
         btnGroupChucVu.clearSelection();
+        btnGroupGioiTinh.clearSelection();
     }//GEN-LAST:event_btnResetActionPerformed
+
+    private void txtDiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDiaChiActionPerformed
+
+    private void rbtnNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNamActionPerformed
+        // TODO add your handling code here:
+        gioiTinh = "Nam";
+    }//GEN-LAST:event_rbtnNamActionPerformed
+
+    private void rbtnNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNuActionPerformed
+        // TODO add your handling code here:
+        gioiTinh = "Nu";
+    }//GEN-LAST:event_rbtnNuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,6 +442,8 @@ public class dlgDangKy extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
+
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -384,17 +478,25 @@ public class dlgDangKy extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangKy;
     private javax.swing.ButtonGroup btnGroupChucVu;
+    private javax.swing.ButtonGroup btnGroupGioiTinh;
     private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPasswordField pass;
     private javax.swing.JRadioButton rbtnBacSi;
+    private javax.swing.JRadioButton rbtnNam;
     private javax.swing.JRadioButton rbtnNhanVien;
+    private javax.swing.JRadioButton rbtnNu;
+    private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtTaiKhoan;
+    private javax.swing.JTextField txtTuoi;
     // End of variables declaration//GEN-END:variables
 }

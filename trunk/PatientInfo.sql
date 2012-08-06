@@ -11,7 +11,7 @@ use PI
 go
 
 create table tblBenhNhan(
-ID varchar (5),
+ID varchar (5) primary key,
 HoTen varchar(50),
 DiaChi varchar(50),
 Tuoi int,
@@ -30,7 +30,7 @@ insert into tblBenhNhan values('BN3','TungSuper','HN',12,'Nu','Noi','GOm','Yeu',
 select * from tblBenhNhan
 go
 create table tblBacSi(
-ID varchar (12),
+ID varchar (12) primary key,
 HoTen varchar(50),
 DiaChi varchar(50),
 Tuoi int,
@@ -39,11 +39,10 @@ TaiKhoan varchar (12),
 MatKhau varchar(50)
 )
 go
-insert into tblBacSi values('BS0001','Duong Van Tung','Ha Noi',19,'Nam','','')
-go
+
 
 create table tblNhanVien(
-ID varchar (12),
+ID varchar (12) primary key,
 HoTen varchar(50),
 DiaChi varchar(50),
 Tuoi int,
@@ -52,55 +51,56 @@ TaiKhoan varchar (12),
 MatKhau varchar(50)
 )
 go
-insert into tblNhanVien values('NV0001','Nguyen Van A','Ha Noi',19,'Nam','','')
- go
 
- -- Tao proc tim kiem nhan vien trong bang bac si
+
+ -- Tao proc tim kiem ID bac si trong bang bac si
  create proc timKiemBS
- @ID varchar(12),
- @HoTen Varchar(50)
+ @ID varchar(12)
  as
- SELECT ID,HoTen FROM tblBacSi WHERE ID = @ID AND HoTen = @HoTen
+ SELECT * FROM tblBacSi WHERE ID = @ID 
  go
- exec timKiemBS 'BS0001','Duong Van Tung'
+  -- Tao proc tim kiem tai khoantrong bang bac si
+ create proc timKiemTKBS
+ @TaiKhoan varchar(12)
+ as
+ SELECT * FROM tblBacSi WHERE TaiKhoan =@TaiKhoan
  go
- -- Tao proc tim kiem nhan vien trong bang nhan vien
+ -- Tao proc tim kiem ID nhan vien trong bang nhan vien
  create proc timKiemNV
- @ID varchar(12),
- @HoTen Varchar(50)
+ @ID varchar(12)
  as
- SELECT ID,HoTen FROM tblNhanVien WHERE ID = @ID AND HoTen = @HoTen
+ SELECT * FROM tblNhanVien WHERE ID = @ID 
  go
- --Proc tao sua tai khoan cho bac si
- create proc taiKhoanBS
+  -- Tao proc tim kiem tai khoan trong bang nhan vien
+ create proc timKiemTKNV
+ @TaiKhoan varchar(12)
+ as
+ SELECT * FROM tblNhanVien WHERE TaiKhoan =@TaiKhoan
+ go
+ 
+ --Proc them bac si
+ create proc ghiBS
  @ID varchar(12),
  @HoTen Varchar(50),
+ @DiaChi varchar(50),
+ @Tuoi int,
+ @GioiTinh varchar(5),
  @TaiKhoan varchar(12),
  @MatKhau Varchar(50)
  as
- Update tblBacSi 
- set TaiKhoan = @TaiKhoan
- where ID = @ID and HoTen = @HoTen
- Update tblBacSi 
- set MatKhau = @MatKhau
- where ID = @ID and HoTen = @HoTen
+ INSERT INTO tblBacSi VALUES(@ID,@HoTen,@DiaChi,@Tuoi,@GioiTinh,@TaiKhoan,@MatKhau)
  go
- --test
- --exec taiKhoanBS 'BS0001','Duong Van Tung','sa','123456'
- --Proc tao sua tai khoan cho nhan vien
- go
- create proc taiKhoanNV
+--Proc them nhan vien
+ create proc ghiNV
  @ID varchar(12),
  @HoTen Varchar(50),
+ @DiaChi varchar(50),
+ @Tuoi int,
+ @GioiTinh varchar(5),
  @TaiKhoan varchar(12),
  @MatKhau Varchar(50)
  as
- Update tblNhanVien
- set TaiKhoan = @TaiKhoan
- where ID = @ID and HoTen = @HoTen
- Update tblNhanVien
- set MatKhau = @MatKhau
- where ID = @ID and HoTen = @HoTen
+ INSERT INTO tblNhanVien VALUES(@ID,@HoTen,@DiaChi,@Tuoi,@GioiTinh,@TaiKhoan,@MatKhau)
  go
  -- Tao proc kiem tra tai khoan va mat khau trong tblBacSi
  create proc DNBS
