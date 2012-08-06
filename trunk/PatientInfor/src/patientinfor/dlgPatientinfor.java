@@ -196,8 +196,9 @@ public class dlgPatientinfor extends javax.swing.JDialog {
                 sGioiTinh = Nu.getText();
             }
             Doctor kham = new Doctor();
-            String sInsert = "INSERT INTO tblBenhNhan VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+            String sInsert = "INSERT INTO tblBenhNhan VALUES(NULL,NULL,NULL,?,?,?,NULL,?,?,NULL,NULL)";
             PreparedStatement pstm = conn.prepareStatement(sInsert);
+            
             pstm.setString(1, "");
             pstm.setString(2, "");
             pstm.setString(3, "");

@@ -195,8 +195,8 @@ public class Doctor extends javax.swing.JFrame {
         new dlgPatientinfor(this, rootPaneCheckingEnabled).setVisible(true);
         try {
             
-        
-         String sInsert = "INSERT INTO tblBenhNhan VALUES(?,?,NULL,NULL,?,?,?,?,?,?,?)";
+      /*  
+         String sInsert = "INSERT INTO tblBenhNhan VALUES(?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm = conn.prepareStatement(sInsert);
             pstm.setString(1, textIDBenhNhan.getText());
             pstm.setString(2, TextNameBenhNhan.getText());
@@ -209,7 +209,7 @@ public class Doctor extends javax.swing.JFrame {
            // pstm.setString(9, "");
            // pstm.setString(10, "");
            // pstm.setString(11, "");
-            pstm.executeUpdate();
+            pstm.executeUpdate();*/
             } catch (Exception e) {
                 e.printStackTrace();
         }
