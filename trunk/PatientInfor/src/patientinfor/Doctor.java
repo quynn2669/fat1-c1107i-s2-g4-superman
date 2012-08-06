@@ -50,20 +50,7 @@ public class Doctor extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public void SetIDBenhNhan(){
-        try {
-        textIDBenhNhan.setText(rs.getString(1));
-            
-        } catch (Exception e) {
-        }
-        
-    }
-    public void SetNameBN(){
-        TextNameBenhNhan.setColumns(2);
-    }
-    public void SetTrieuChung(){
-        TextTrieuChung.setColumns(3);
-    }
+   
     private void viewPatient(){
         try {
             rs.moveToCurrentRow();
@@ -84,6 +71,7 @@ public class Doctor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         textIDBenhNhan = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -95,6 +83,14 @@ public class Doctor extends javax.swing.JFrame {
         btnNext = new javax.swing.JButton();
         btnNhap = new javax.swing.JButton();
         btnRaVien = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        rdNgoai = new javax.swing.JRadioButton();
+        rdNoi = new javax.swing.JRadioButton();
+        rdTim = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        TextBenh = new javax.swing.JTextField();
+        TextNgayNhap = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +127,26 @@ public class Doctor extends javax.swing.JFrame {
 
         btnRaVien.setText("Ra Vien");
 
+        jLabel4.setText("Khoa");
+
+        buttonGroup1.add(rdNgoai);
+        rdNgoai.setText("Khoa Ngoai");
+
+        buttonGroup1.add(rdNoi);
+        rdNoi.setText("Khoa Noi");
+        rdNoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdNoiActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rdTim);
+        rdTim.setText("Khoa Tim Mach");
+
+        jLabel5.setText("Bệnh");
+
+        jLabel6.setText("NGày Nhập Viện");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,19 +163,33 @@ public class Doctor extends javax.swing.JFrame {
                             .addComponent(TextNameBenhNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textIDBenhNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNext, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(btnBack)
-                                    .addComponent(btnNhap))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnRaVien)))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                                    .addComponent(btnNhap)
+                                    .addComponent(rdTim, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rdNgoai, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnRaVien)
+                                            .addComponent(btnNext)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(rdNoi))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(TextNgayNhap, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(TextBenh, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,15 +206,30 @@ public class Doctor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNext)
-                    .addComponent(btnBack))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextBenh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdNgoai)
+                    .addComponent(rdNoi)
+                    .addComponent(jLabel4))
+                .addGap(7, 7, 7)
+                .addComponent(rdTim)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(btnNext))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNhap)
                     .addComponent(btnRaVien))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -192,7 +237,7 @@ public class Doctor extends javax.swing.JFrame {
 
     private void btnNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapActionPerformed
         // TODO add your handling code here:
-        new dlgPatientinfor(this, rootPaneCheckingEnabled).setVisible(true);
+       // new dlgPatientinfor(this, rootPaneCheckingEnabled).setVisible(true);
         try {
             
       /*  
@@ -239,6 +284,10 @@ public class Doctor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void rdNoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdNoiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdNoiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -281,16 +330,25 @@ public class Doctor extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TextBenh;
     private javax.swing.JTextField TextNameBenhNhan;
+    private javax.swing.JTextField TextNgayNhap;
     private javax.swing.JTextArea TextTrieuChung;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnNhap;
     private javax.swing.JButton btnRaVien;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rdNgoai;
+    private javax.swing.JRadioButton rdNoi;
+    private javax.swing.JRadioButton rdTim;
     private javax.swing.JTextField textIDBenhNhan;
     // End of variables declaration//GEN-END:variables
 }
