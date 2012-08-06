@@ -57,51 +57,52 @@ public class dlgDangKy extends javax.swing.JDialog {
 
     public void DKBS() {
         try {
-            String sID = txtID.getText();
             String sName = txtHoTen.getText();
-            CallableStatement cs = conn.prepareCall("{call timKiemBS(?,?)}");
-            cs.setString(1, sID);
-            cs.setString(2, sName);
-
+            String sID = txtID.getText();
+            CallableStatement cs = conn.prepareCall("{call timKiemBS}");
             ResultSet rs = cs.executeQuery();
-
-            if (rs.next()) {
-                String sTaiKhoan = txtTaiKhoan.getText();
-                String sPass = encrypMD5(new String(pass.getPassword()));
-
-                String sSelect = "SELECT TaiKhoan FROM tblBacSi";
-                PreparedStatement pstmt = conn.prepareStatement(sSelect);
-                ResultSet rsp = pstmt.executeQuery();
-                if (!rsp.next()) {
-                    CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
-                    cs1.setString(1, sID);
-                    cs1.setString(2, sName);
-                    cs1.setString(3, sTaiKhoan);
-                    cs1.setString(4, sPass);
-                    cs1.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+            for (int i = 1; i <= rs.getRow(); i++) {
+                if (rs.getString(i).equals(sID)) {
+                    JOptionPane.showMessageDialog(this, "ID bi trung`");
+                    break;
                 } else {
-                    for (int i = 1; i <= rsp.getRow(); i++) {
-                        if (rsp.getString(i).equals(sTaiKhoan)) {
-                            JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
-                            break;
-                        } else {
-                            CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
+                    String sTaiKhoan = txtTaiKhoan.getText();
+                    String sPass = encrypMD5(new String(pass.getPassword()));
 
-                            cs1.setString(1, sID);
-                            cs1.setString(2, sName);
-                            cs1.setString(3, sTaiKhoan);
-                            cs1.setString(4, sPass);
-                            cs1.executeUpdate();
-                            JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                            break;
+                    String sSelect = "SELECT TaiKhoan FROM tblBacSi";
+                    PreparedStatement pstmt = conn.prepareStatement(sSelect);
+                    ResultSet rsp = pstmt.executeQuery();
+                    if (!rsp.next()) {
+                        CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
+                        cs1.setString(1, sID);
+                        cs1.setString(2, sName);
+                        cs1.setString(3, sTaiKhoan);
+                        cs1.setString(4, sPass);
+                        cs1.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                        break;
+                    } else {
+                        for (int y = 1; y <= rsp.getRow(); y++) {
+                            if (rsp.getString(y).equals(sTaiKhoan)) {
+                                JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
+                                break;
+                            } else {
+                                CallableStatement cs1 = conn.prepareCall("{call taiKhoanBS(?,?,?,?)}");
+
+                                cs1.setString(1, sID);
+                                cs1.setString(2, sName);
+                                cs1.setString(3, sTaiKhoan);
+                                cs1.setString(4, sPass);
+                                cs1.executeUpdate();
+                                JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                                break;
+                            }
+
                         }
-
                     }
+
                 }
 
-            } else {
-                JOptionPane.showMessageDialog(this, "Nhap Sai ID hoac Ten");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,51 +112,51 @@ public class dlgDangKy extends javax.swing.JDialog {
 
     public void DKNV() {
         try {
-            String sID = txtID.getText();
             String sName = txtHoTen.getText();
-            CallableStatement cs = conn.prepareCall("{call timKiemNV(?,?)}");
-            cs.setString(1, sID);
-            cs.setString(2, sName);
-
+            String sID = txtID.getText();
+            CallableStatement cs = conn.prepareCall("{call timKiemNV}");
             ResultSet rs = cs.executeQuery();
-
-            if (rs.next()) {
-                String sTaiKhoan = txtTaiKhoan.getText();
-                String sPass = encrypMD5(new String(pass.getPassword()));
-
-                String sSelect = "SELECT TaiKhoan FROM tblNhanVien";
-                PreparedStatement pstmt = conn.prepareStatement(sSelect);
-                ResultSet rsp = pstmt.executeQuery();
-                if (!rsp.next()) {
-                    CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
-                    cs1.setString(1, sID);
-                    cs1.setString(2, sName);
-                    cs1.setString(3, sTaiKhoan);
-                    cs1.setString(4, sPass);
-                    cs1.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+            for (int i = 1; i <= rs.getRow(); i++) {
+                if (rs.getString(i).equals(sID)) {
+                    JOptionPane.showMessageDialog(this, "ID bi trung`");
+                    break;
                 } else {
-                    for (int i = 1; i <= rsp.getRow(); i++) {
-                        if (rsp.getString(i).equals(sTaiKhoan)) {
-                            JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
-                            break;
-                        } else {
-                            CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
+                    String sTaiKhoan = txtTaiKhoan.getText();
+                    String sPass = encrypMD5(new String(pass.getPassword()));
 
-                            cs1.setString(1, sID);
-                            cs1.setString(2, sName);
-                            cs1.setString(3, sTaiKhoan);
-                            cs1.setString(4, sPass);
-                            cs1.executeUpdate();
-                            JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
-                            break;
+                    String sSelect = "SELECT TaiKhoan FROM tblNhanVien";
+                    PreparedStatement pstmt = conn.prepareStatement(sSelect);
+                    ResultSet rsp = pstmt.executeQuery();
+                    if (!rsp.next()) {
+                        CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
+                        cs1.setString(1, sID);
+                        cs1.setString(2, sName);
+                        cs1.setString(3, sTaiKhoan);
+                        cs1.setString(4, sPass);
+                        cs1.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                    } else {
+                        for (int y = 1; y <= rsp.getRow(); y++) {
+                            if (rsp.getString(y).equals(sTaiKhoan)) {
+                                JOptionPane.showMessageDialog(this, "Da co nguoi su dung tai khoan nay!");
+                                break;
+                            } else {
+                                CallableStatement cs1 = conn.prepareCall("{call taiKhoanNV(?,?,?,?)}");
+
+                                cs1.setString(1, sID);
+                                cs1.setString(2, sName);
+                                cs1.setString(3, sTaiKhoan);
+                                cs1.setString(4, sPass);
+                                cs1.executeUpdate();
+                                JOptionPane.showMessageDialog(this, "Dang ky thanh cong!");
+                                break;
+                            }
+
                         }
-
                     }
+
                 }
 
-            } else {
-                JOptionPane.showMessageDialog(this, "Nhap Sai ID hoac Ten");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -308,7 +309,7 @@ public class dlgDangKy extends javax.swing.JDialog {
             DKNV();
         } else {
             JOptionPane.showMessageDialog(this, "Chua Chon chuc vu!");
-        }  
+        }
     }//GEN-LAST:event_btnDangKyActionPerformed
 
     private void rbtnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNhanVienActionPerformed
