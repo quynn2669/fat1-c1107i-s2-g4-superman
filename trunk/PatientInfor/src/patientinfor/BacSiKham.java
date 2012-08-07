@@ -266,6 +266,7 @@ public class BacSiKham extends javax.swing.JFrame {
                 txtThang.setText("");
                 txtNam.setText("");
                 stt = "Out";
+                viewPatient();
             }
         } catch (Exception e) {
             e.printStackTrace();
