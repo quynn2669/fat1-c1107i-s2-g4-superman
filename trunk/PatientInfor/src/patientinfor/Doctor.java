@@ -4,11 +4,8 @@
  */
 package patientinfor;
 
-import java.beans.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +21,7 @@ public class Doctor extends javax.swing.JFrame {
         try {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
+         JOptionPane.showMessageDialog(this, "Ấn next để lấy thông tin!");
         setTitle("Doctor");
         
         GetPatient();
@@ -37,15 +35,17 @@ public class Doctor extends javax.swing.JFrame {
     private void GetPatient(){
         try {
             String sSelect = "SELECT ID, HoTen, TrieuChung FROM tblBenhNhan";
-            java.sql.Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             rs =  stmt.executeQuery(sSelect);
             
-            if(rs.next()){
+        /*    if(rs.next()){
                 
                 textIDBenhNhan.setText(rs.getString(1));
                 TextNameBenhNhan.setText(rs.getString(2));
                 TextTrieuChung.setText(rs.getString(3));
-            }
+                TextBenh.setText(rs.getString(4));
+                TextNgayNhap.setText(rs.getString(5));
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,9 +54,10 @@ public class Doctor extends javax.swing.JFrame {
     private void viewPatient(){
         try {
             rs.moveToCurrentRow();
-            textIDBenhNhan.setText(rs.getString(1));
-            TextNameBenhNhan.setText(rs.getString(2));
-            TextTrieuChung.setText(rs.getString(3));
+                textIDBenhNhan.setText(rs.getString(1));
+                TextNameBenhNhan.setText(rs.getString(2));
+                TextTrieuChung.setText(rs.getString(3));
+                
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,6 +73,7 @@ public class Doctor extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         textIDBenhNhan = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -83,24 +85,36 @@ public class Doctor extends javax.swing.JFrame {
         btnNext = new javax.swing.JButton();
         btnNhap = new javax.swing.JButton();
         btnRaVien = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        rdNgoai = new javax.swing.JRadioButton();
-        rdNoi = new javax.swing.JRadioButton();
-        rdTim = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
         TextBenh = new javax.swing.JTextField();
         TextNgayNhap = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        rdNoi = new javax.swing.JRadioButton();
+        rdNgoai = new javax.swing.JRadioButton();
+        rdTim = new javax.swing.JRadioButton();
+        jLabel7 = new javax.swing.JLabel();
+        rdNam = new javax.swing.JRadioButton();
+        rdNu = new javax.swing.JRadioButton();
+        jLabel8 = new javax.swing.JLabel();
+        textDiaChi = new javax.swing.JTextField();
+        textTuoi = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("ID");
 
+        textIDBenhNhan.setEditable(false);
+
         jLabel2.setText("Name");
+
+        TextNameBenhNhan.setEditable(false);
 
         jLabel3.setText("Trieu Chung");
 
         TextTrieuChung.setColumns(20);
+        TextTrieuChung.setEditable(false);
         TextTrieuChung.setRows(5);
         jScrollPane1.setViewportView(TextTrieuChung);
 
@@ -127,25 +141,37 @@ public class Doctor extends javax.swing.JFrame {
 
         btnRaVien.setText("Ra Vien");
 
+        jLabel5.setText("Bệnh");
+
+        jLabel6.setText("NGày Nhập Viện");
+
         jLabel4.setText("Khoa");
+
+        buttonGroup1.add(rdNoi);
+        rdNoi.setText("Khoa Noi");
 
         buttonGroup1.add(rdNgoai);
         rdNgoai.setText("Khoa Ngoai");
 
-        buttonGroup1.add(rdNoi);
-        rdNoi.setText("Khoa Noi");
-        rdNoi.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdTim);
+        rdTim.setText("Khoa tim");
+        rdTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdNoiActionPerformed(evt);
+                rdTimActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(rdTim);
-        rdTim.setText("Khoa Tim Mach");
+        jLabel7.setText("Gioi Tính");
 
-        jLabel5.setText("Bệnh");
+        buttonGroup2.add(rdNam);
+        rdNam.setText("Nam");
 
-        jLabel6.setText("NGày Nhập Viện");
+        buttonGroup2.add(rdNu);
+        rdNu.setText("Nu");
+
+        jLabel8.setText("Địa Chỉ");
+
+        jLabel9.setText("Tuổi");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,32 +190,40 @@ public class Doctor extends javax.swing.JFrame {
                             .addComponent(textIDBenhNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
                         .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnBack)
-                                    .addComponent(btnNhap)
-                                    .addComponent(rdTim, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rdNgoai, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(btnNhap))
+                                .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnRaVien)
-                                            .addComponent(btnNext)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rdNoi))))
+                                    .addComponent(btnRaVien)
+                                    .addComponent(btnNext)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(TextNgayNhap, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(TextBenh, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdNoi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rdNgoai))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdNam)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdNu))
+                            .addComponent(textDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(textTuoi, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(rdTim, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,14 +248,27 @@ public class Doctor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TextNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdNgoai)
+                    .addComponent(jLabel4)
                     .addComponent(rdNoi)
-                    .addComponent(jLabel4))
-                .addGap(7, 7, 7)
+                    .addComponent(rdNgoai))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rdTim)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textTuoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(textDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(rdNam)
+                    .addComponent(rdNu))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnNext))
@@ -239,22 +286,46 @@ public class Doctor extends javax.swing.JFrame {
         // TODO add your handling code here:
        // new dlgPatientinfor(this, rootPaneCheckingEnabled).setVisible(true);
         try {
+             String sID = textIDBenhNhan.getText();
+            String sName = TextNameBenhNhan.getText();
+            String sTrieuChung = TextTrieuChung.getText();
+            String sNGayNhap = TextNgayNhap.getText();
+            String sDiachi = textDiaChi.getText();
+       //     int sTuoi = Integer.parseInt(textTuoi.getText());
+            String sBenh = TextBenh.getText();
+       /*     String SgioiTinh ;
+            if(rdNam.isSelected()){
+                SgioiTinh = rdNam.getText();
+            }else{
+                 SgioiTinh = rdNu.getText();
+            }                 
+            String sKhoa = null;
+            if(rdNgoai.isSelected()){
+                sKhoa = rdNgoai.getText();
             
-      /*  
-         String sInsert = "INSERT INTO tblBenhNhan VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+            }else if(rdNoi.isSelected()){
+            
+                sKhoa = rdNoi.getText();
+            }else{
+                rdTim.getText();
+            }
+            */
+            String sInsert = "INSERT INTO tblBenhNhan VALUES(?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm = conn.prepareStatement(sInsert);
-            pstm.setString(1, textIDBenhNhan.getText());
-            pstm.setString(2, TextNameBenhNhan.getText());
-           // pstm.setString(3, "");
-           // pstm.setString(4, "");
-           // pstm.setString(5, "");
-           // pstm.setString(6, "");
-            pstm.setString(7, TextTrieuChung.getText());
-           // pstm.setString(8, "");
-           // pstm.setString(9, "");
-           // pstm.setString(10, "");
-           // pstm.setString(11, "");
-            pstm.executeUpdate();*/
+            pstm.setString(1, sID);
+            pstm.setString(2, sName);
+            pstm.setString(3, sDiachi);
+           // pstm.setInt(4, sTuoi);
+       //     pstm.setString(5, SgioiTinh);
+       //     pstm.setString(6, sKhoa);
+            pstm.setString(7, sTrieuChung);
+            pstm.setString(8, sBenh);
+            pstm.setString(9, sNGayNhap);
+            pstm.setString(10, "");
+            pstm.setString(11, "");
+            pstm.executeUpdate();
+            
+           
             } catch (Exception e) {
                 e.printStackTrace();
         }
@@ -266,6 +337,7 @@ public class Doctor extends javax.swing.JFrame {
             if(!rs.isLast()){
                 rs.next();
                 viewPatient();
+                 JOptionPane.showMessageDialog(this, "Bắt đầu khám!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -284,9 +356,9 @@ public class Doctor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void rdNoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdNoiActionPerformed
+    private void rdTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdTimActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rdNoiActionPerformed
+    }//GEN-LAST:event_rdTimActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,16 +411,24 @@ public class Doctor extends javax.swing.JFrame {
     private javax.swing.JButton btnNhap;
     private javax.swing.JButton btnRaVien;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rdNam;
     private javax.swing.JRadioButton rdNgoai;
     private javax.swing.JRadioButton rdNoi;
+    private javax.swing.JRadioButton rdNu;
     private javax.swing.JRadioButton rdTim;
+    private javax.swing.JTextField textDiaChi;
     private javax.swing.JTextField textIDBenhNhan;
+    private javax.swing.JTextField textTuoi;
     // End of variables declaration//GEN-END:variables
 }
