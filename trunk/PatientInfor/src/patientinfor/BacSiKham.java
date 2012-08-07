@@ -126,6 +126,11 @@ public class BacSiKham extends javax.swing.JFrame {
         });
 
         btnUot.setText("Ra Viện");
+        btnUot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUotActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Benh");
 
@@ -215,46 +220,40 @@ public class BacSiKham extends javax.swing.JFrame {
 
     private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
         // TODO add your handling code here:
-<<<<<<< .mine
-              stt = "in";
-        try {
-            String sID = textIDbn.getText();
-=======
+        if (textBenh.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chua nhap benh cho benh nhan!");
+        } else if (!txtThang.getText().isEmpty() && !txtNgay.getText().isEmpty() && !txtNam.getText().isEmpty()) {
             stt = "in";
-       try {
-             String sID = textIDbn.getText();
-            String sName = textNamebn.getText();
->>>>>>> .r78
-            String sTrieuChung = textTRieuChungbn.getText();
-            String sBenh = textBenh.getText();
-<<<<<<< .mine
-            String date = txtThang.getText()+"/"+txtNgay.getText()+"/"+txtNam.getText();
-            CallableStatement upd = conne.prepareCall("{call updatePatient(?,?,?,?)}");
-=======
-            
-           CallableStatement upd = conne.prepareCall("{call updatePatient(?,?,?,?,?,?)}");
->>>>>>> .r78
-            upd.setString(1, sID);
-<<<<<<< .mine
-            upd.setString(2, sBenh);
-            upd.setString(3, date);
-            upd.setString(4, stt);
-            upd.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-=======
-            upd.setString(2, sName);
-           upd.setString(3, sTrieuChung);
-            upd.setString(4, sNGayNhap);
-            upd.setString(5, sBenh);
-            upd.setString(6, stt);
-            upd.executeUpdate();
-           
+            try {
+                String sID = textIDbn.getText();
+                String sBenh = textBenh.getText();
+                String date = txtThang.getText() + "/" + txtNgay.getText() + "/" + txtNam.getText();
+                CallableStatement upd = conne.prepareCall("{call updatePatient(?,?,?,?)}");
+                upd.setString(1, sID);
+                upd.setString(2, sBenh);
+                upd.setString(3, date);
+                upd.setString(4, stt);
+                upd.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Cap nhat thanh cong");
+                try {
+                    if (!rs.isLast()) {
+                        rs.next();
+                        textBenh.setText("");
+                        txtNgay.setText("");
+                        txtThang.setText("");
+                        txtNam.setText("");
+                        stt = "Out";
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
->>>>>>> .r78
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chua nhap ngay/thang/nam nhap vien!");
         }
+
     }//GEN-LAST:event_btnInActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
@@ -264,7 +263,9 @@ public class BacSiKham extends javax.swing.JFrame {
                 rs.next();
                 textBenh.setText("");
                 txtNgay.setText("");
-                JOptionPane.showMessageDialog(this, "Bắt đầu khám!");
+                txtThang.setText("");
+                txtNam.setText("");
+                stt = "Out";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -276,12 +277,34 @@ public class BacSiKham extends javax.swing.JFrame {
         try {
             if (!rs.isFirst()) {
                 rs.previous();
+                textBenh.setText("");
+                txtNgay.setText("");
+                txtThang.setText("");
+                txtNam.setText("");
+                stt = "Out";
                 viewPatient();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnUotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUotActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (!rs.isLast()) {
+                rs.next();
+                textBenh.setText("");
+                txtNgay.setText("");
+                txtThang.setText("");
+                txtNam.setText("");
+                stt = "Out";
+                JOptionPane.showMessageDialog(this, "Cap nhat thanh cong");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnUotActionPerformed
 
     /**
      * @param args the command line arguments
