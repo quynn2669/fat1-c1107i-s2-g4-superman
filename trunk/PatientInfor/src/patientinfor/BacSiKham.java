@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
  * @author ADMIN
  */
 public class BacSiKham extends javax.swing.JFrame {
-    
+
     Connection conne = null;
-    ResultSet  rs = null;
-    String stt ="";
+    ResultSet rs = null;
+    String stt = "";
 
     /**
      * Creates new form BacSiKham
@@ -23,41 +23,41 @@ public class BacSiKham extends javax.swing.JFrame {
     public BacSiKham() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        conne = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
-         JOptionPane.showMessageDialog(this, "Ấn next để lấy Tiếp thông tin!");
-        setTitle("Doctor");
+            conne = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
+            JOptionPane.showMessageDialog(this, "Ấn next để lấy Tiếp thông tin!");
+            setTitle("Doctor");
         } catch (Exception e) {
             e.printStackTrace();
         }
         initComponents();
         GetPatient();
     }
-    
-    private void GetPatient(){
+
+    private void GetPatient() {
         try {
             String sSelect = "SELECT ID, HoTen, TrieuChung FROM tblBenhNhan";
-            Statement stmt = conne.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-            rs =  stmt.executeQuery(sSelect);
-            
-            if(rs.next()){
-                
+            Statement stmt = conne.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(sSelect);
+
+            if (rs.next()) {
+
                 textIDbn.setText(rs.getString(1));
                 textNamebn.setText(rs.getString(2));
                 textTRieuChungbn.setText(rs.getString(3));
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-     private void viewPatient(){
+
+    private void viewPatient() {
         try {
             rs.moveToCurrentRow();
-                textIDbn.setText(rs.getString(1));
-                textNamebn.setText(rs.getString(2));
-                textTRieuChungbn.setText(rs.getString(3));
-                
+            textIDbn.setText(rs.getString(1));
+            textNamebn.setText(rs.getString(2));
+            textTRieuChungbn.setText(rs.getString(3));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,7 +88,9 @@ public class BacSiKham extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         textBenh = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        textNgayNhap = new javax.swing.JTextField();
+        txtNgay = new javax.swing.JTextField();
+        txtThang = new javax.swing.JTextField();
+        txtNam = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,21 +150,29 @@ public class BacSiKham extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel9)))
                 .addGap(78, 78, 78)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textNamebn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(textIDbn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnIn)
+                        .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtThang, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnUot))
+                        .addComponent(txtNam, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textBenh)
+                    .addComponent(jScrollPane1)
+                    .addComponent(textNamebn)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnNext))
-                    .addComponent(textBenh, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnNext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnUot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +196,9 @@ public class BacSiKham extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(textNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtThang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
@@ -203,16 +215,35 @@ public class BacSiKham extends javax.swing.JFrame {
 
     private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
         // TODO add your handling code here:
+<<<<<<< .mine
+              stt = "in";
+        try {
+            String sID = textIDbn.getText();
+=======
             stt = "in";
        try {
              String sID = textIDbn.getText();
             String sName = textNamebn.getText();
+>>>>>>> .r78
             String sTrieuChung = textTRieuChungbn.getText();
-            String sNGayNhap = textNgayNhap.getText();
             String sBenh = textBenh.getText();
+<<<<<<< .mine
+            String date = txtThang.getText()+"/"+txtNgay.getText()+"/"+txtNam.getText();
+            CallableStatement upd = conne.prepareCall("{call updatePatient(?,?,?,?)}");
+=======
             
            CallableStatement upd = conne.prepareCall("{call updatePatient(?,?,?,?,?,?)}");
+>>>>>>> .r78
             upd.setString(1, sID);
+<<<<<<< .mine
+            upd.setString(2, sBenh);
+            upd.setString(3, date);
+            upd.setString(4, stt);
+            upd.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+=======
             upd.setString(2, sName);
            upd.setString(3, sTrieuChung);
             upd.setString(4, sNGayNhap);
@@ -222,17 +253,18 @@ public class BacSiKham extends javax.swing.JFrame {
            
             } catch (Exception e) {
                 e.printStackTrace();
+>>>>>>> .r78
         }
     }//GEN-LAST:event_btnInActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         // TODO add your handling code here:
         try {
-            if(!rs.isLast()){
+            if (!rs.isLast()) {
                 rs.next();
-               textBenh.setText("");
-               textNgayNhap.setText("");
-                 JOptionPane.showMessageDialog(this, "Bắt đầu khám!");
+                textBenh.setText("");
+                txtNgay.setText("");
+                JOptionPane.showMessageDialog(this, "Bắt đầu khám!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -241,8 +273,8 @@ public class BacSiKham extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-         try {
-            if(!rs.isFirst()){
+        try {
+            if (!rs.isFirst()) {
                 rs.previous();
                 viewPatient();
             }
@@ -308,7 +340,9 @@ public class BacSiKham extends javax.swing.JFrame {
     private javax.swing.JTextField textBenh;
     private javax.swing.JTextField textIDbn;
     private javax.swing.JTextField textNamebn;
-    private javax.swing.JTextField textNgayNhap;
     private javax.swing.JTextArea textTRieuChungbn;
+    private javax.swing.JTextField txtNam;
+    private javax.swing.JTextField txtNgay;
+    private javax.swing.JTextField txtThang;
     // End of variables declaration//GEN-END:variables
 }
