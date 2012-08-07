@@ -95,10 +95,9 @@ go
  @ID varchar(12),
  @Benh nvarchar(30),
  @NgayNhap smalldatetime,
- @NgayRa smalldatetime,
  @NhapHoacKhong nvarchar(10)
  as
- update tblBenhNhan set ID = @ID,Benh=@Benh,NgayNhap=@NgayNhap,NgayRa=@NgayRa,NhapHoacKhong=@NhapHoacKhong
+ update tblBenhNhan set Benh=@Benh,NgayNhap=@NgayNhap,NhapHoacKhong=@NhapHoacKhong
  where ID = @ID
  go
 --Proc them nhan vien
@@ -130,4 +129,6 @@ go
  select * from tblBacSi
 go
 select * from tblNhanVien
+go
+select * from tblBenhNhan
 go

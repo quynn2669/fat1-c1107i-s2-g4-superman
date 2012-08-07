@@ -48,24 +48,36 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="textNamebn" min="-2" pref="180" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="textIDbn" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnIn" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNgay" min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtThang" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnUot" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNam" min="-2" pref="56" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="textBenh" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="textNamebn" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnBack" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnNext" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="btnBack" max="32767" attributes="0"/>
+                          <Component id="btnIn" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="btnNext" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnUot" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <Component id="textBenh" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
-                  <Component id="textNgayNhap" alignment="0" min="-2" pref="155" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="65" max="32767" attributes="0"/>
+              <EmptySpace pref="79" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -95,7 +107,9 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textNgayNhap" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNgay" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtThang" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNam" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="16" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -188,7 +202,11 @@
         <Property name="text" type="java.lang.String" value="Ng&#xe0;y Nh&#x1ead;p"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textNgayNhap">
+    <Component class="javax.swing.JTextField" name="txtNgay">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtThang">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtNam">
     </Component>
   </SubComponents>
 </Form>
