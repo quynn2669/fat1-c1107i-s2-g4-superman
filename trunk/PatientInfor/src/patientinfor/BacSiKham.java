@@ -204,7 +204,7 @@ public class BacSiKham extends javax.swing.JFrame {
     private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
         // TODO add your handling code here:
             stt = "in";
-         try {
+  /*     try {
              String sID = textIDbn.getText();
             String sName = textNamebn.getText();
             String sTrieuChung = textTRieuChungbn.getText();
@@ -222,7 +222,7 @@ public class BacSiKham extends javax.swing.JFrame {
            
             } catch (Exception e) {
                 e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_btnInActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
