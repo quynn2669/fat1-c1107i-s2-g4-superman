@@ -203,7 +203,7 @@ public class BacSiKham extends javax.swing.JFrame {
 
     private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
         // TODO add your handling code here:
-      //      stt = "in";
+            stt = "in";
        try {
              String sID = textIDbn.getText();
             String sName = textNamebn.getText();
@@ -211,14 +211,14 @@ public class BacSiKham extends javax.swing.JFrame {
             String sNGayNhap = textNgayNhap.getText();
             String sBenh = textBenh.getText();
             
-           CallableStatement upd = conne.prepareCall("{call updatePatient(sID,sName,sTrieuChung,sNGayNhap,sBenh,stt)}");
+           CallableStatement upd = conne.prepareCall("{call updatePatient(?,?,?,?,?,?)}");
             upd.setString(1, sID);
             upd.setString(2, sName);
            upd.setString(3, sTrieuChung);
             upd.setString(4, sNGayNhap);
             upd.setString(5, sBenh);
-          //  upd.setString(6, stt);
-          //  upd.executeUpdate();
+            upd.setString(6, stt);
+            upd.executeUpdate();
            
             } catch (Exception e) {
                 e.printStackTrace();
