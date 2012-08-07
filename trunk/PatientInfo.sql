@@ -90,6 +90,17 @@ go
  as
  INSERT INTO tblBacSi VALUES(@ID,@HoTen,@DiaChi,@Tuoi,@GioiTinh,@TaiKhoan,@MatKhau)
  go
+ --Proc update benh nhan
+ create proc updatePatient
+ @ID varchar(12),
+ @Benh nvarchar(30),
+ @NgayNhap smalldatetime,
+ @NgayRa smalldatetime,
+ @NhapHoacKhong nvarchar(10)
+ as
+ update tblBenhNhan set ID = @ID,Benh=@Benh,NgayNhap=@NgayNhap,NgayRa=@NgayRa,NhapHoacKhong=@NhapHoacKhong
+ where ID = @ID
+ go
 --Proc them nhan vien
  create proc ghiNV
  @ID varchar(12),

@@ -80,17 +80,6 @@ public class BacSiKham extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         textTRieuChungbn = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
-        textTuoibn = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        textDiaChibn = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        rdNoi = new javax.swing.JRadioButton();
-        rdNgoai = new javax.swing.JRadioButton();
-        rdTim = new javax.swing.JRadioButton();
-        jLabel7 = new javax.swing.JLabel();
-        rdNam = new javax.swing.JRadioButton();
-        rdNu = new javax.swing.JRadioButton();
         btnBack = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
         btnIn = new javax.swing.JButton();
@@ -111,35 +100,6 @@ public class BacSiKham extends javax.swing.JFrame {
         textTRieuChungbn.setColumns(20);
         textTRieuChungbn.setRows(5);
         jScrollPane1.setViewportView(textTRieuChungbn);
-
-        jLabel4.setText("Tuổi");
-
-        jLabel5.setText("Địa Chỉ");
-
-        textDiaChibn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textDiaChibnActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Khoa");
-
-        buttonGroup1.add(rdNoi);
-        rdNoi.setText("Khoa Nội");
-
-        buttonGroup1.add(rdNgoai);
-        rdNgoai.setText("Khoa Ngoại");
-
-        buttonGroup1.add(rdTim);
-        rdTim.setText("Khoa Tim Mach");
-
-        jLabel7.setText("Gioi Tinh");
-
-        buttonGroup2.add(rdNam);
-        rdNam.setText("Nam");
-
-        buttonGroup2.add(rdNu);
-        rdNu.setText("Nu");
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -182,22 +142,14 @@ public class BacSiKham extends javax.swing.JFrame {
                             .addComponent(jLabel3)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel5))
-                            .addComponent(jLabel8)))
+                        .addComponent(jLabel8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel9)))
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rdTim)
                     .addComponent(textNamebn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textTuoibn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textIDbn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnIn)
@@ -207,15 +159,6 @@ public class BacSiKham extends javax.swing.JFrame {
                         .addComponent(btnBack)
                         .addGap(18, 18, 18)
                         .addComponent(btnNext))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(rdNam)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdNu))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(rdNoi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdNgoai))
-                    .addComponent(textDiaChibn, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textBenh, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(65, Short.MAX_VALUE))
@@ -243,31 +186,7 @@ public class BacSiKham extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(textNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textTuoibn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textDiaChibn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdNoi)
-                    .addComponent(rdNgoai)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rdTim)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(13, 13, 13))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdNam)
-                            .addComponent(rdNu))
-                        .addGap(18, 18, 18)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnNext))
@@ -281,10 +200,6 @@ public class BacSiKham extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textDiaChibnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDiaChibnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textDiaChibnActionPerformed
-
     private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
         // TODO add your handling code here:
          try {
@@ -292,40 +207,9 @@ public class BacSiKham extends javax.swing.JFrame {
             String sName = textNamebn.getText();
             String sTrieuChung = textTRieuChungbn.getText();
             String sNGayNhap = textNgayNhap.getText();
-            String sDiachi = textDiaChibn.getText();
-            int sTuoi = Integer.parseInt(textTuoibn.getText());
             String sBenh = textBenh.getText();
-            String SgioiTinh ;
-            if(rdNam.isSelected()){
-                SgioiTinh = rdNam.getText();
-            }else{
-                 SgioiTinh = rdNu.getText();
-            }                 
-            String sKhoa = null;
-            if(rdNgoai.isSelected()){
-                sKhoa = rdNgoai.getText();
             
-            }else if(rdNoi.isSelected()){
-            
-                sKhoa = rdNoi.getText();
-            }else{
-                rdTim.getText();
-            }
-            
-            String sInsert = "INSERT INTO tblBenhNhan VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement pstm = conne.prepareStatement(sInsert);
-            pstm.setString(1, sID);
-            pstm.setString(2, sName);
-            pstm.setString(3, sDiachi);
-            pstm.setInt(4, sTuoi);
-            pstm.setString(5, SgioiTinh);
-            pstm.setString(6, sKhoa);
-            pstm.setString(7, sTrieuChung);
-            pstm.setString(8, sBenh);
-            pstm.setString(9, sNGayNhap);
-            pstm.setString(10, "");
-            pstm.setString(11, "");
-            pstm.executeUpdate();
+           CallableStatement upd = conne.prepareCall("{call updatePatient(?,?,?,?,?)}");
             
            
             } catch (Exception e) {
@@ -409,24 +293,13 @@ public class BacSiKham extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rdNam;
-    private javax.swing.JRadioButton rdNgoai;
-    private javax.swing.JRadioButton rdNoi;
-    private javax.swing.JRadioButton rdNu;
-    private javax.swing.JRadioButton rdTim;
     private javax.swing.JTextField textBenh;
-    private javax.swing.JTextField textDiaChibn;
     private javax.swing.JTextField textIDbn;
     private javax.swing.JTextField textNamebn;
     private javax.swing.JTextField textNgayNhap;
     private javax.swing.JTextArea textTRieuChungbn;
-    private javax.swing.JTextField textTuoibn;
     // End of variables declaration//GEN-END:variables
 }
