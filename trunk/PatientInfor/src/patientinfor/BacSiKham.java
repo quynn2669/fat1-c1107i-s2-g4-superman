@@ -203,7 +203,7 @@ public class BacSiKham extends javax.swing.JFrame {
 
     private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
         // TODO add your handling code here:
-            stt = "in";
+      //      stt = "in";
   /*     try {
              String sID = textIDbn.getText();
             String sName = textNamebn.getText();
@@ -230,7 +230,8 @@ public class BacSiKham extends javax.swing.JFrame {
         try {
             if(!rs.isLast()){
                 rs.next();
-                viewPatient();
+               textBenh.setText("");
+               textNgayNhap.setText("");
                  JOptionPane.showMessageDialog(this, "Bắt đầu khám!");
             }
         } catch (Exception e) {
