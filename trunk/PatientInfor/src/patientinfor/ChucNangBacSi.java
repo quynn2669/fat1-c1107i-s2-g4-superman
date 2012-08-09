@@ -84,7 +84,8 @@ public class ChucNangBacSi extends javax.swing.JDialog {
 
     private void btnKhamBenhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhamBenhActionPerformed
         // TODO add your handling code here:
-      
+        new BacSiKham().setVisible(true);
+        ChucNangBacSi.setDefaultLookAndFeelDecorated(false);
     }//GEN-LAST:event_btnKhamBenhActionPerformed
 
     private void btnManagerDocterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagerDocterActionPerformed

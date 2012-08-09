@@ -84,6 +84,8 @@ public class Login extends javax.swing.JFrame {
             cs.setString(2,encrypMD5(new String(pass.getPassword())));
             ResultSet rs = cs.executeQuery();
             if(rs.next()){
+                JOptionPane.showMessageDialog(this, "Dang Nhap Thanh Cong!");
+                new ChucNangNhanVien(this, rootPaneCheckingEnabled).setVisible(true);
                 
             }else{    
                 JOptionPane.showMessageDialog(this, "Sai Tai khoan hoac mat khau!");
