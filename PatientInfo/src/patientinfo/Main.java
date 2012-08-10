@@ -4,6 +4,9 @@ import DateTime.DateTimeTDV;
 import java.awt.CardLayout;
 import java.sql.*;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,12 +27,15 @@ public class Main extends javax.swing.JFrame {
     Connection conn = null;
     ResultSet rs = null;
     String stt = "Yes";
-    int choicesearch = 0;
+    int choice = 0;
     int iID = 0;
     String Department = "Internal medicine";
-    String Name = "";
+    String FName = "";
     String DateF = "";
     String DateT = "";
+    String LName = "";
+    String Gender = "";
+    int addAge = 0;
 
     public Main() {
         initComponents();
@@ -47,10 +53,13 @@ public class Main extends javax.swing.JFrame {
         DateTimeTDV dateTDV = new DateTimeTDV();
         cbbYearF.setModel(dateTDV.getListYear());
         cbbYearT.setModel(dateTDV.getListYear());
-        
+        cbbAddYearIn.setModel(dateTDV.getListYear());
+
     }
 
     public void Reset() {
+        model = new DefaultTableModel();
+        tblResult.setModel(model);
         txtID.setEditable(false);
         txtName.setEditable(false);
         cbbSDepartment.setEnabled(false);
@@ -60,16 +69,28 @@ public class Main extends javax.swing.JFrame {
         txtName.setText(null);
         cbbSDepartment.setEnabled(false);
         cbbIn.setEnabled(false);
-        choicesearch = 0;
+        choice = 0;
         iID = 0;
         Department = "Internal medicine";
-        Name = "";
+        FName = "";
         cbbDayF.setEnabled(false);
         cbbMonthF.setEnabled(false);
         cbbYearF.setEnabled(false);
         cbbDayT.setEnabled(false);
         cbbMonthT.setEnabled(false);
         cbbYearT.setEnabled(false);
+        DateF = "";
+        DateT = "";
+        LName = "";
+        Gender = "";
+        addAge = 0;
+        txtAddFName.setText(null);
+        txtAddLName.setText(null);
+        txtAddAddress.setText(null);
+        txtAddAge.setText(null);
+        txtAddDoctor.setText(null);
+        aDecript.setText(null);
+        btgAddGender.clearSelection();
     }
 
     public void allPatient() {
@@ -121,13 +142,13 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     public void searchByName() {
         try {
             model = new DefaultTableModel();
             tblResult.setModel(model);
             CallableStatement cs = conn.prepareCall("{call findByName(?)}");
-            cs.setString(1, Name);
+            cs.setString(1, FName);
             ResultSet rs = cs.executeQuery();
 
             ResultSetMetaData meta = rs.getMetaData();
@@ -146,6 +167,7 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     public void searchByIn() {
         try {
             model = new DefaultTableModel();
@@ -170,7 +192,7 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     public void searchByDateIn() {
         try {
             model = new DefaultTableModel();
@@ -196,6 +218,7 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     public void searchByDepartment() {
         try {
             model = new DefaultTableModel();
@@ -251,9 +274,20 @@ public class Main extends javax.swing.JFrame {
         rbtAddFMale = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        aDecript = new javax.swing.JTextArea();
         jLabel19 = new javax.swing.JLabel();
-        cbbAddFaculty = new javax.swing.JComboBox();
+        cbbAddDepartment = new javax.swing.JComboBox();
+        jLabel20 = new javax.swing.JLabel();
+        cbbAddYearIn = new javax.swing.JComboBox();
+        cbbAddMonthIn = new javax.swing.JComboBox();
+        cbbAddDayIn = new javax.swing.JComboBox();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        txtAddDoctor = new javax.swing.JTextField();
+        btnAddPatient = new javax.swing.JButton();
+        btnAddReset = new javax.swing.JButton();
         pnlSearch = new javax.swing.JPanel();
         pnlChoice = new javax.swing.JPanel();
         pnlID = new javax.swing.JPanel();
@@ -296,14 +330,14 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblResult = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        mnLogin = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnEmp = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        mnDr = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -329,11 +363,13 @@ public class Main extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1205, 800));
         getContentPane().setLayout(new java.awt.CardLayout());
 
+        pnlMain.setPreferredSize(new java.awt.Dimension(1205, 800));
         pnlMain.setLayout(new java.awt.CardLayout());
 
-        pnlAddPatient.setPreferredSize(new java.awt.Dimension(1185, 885));
+        pnlAddPatient.setPreferredSize(new java.awt.Dimension(1185, 800));
         pnlAddPatient.setLayout(new java.awt.BorderLayout());
 
         pnlAdd.setPreferredSize(new java.awt.Dimension(400, 885));
@@ -352,26 +388,66 @@ public class Main extends javax.swing.JFrame {
 
         btgAddGender.add(rbtAddMale);
         rbtAddMale.setText("Male");
+        rbtAddMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtAddMaleActionPerformed(evt);
+            }
+        });
 
         btgAddGender.add(rbtAddFMale);
         rbtAddFMale.setText("Female");
+        rbtAddFMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtAddFMaleActionPerformed(evt);
+            }
+        });
 
-        jLabel18.setText("Dicription");
+        jLabel18.setText("Decription");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        aDecript.setColumns(20);
+        aDecript.setRows(5);
+        jScrollPane2.setViewportView(aDecript);
 
         jLabel19.setText("Department");
 
-        cbbAddFaculty.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Internal medicine", "Surgical", "Cardiovascular" }));
-        cbbAddFaculty.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cbbAddFaculty.setEnabled(false);
-        cbbAddFaculty.addItemListener(new java.awt.event.ItemListener() {
+        cbbAddDepartment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Internal medicine", "Surgical", "Cardiovascular" }));
+        cbbAddDepartment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbbAddDepartment.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbbAddFacultyItemStateChanged(evt);
+                cbbAddDepartmentItemStateChanged(evt);
             }
         });
+
+        jLabel20.setText("Date In");
+
+        cbbAddYearIn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012" }));
+        cbbAddYearIn.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbAddYearInItemStateChanged(evt);
+            }
+        });
+        cbbAddYearIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbAddYearInActionPerformed(evt);
+            }
+        });
+
+        cbbAddMonthIn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cbbAddMonthIn.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbAddMonthInItemStateChanged(evt);
+            }
+        });
+
+        cbbAddDayIn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        jLabel21.setText("Year");
+
+        jLabel22.setText("Month");
+
+        jLabel23.setText("Day");
+
+        jLabel24.setText("Doctor");
 
         javax.swing.GroupLayout pnlPatientInfoLayout = new javax.swing.GroupLayout(pnlPatientInfo);
         pnlPatientInfo.setLayout(pnlPatientInfoLayout);
@@ -380,6 +456,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(pnlPatientInfoLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel20)
                     .addComponent(jLabel19)
                     .addComponent(jLabel18)
                     .addComponent(jLabel17)
@@ -389,18 +467,32 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPatientInfoLayout.createSequentialGroup()
-                        .addComponent(rbtAddMale)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rbtAddFMale))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbAddFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlPatientInfoLayout.createSequentialGroup()
+                            .addComponent(rbtAddMale)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(rbtAddFMale))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                        .addComponent(txtAddAge, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtAddFName, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                        .addComponent(txtAddLName)
+                        .addComponent(txtAddAddress)
+                        .addComponent(cbbAddDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtAddAge)
-                        .addComponent(txtAddFName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                        .addComponent(txtAddLName, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtAddAddress, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                        .addComponent(txtAddDoctor, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPatientInfoLayout.createSequentialGroup()
+                            .addComponent(jLabel21)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cbbAddYearIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel22)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cbbAddMonthIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel23)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cbbAddDayIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         pnlPatientInfoLayout.setVerticalGroup(
             pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,9 +525,36 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(cbbAddFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(170, Short.MAX_VALUE))
+                    .addComponent(cbbAddDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(txtAddDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21)
+                    .addComponent(cbbAddYearIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22)
+                    .addComponent(cbbAddMonthIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23)
+                    .addComponent(cbbAddDayIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
+
+        btnAddPatient.setText("Add");
+        btnAddPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPatientActionPerformed(evt);
+            }
+        });
+
+        btnAddReset.setText("Reset");
+        btnAddReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlAddLayout = new javax.swing.GroupLayout(pnlAdd);
         pnlAdd.setLayout(pnlAddLayout);
@@ -443,15 +562,24 @@ public class Main extends javax.swing.JFrame {
             pnlAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlPatientInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlPatientInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlAddLayout.createSequentialGroup()
+                        .addComponent(btnAddPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(btnAddReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlAddLayout.setVerticalGroup(
             pnlAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(34, 34, 34)
                 .addComponent(pnlPatientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(343, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddPatient)
+                    .addComponent(btnAddReset))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pnlAddPatient.add(pnlAdd, java.awt.BorderLayout.LINE_START);
@@ -832,7 +960,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pnlSearch.add(pnlChoice, java.awt.BorderLayout.LINE_START);
@@ -860,14 +988,16 @@ public class Main extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(91, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 704, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
@@ -880,7 +1010,7 @@ public class Main extends javax.swing.JFrame {
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContentLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 483, Short.MAX_VALUE))
+                .addGap(0, 187, Short.MAX_VALUE))
         );
 
         pnlSearch.add(pnlContent, java.awt.BorderLayout.LINE_END);
@@ -889,25 +1019,25 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(pnlMain, "card3");
 
-        jMenu1.setText("Login");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        mnLogin.setText("Login");
+        mnLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem1.setText("Admin");
-        jMenu1.add(jMenuItem1);
+        mnLogin.add(jMenuItem1);
 
         jMenuItem4.setText("Employee");
-        jMenu1.add(jMenuItem4);
+        mnLogin.add(jMenuItem4);
 
         jMenuItem5.setText("Doctor");
-        jMenu1.add(jMenuItem5);
+        mnLogin.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mnLogin);
 
-        jMenu2.setText("Employee");
-        jMenu2.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+        mnEmp.setText("Employee");
+        mnEmp.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        mnEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
+                mnEmpActionPerformed(evt);
             }
         });
 
@@ -917,7 +1047,7 @@ public class Main extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        mnEmp.add(jMenuItem2);
 
         jMenuItem3.setText("Add Patient");
         jMenuItem3.addItemListener(new java.awt.event.ItemListener() {
@@ -930,17 +1060,17 @@ public class Main extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        mnEmp.add(jMenuItem3);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(mnEmp);
 
-        jMenu3.setText("Doctor");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        mnDr.setText("Doctor");
+        mnDr.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem6.setText("Patient Manager");
-        jMenu3.add(jMenuItem6);
+        mnDr.add(jMenuItem6);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(mnDr);
 
         setJMenuBar(jMenuBar1);
 
@@ -958,18 +1088,18 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         Reset();
         rbtID.setSelected(true);
-        choicesearch = 1;
+        choice = 1;
         txtID.setEditable(true);
     }//GEN-LAST:event_rbtIDActionPerformed
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+    private void mnEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEmpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu2ActionPerformed
+    }//GEN-LAST:event_mnEmpActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         model = new DefaultTableModel();
         tblResult.setModel(model);
-        switch (choicesearch) {
+        switch (choice) {
             case 1:
                 if (txtID.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Enter ID!");
@@ -980,15 +1110,15 @@ public class Main extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "ID valid!");
                         break;
                     }
-                   searchByID();
+                    searchByID();
                 }
                 break;
             case 2:
                 if (txtName.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Enter Name!");
                 } else {
-                    Name = txtName.getText();
-                   searchByName();
+                    FName = txtName.getText();
+                    searchByName();
                 }
                 break;
             case 3:
@@ -1004,8 +1134,8 @@ public class Main extends javax.swing.JFrame {
                 int dayT = Integer.parseInt(cbbDayT.getSelectedItem().toString());
                 int monthT = Integer.parseInt(cbbMonthT.getSelectedItem().toString());
                 int yearT = Integer.parseInt(cbbYearT.getSelectedItem().toString());
-                DateF = monthF+"/"+dayF+"/"+yearF;
-                DateT = monthT+"/"+dayT+"/"+yearT;
+                DateF = monthF + "/" + dayF + "/" + yearF;
+                DateT = monthT + "/" + dayT + "/" + yearT;
                 searchByDateIn();
                 break;
             default:
@@ -1016,7 +1146,7 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         Reset();
         rbtName.setSelected(true);
-        choicesearch = 2;
+        choice = 2;
         txtName.setEditable(true);
     }//GEN-LAST:event_rbtNameActionPerformed
 
@@ -1027,7 +1157,7 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         Reset();
         rbtSDepartment.setSelected(true);
-        choicesearch = 3;
+        choice = 3;
         cbbSDepartment.setEnabled(true);
     }//GEN-LAST:event_rbtSDepartmentActionPerformed
 
@@ -1035,7 +1165,7 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         Reset();
         rbtIn.setSelected(true);
-        choicesearch = 4;
+        choice = 4;
         cbbIn.setEnabled(true);
     }//GEN-LAST:event_rbtInActionPerformed
 
@@ -1053,7 +1183,7 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         Reset();
         rbtDate.setSelected(true);
-        choicesearch = 5;
+        choice = 5;
         cbbDayF.setEnabled(true);
         cbbMonthF.setEnabled(true);
         cbbYearF.setEnabled(true);
@@ -1110,18 +1240,98 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenuItem3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItem3ItemStateChanged
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_jMenuItem3ItemStateChanged
 
-    private void cbbAddFacultyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbAddFacultyItemStateChanged
+    private void cbbAddDepartmentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbAddDepartmentItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbbAddFacultyItemStateChanged
+    }//GEN-LAST:event_cbbAddDepartmentItemStateChanged
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         CardLayout card = (CardLayout) pnlMain.getLayout();
         card.show(pnlMain, "addPatient");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void cbbAddYearInItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbAddYearInItemStateChanged
+        // TODO add your handling code here:
+        DateTimeTDV tdv = new DateTimeTDV();
+        int month = Integer.parseInt(cbbAddMonthIn.getSelectedItem().toString());
+        int year = Integer.parseInt(cbbAddYearIn.getSelectedItem().toString());
+        cbbAddDayIn.setModel(tdv.getDayByMonth(month, year));
+    }//GEN-LAST:event_cbbAddYearInItemStateChanged
+
+    private void cbbAddYearInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbAddYearInActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbAddYearInActionPerformed
+
+    private void cbbAddMonthInItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbAddMonthInItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbAddMonthInItemStateChanged
+
+    private void rbtAddMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtAddMaleActionPerformed
+        // TODO add your handling code here:
+        Gender = "Male";
+    }//GEN-LAST:event_rbtAddMaleActionPerformed
+
+    private void rbtAddFMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtAddFMaleActionPerformed
+        // TODO add your handling code here:
+        Gender = "Female";
+    }//GEN-LAST:event_rbtAddFMaleActionPerformed
+
+    private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPatientActionPerformed
+        // TODO add your handling code here:
+        boolean check = true;
+        if (txtAddFName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter First Name!");
+        } else if (txtAddLName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Last Name!");
+        } else if (txtAddAddress.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Address!");
+        } else if (txtAddAge.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Age!");
+        } else if ("".equals(Gender)) {
+            JOptionPane.showMessageDialog(this, "Choice Gender!");
+        } else if (aDecript.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Decription!");
+        } else if (txtAddDoctor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Doctor's Name!");
+        } else {
+            try {
+                addAge = Integer.parseInt(txtAddAge.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Age valid!!");
+                check = false;
+            }
+            if (check) {
+                try {
+                    String DateTemp = cbbAddMonthIn.getSelectedItem().toString() + "/"
+                            + cbbAddDayIn.getSelectedItem().toString() + "/" + cbbAddYearIn.getSelectedItem().toString();
+                    CallableStatement cs = conn.prepareCall("{call empAddPatient(?,?,?,?,?,?,?,?,?)}");
+                    cs.setString(1, txtAddFName.getText());
+                    cs.setString(2, txtAddLName.getText());
+                    cs.setString(3, txtAddAddress.getText());
+                    cs.setInt(4, addAge);
+                    cs.setString(5, Gender);
+                    cs.setString(6, aDecript.getText());
+                    cs.setString(7, cbbAddDepartment.getSelectedItem().toString());
+                    cs.setString(8, txtAddDoctor.getText());
+                    cs.setString(9, DateTemp);
+                    cs.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Add Completed!");
+                    Reset();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+    }//GEN-LAST:event_btnAddPatientActionPerformed
+
+    private void btnAddResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddResetActionPerformed
+        // TODO add your handling code here:
+        Reset();
+    }//GEN-LAST:event_btnAddResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1165,11 +1375,17 @@ public class Main extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea aDecript;
     private javax.swing.ButtonGroup btgAddGender;
+    private javax.swing.JButton btnAddPatient;
+    private javax.swing.JButton btnAddReset;
     private javax.swing.ButtonGroup btnG1;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox cbbAddFaculty;
+    private javax.swing.JComboBox cbbAddDayIn;
+    private javax.swing.JComboBox cbbAddDepartment;
+    private javax.swing.JComboBox cbbAddMonthIn;
+    private javax.swing.JComboBox cbbAddYearIn;
     private javax.swing.JComboBox cbbDayF;
     private javax.swing.JComboBox cbbDayT;
     private javax.swing.JComboBox cbbIn;
@@ -1191,6 +1407,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1198,9 +1419,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -1214,7 +1432,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JMenu mnDr;
+    private javax.swing.JMenu mnEmp;
+    private javax.swing.JMenu mnLogin;
     private javax.swing.JPanel pnlAdd;
     private javax.swing.JPanel pnlAddPatient;
     private javax.swing.JPanel pnlChoice;
@@ -1236,6 +1456,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTable tblResult;
     private javax.swing.JTextField txtAddAddress;
     private javax.swing.JTextField txtAddAge;
+    private javax.swing.JTextField txtAddDoctor;
     private javax.swing.JTextField txtAddFName;
     private javax.swing.JTextField txtAddLName;
     private javax.swing.JTextField txtID;
