@@ -93,7 +93,7 @@ public class Main extends javax.swing.JFrame {
         txtAddAddress.setText(null);
         txtAddAge.setText(null);
         txtAddDoctor.setText(null);
-        aDecript.setText(null);
+        aDescript.setText(null);
         btgAddGender.clearSelection();
     }
 
@@ -125,6 +125,7 @@ public class Main extends javax.swing.JFrame {
         });
 
     }
+
     public void setUpdatePatient() {
 
         tblUpdate.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -136,11 +137,17 @@ public class Main extends javax.swing.JFrame {
                     int selectedIndex = tblUpdate.getSelectedRow();
                     int realIndex = tblUpdate.convertRowIndexToModel(selectedIndex);
                     TableModel model = tblUpdate.getModel();
+                    iID = Integer.parseInt(model.getValueAt(realIndex, 0x0).toString());
                     txtUpdateFName.setText(model.getValueAt(realIndex, 1).toString());
                     txtUpdateAddress.setText(model.getValueAt(realIndex, 2).toString());
                     txtUpdateAge.setText(model.getValueAt(realIndex, 3).toString());
-                    aUpdateDecript.setText(model.getValueAt(realIndex, 5).toString());
+                    aUpdateDescript.setText(model.getValueAt(realIndex, 6).toString());
                     txtUpdateDoctor.setText(model.getValueAt(realIndex, 8).toString());
+                    if(iID!=0){
+                    btnUpdatePatient.setEnabled(true);
+                    }else{
+                    btnUpdatePatient.setEnabled(true);
+            }
                 }
             }
         });
@@ -167,6 +174,7 @@ public class Main extends javax.swing.JFrame {
 
             }
             lblTTDT.setText("" + tblResult.getRowCount());
+            
             setDetailsPatient();
             rs.close();
 
@@ -301,12 +309,15 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public void rsUp(){
+
+    public void rsUp() {
+        model = new DefaultTableModel();
+        tblUpdate.setModel(model);
         txtUpdateFName.setText(null);
         txtUpdateAddress.setText(null);
         txtUpdateAge.setText(null);
         btgGenderU.clearSelection();
-        aUpdateDecript.setText(null);
+        aUpdateDescript.setText(null);
         Department = "Internal medicine";
         FName = "";
         DateF = "";
@@ -342,7 +353,7 @@ public class Main extends javax.swing.JFrame {
         rbtAddFMale = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        aDecript = new javax.swing.JTextArea();
+        aDescript = new javax.swing.JTextArea();
         jLabel19 = new javax.swing.JLabel();
         cbbAddDepartment = new javax.swing.JComboBox();
         jLabel20 = new javax.swing.JLabel();
@@ -438,7 +449,7 @@ public class Main extends javax.swing.JFrame {
         rbtUpdateFMale = new javax.swing.JRadioButton();
         jLabel41 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        aUpdateDecript = new javax.swing.JTextArea();
+        aUpdateDescript = new javax.swing.JTextArea();
         jLabel42 = new javax.swing.JLabel();
         cbbUpdateDepartment = new javax.swing.JComboBox();
         jLabel43 = new javax.swing.JLabel();
@@ -542,11 +553,11 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel18.setText("Decription");
+        jLabel18.setText("Description");
 
-        aDecript.setColumns(20);
-        aDecript.setRows(5);
-        jScrollPane2.setViewportView(aDecript);
+        aDescript.setColumns(20);
+        aDescript.setRows(5);
+        jScrollPane2.setViewportView(aDescript);
 
         jLabel19.setText("Department");
 
@@ -736,7 +747,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddPatient)
                     .addComponent(btnAddReset))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         pnlAddPatient.add(pnlAdd, java.awt.BorderLayout.LINE_START);
@@ -1106,7 +1117,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         pnlSearch.add(pnlChoice, java.awt.BorderLayout.LINE_START);
@@ -1145,7 +1156,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel31.setText("Department:");
 
-        jLabel32.setText("Decription:");
+        jLabel32.setText("Description:");
 
         jLabel33.setText("Sick:");
 
@@ -1319,7 +1330,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(pnlContentLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         pnlContentLayout.setVerticalGroup(
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1371,11 +1382,11 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel41.setText("Decription");
+        jLabel41.setText("Description");
 
-        aUpdateDecript.setColumns(20);
-        aUpdateDecript.setRows(5);
-        jScrollPane3.setViewportView(aUpdateDecript);
+        aUpdateDescript.setColumns(20);
+        aUpdateDescript.setRows(5);
+        jScrollPane3.setViewportView(aUpdateDescript);
 
         jLabel42.setText("Department");
 
@@ -1530,6 +1541,7 @@ public class Main extends javax.swing.JFrame {
         );
 
         btnUpdatePatient.setText("Update");
+        btnUpdatePatient.setEnabled(false);
         btnUpdatePatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdatePatientActionPerformed(evt);
@@ -1557,7 +1569,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(pnlUpdateLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pnlUpdatePatientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         pnlUpdateLayout.setVerticalGroup(
             pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1568,7 +1580,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdatePatient)
                     .addComponent(btnUpdaters))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         pnlUpdatePatient.add(pnlUpdate, java.awt.BorderLayout.LINE_START);
@@ -1604,7 +1616,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnSUP, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btlAllUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         pnlSULayout.setVerticalGroup(
             pnlSULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1654,7 +1666,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlResultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlResultLayout.createSequentialGroup()
                         .addComponent(jLabel49)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 9, Short.MAX_VALUE))
                     .addGroup(pnlResultLayout.createSequentialGroup()
                         .addComponent(lblTTUP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -1775,7 +1787,7 @@ public class Main extends javax.swing.JFrame {
         cbbSYearF.setEnabled(false);
         cbbSYearT.setEnabled(false);
         cbbSIn.setEnabled(false);
-        
+
     }//GEN-LAST:event_rbtIDActionPerformed
 
     private void mnEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEmpActionPerformed
@@ -1850,7 +1862,7 @@ public class Main extends javax.swing.JFrame {
         cbbSDepartment.setEnabled(true);
         txtID.setEditable(false);
         txtName.setEditable(false);
-        
+
         cbbSDayF.setEnabled(false);
         cbbSDayT.setEnabled(false);
         cbbSMonthF.setEnabled(false);
@@ -1873,7 +1885,7 @@ public class Main extends javax.swing.JFrame {
         cbbSMonthT.setEnabled(false);
         cbbSYearF.setEnabled(false);
         cbbSYearT.setEnabled(false);
-        
+
     }//GEN-LAST:event_rbtInActionPerformed
 
     private void cbbSInItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbSInItemStateChanged
@@ -1888,7 +1900,7 @@ public class Main extends javax.swing.JFrame {
 
     private void rbtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtDateActionPerformed
         // TODO add your handling code here:
-        
+
         txtID.setEditable(false);
         txtName.setEditable(false);
         cbbSDepartment.setEnabled(false);
@@ -2000,7 +2012,7 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Enter Age!");
         } else if ("".equals(Gender)) {
             JOptionPane.showMessageDialog(this, "Choice Gender!");
-        } else if (aDecript.getText().isEmpty()) {
+        } else if (aDescript.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter Decription!");
         } else if (txtAddDoctor.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter Doctor's Name!");
@@ -2021,7 +2033,7 @@ public class Main extends javax.swing.JFrame {
                     cs.setString(2, txtAddAddress.getText());
                     cs.setInt(3, addAge);
                     cs.setString(4, Gender);
-                    cs.setString(5, aDecript.getText());
+                    cs.setString(5, aDescript.getText());
                     cs.setString(6, cbbAddDepartment.getSelectedItem().toString());
                     cs.setString(7, txtAddDoctor.getText());
                     cs.setString(8, DateTemp);
@@ -2093,16 +2105,69 @@ public class Main extends javax.swing.JFrame {
 
     private void btnUpdatePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePatientActionPerformed
         // TODO add your handling code here:
+        Gender = btgGenderU.getSelection().toString();
+        if (txtUpdateFName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Name!");
+        } else if (txtUpdateAddress.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Address!");
+        } else if (txtUpdateAge.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Age!");
+        } else if ("".equals(Gender)) {
+            JOptionPane.showMessageDialog(this, "Choice Gender!");
+        } else if (aUpdateDescript.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Desciption!");
+        } else if (txtUpdateDoctor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Doctor's name");
+        } else {
+            boolean check = true;
+            try {
+                addAge = Integer.parseInt(txtUpdateAge.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Age Valid!!");
+                check = false;
+            }
+            if (check) {
+                try {
+                    
+                    Department = cbbUpdateDepartment.getSelectedItem().toString();
+                    String date = cbbUpdateMonthIn + "/" + cbbUpdateDayIn + "/" + cbbUpdateYearIn;
+                    CallableStatement cs = conn.prepareCall("{call empUpdatePatient(?,?,?,?,?,?,?,?,?)}");
+                    cs.setInt(1, iID);
+                    cs.setString(2, txtUpdateFName.getText());
+                    cs.setString(3, txtUpdateAddress.getText());
+                    cs.setString(4, txtUpdateAge.getText());
+                    cs.setString(5, Gender);
+                    cs.setString(6, aUpdateDescript.getText());
+                    cs.setString(7, Department);
+                    cs.setString(8, txtUpdateDoctor.getText());
+                    cs.setString(9, date);
+                    cs.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Update Success!");
+                    Gender = "";
+                    Department = "Internal medicine";
+                    iID = 0;
+                    addAge = 0;
+                    date = "";
+                    rsUp();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
     }//GEN-LAST:event_btnUpdatePatientActionPerformed
 
     private void btnUpdatersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatersActionPerformed
         // TODO add your handling code here:
-        
+        rsUp();
+
 
     }//GEN-LAST:event_btnUpdatersActionPerformed
 
     private void btlAllUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlAllUpdateActionPerformed
         // TODO add your handling code here:
+        model = new DefaultTableModel();
+        tblUpdate.setModel(model);
         try {
             String sSelect = "Select * from tblPatient";
             Statement stmt = conn.createStatement();
@@ -2137,12 +2202,12 @@ public class Main extends javax.swing.JFrame {
 
     private void btnSUPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSUPActionPerformed
         // TODO add your handling code here:
-        model = new  DefaultTableModel();
+        model = new DefaultTableModel();
         tblUpdate.setModel(model);
-        if(!txtFNUD.getText().isEmpty()){
+        if (!txtFNUD.getText().isEmpty()) {
             FName = txtFNUD.getText();
             searchByName(FName);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Enter Name!");
         }
     }//GEN-LAST:event_btnSUPActionPerformed
@@ -2189,8 +2254,8 @@ public class Main extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea aDecript;
-    private javax.swing.JTextArea aUpdateDecript;
+    private javax.swing.JTextArea aDescript;
+    private javax.swing.JTextArea aUpdateDescript;
     private javax.swing.ButtonGroup btgAddGender;
     private javax.swing.ButtonGroup btgGenderU;
     private javax.swing.JButton btlAllUpdate;
