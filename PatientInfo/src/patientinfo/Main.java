@@ -104,7 +104,7 @@ public class Main extends javax.swing.JFrame {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
+                if (!e.getValueIsAdjusting()){
                     int selectedIndex = tblResult.getSelectedRow();
                     int realIndex = tblResult.convertRowIndexToModel(selectedIndex);
                     TableModel model = tblResult.getModel();
@@ -686,8 +686,8 @@ public class Main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbbSMonthT, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbbSMonthT, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7))
                     .addGroup(pnlDateTimeSLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -698,8 +698,8 @@ public class Main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbbSMonthF, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbbSMonthF, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDateTimeSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1811,13 +1811,17 @@ public class Main extends javax.swing.JFrame {
                 if (txtID.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Enter ID!");
                 } else {
-                    try {
+                    
+                        int check = 0;
+                    try {;
                         iID = Integer.parseInt(txtID.getText());
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(this, "ID valid!");
-                        break;
+                        check = 1;
                     }
+                    if(check ==0){
                     searchByID();
+                    }
                 }
                 break;
             case 2:
