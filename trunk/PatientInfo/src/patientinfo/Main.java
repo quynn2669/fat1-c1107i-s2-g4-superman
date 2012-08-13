@@ -6,7 +6,6 @@ import java.sql.*;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -336,8 +335,13 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void rsUp() {
+        try {
         model = new DefaultTableModel();
         tblUpdate.setModel(model);
+            
+        } catch (Exception e) {
+        int vv =0;
+        }
         txtUpdateFName.setText(null);
         txtUpdateAddress.setText(null);
         txtUpdateAge.setText(null);
@@ -2267,7 +2271,11 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             if (!btgGenderU.getSelection().toString().isEmpty()) {
-                Gender = btgGenderU.getSelection().toString();
+                if(rbtUpdateMale.isSelected()){
+                    Gender = "Male";
+                }else{
+                    Gender = "Female";
+                }
             }
         } catch (Exception e) {
             int vv = 0;
@@ -2333,8 +2341,13 @@ public class Main extends javax.swing.JFrame {
 
     private void btlAllUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlAllUpdateActionPerformed
         // TODO add your handling code here:
+        try {
         model = new DefaultTableModel();
         tblUpdate.setModel(model);
+            
+        } catch (Exception e) {
+        int vv =0;
+        }
         try {
             String sSelect = "Select * from tblPatient";
             Statement stmt = conn.createStatement();
@@ -2369,8 +2382,13 @@ public class Main extends javax.swing.JFrame {
 
     private void btnSUPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSUPActionPerformed
         // TODO add your handling code here:
-        model = new DefaultTableModel();
-        tblUpdate.setModel(model);
+        try {
+            model = new DefaultTableModel();
+            tblUpdate.setModel(model);
+
+        } catch (Exception e) {
+            int vv=0;
+        }
         if (!txtFNUD.getText().isEmpty()) {
             FName = txtFNUD.getText();
             searchByName(FName);
@@ -2392,7 +2410,7 @@ public class Main extends javax.swing.JFrame {
         Department = cbbCUDepartment.getSelectedItem().toString();
         try {
             model = new DefaultTableModel();
-            tblRSCU.setModel(model); 
+            tblRSCU.setModel(model);
         } catch (Exception e) {
             int vv = 0;
         }
