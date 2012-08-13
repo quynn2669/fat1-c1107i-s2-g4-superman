@@ -104,6 +104,13 @@ create proc empUpdatePatient
 as
 UPDATE tblPatient
 SET FullName = @FName,Address = @Address,Age = @Age,Gender = @Gender,Department = @Dep,Description =  @Dec,Doctor = @Dr,DateIn = @DateIn WHERE ID= @ID
-
 go
+-- Proc find Patient by Department
+create proc findByDepartmentCU
+@Department nvarchar(50)
+as
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],STT [In Hospital]
+from tblPatient WHERE Department = @Department AND DrStt = 0
+go
+
 select * from tblPatient

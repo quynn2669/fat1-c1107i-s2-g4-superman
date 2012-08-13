@@ -303,12 +303,13 @@ public class Main extends javax.swing.JFrame {
                 model.addRow(v);
             }
             lblTTDT.setText("" + tblResult.getRowCount());
-           
+
             rs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public void searchByDepartmentCU() {
         try {
             CallableStatement cs = conn.prepareCall("{call findByDepartmentCU(?)}");
@@ -327,7 +328,7 @@ public class Main extends javax.swing.JFrame {
                 model.addRow(v);
             }
             lblTTCU.setText("" + tblRSCU.getRowCount());
-           
+
             rs.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -870,25 +871,24 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlChoiceLayout.createSequentialGroup()
-                        .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(rbtID)
+                        .addGap(0, 231, Short.MAX_VALUE))
+                    .addGroup(pnlChoiceLayout.createSequentialGroup()
+                        .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(pnlChoiceLayout.createSequentialGroup()
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(rbtID))
-                        .addGap(0, 29, Short.MAX_VALUE))
-                    .addGroup(pnlChoiceLayout.createSequentialGroup()
-                        .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rbtDate)
-                            .addComponent(rbtIn)
-                            .addComponent(rbtSDepartment)
-                            .addComponent(rbtName)
-                            .addComponent(pnlID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(pnlName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlDateTimeS, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                            .addComponent(rbtDate, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtIn, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtSDepartment, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(pnlName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlDepartment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlDateTimeS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         pnlChoiceLayout.setVerticalGroup(
@@ -1948,7 +1948,12 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_mnEmpActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-
+        try {
+            model = new DefaultTableModel();
+            tblResult.setModel(model);
+        } catch (Exception e) {
+            int vv = 0;
+        }
         model = new DefaultTableModel();
         tblResult.setModel(model);
         switch (choice) {
@@ -2260,8 +2265,12 @@ public class Main extends javax.swing.JFrame {
 
     private void btnUpdatePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePatientActionPerformed
         // TODO add your handling code here:
-        if (!btgGenderU.getSelection().toString().isEmpty()) {
-            Gender = btgGenderU.getSelection().toString();
+        try {
+            if (!btgGenderU.getSelection().toString().isEmpty()) {
+                Gender = btgGenderU.getSelection().toString();
+            }
+        } catch (Exception e) {
+            int vv = 0;
         }
         if (txtUpdateFName.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter Name!");
@@ -2287,7 +2296,8 @@ public class Main extends javax.swing.JFrame {
                 try {
 
                     Department = cbbUpdateDepartment.getSelectedItem().toString();
-                    String date = cbbUpdateMonthIn + "/" + cbbUpdateDayIn + "/" + cbbUpdateYearIn;
+                    String date = cbbUpdateMonthIn.getSelectedItem().toString() + "/" + cbbUpdateDayIn.getSelectedItem().toString() + "/"
+                            + cbbUpdateYearIn.getSelectedItem().toString();
                     CallableStatement cs = conn.prepareCall("{call empUpdatePatient(?,?,?,?,?,?,?,?,?)}");
                     cs.setInt(1, iID);
                     cs.setString(2, txtUpdateFName.getText());
@@ -2380,8 +2390,12 @@ public class Main extends javax.swing.JFrame {
     private void cbbCUDepartmentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbCUDepartmentItemStateChanged
         // TODO add your handling code here:
         Department = cbbCUDepartment.getSelectedItem().toString();
-        model = new DefaultTableModel();
-        tblRSCU.setModel(model);
+        try {
+            model = new DefaultTableModel();
+            tblRSCU.setModel(model); 
+        } catch (Exception e) {
+            int vv = 0;
+        }
         searchByDepartmentCU();
     }//GEN-LAST:event_cbbCUDepartmentItemStateChanged
 
