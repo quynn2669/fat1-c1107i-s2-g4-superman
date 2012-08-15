@@ -1724,7 +1724,7 @@
                               <Component id="btnUpdatePatient" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnUpdaters" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="113" max="32767" attributes="0"/>
+                          <EmptySpace pref="213" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2145,7 +2145,7 @@
                               <Component id="btnSUP" min="-2" pref="182" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btlAllUpdate" min="-2" pref="172" max="-2" attributes="0"/>
-                              <EmptySpace pref="141" max="32767" attributes="0"/>
+                              <EmptySpace pref="35" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2222,7 +2222,7 @@
                                   <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblTTUP" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="108" max="32767" attributes="0"/>
+                              <EmptySpace pref="208" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
