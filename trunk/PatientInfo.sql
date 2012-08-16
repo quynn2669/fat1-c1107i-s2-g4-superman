@@ -112,5 +112,19 @@ as
 select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],STT [In Hospital]
 from tblPatient WHERE Department = @Department AND DrStt = 0
 go
+--Proc Check up Patient
+go
+create proc checkUpPatient
+@ID int,
+@Sick nvarchar(300),
+@Dep varchar(50),
+@Dr nvarchar(125),
+@DateOut smalldatetime,
+@STT varchar(3),
+@DrSTT int
+as
+UPDATE tblPatient
+SET Sick = @Sick, Department = @Dep,Doctor = @Dr,DateOut = @DateOut,Stt = @STT,DrStt = @DrSTT WHERE ID= @ID
+go
 
 select * from tblPatient
