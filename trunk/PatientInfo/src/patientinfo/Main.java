@@ -114,22 +114,21 @@ public class Main extends javax.swing.JFrame {
                     int selectedIndex = tblResult.getSelectedRow();
                     int realIndex = tblResult.convertRowIndexToModel(selectedIndex);
                     TableModel model = tblResult.getModel();
-                    patient = new Patient();
-                    patient.ID = Integer.parseInt(model.getValueAt(realIndex, 0).toString());
-                    patient.FullName = model.getValueAt(realIndex, 1).toString();
-                    patient.Address = model.getValueAt(realIndex, 2).toString();
-                    patient.Age = model.getValueAt(realIndex, 3).toString();
-                    patient.Gender = model.getValueAt(realIndex, 4).toString();
-                    patient.Department = model.getValueAt(realIndex, 5).toString();
-                    patient.Description = model.getValueAt(realIndex, 6).toString();
-                    patient.Sick = model.getValueAt(realIndex, 7).toString();
-                    patient.Doctor = model.getValueAt(realIndex, 8).toString();
-                    patient.DateIn = model.getValueAt(realIndex, 9).toString();
-                    patient.DateOut = model.getValueAt(realIndex, 10).toString();
-                    patient.InHospital = model.getValueAt(realIndex, 11).toString();
                     DetailPatient dialog = new DetailPatient(new Main(),true);
+                    dialog.setTxtID(model.getValueAt(realIndex, 0).toString());
+                    dialog.setTxtName(model.getValueAt(realIndex, 1).toString());
+                    dialog.setTxtAD(model.getValueAt(realIndex, 2).toString());
+                    dialog.setTxtAge(model.getValueAt(realIndex, 3).toString());
+                    dialog.setRbtMale(model.getValueAt(realIndex, 4).toString());
+                    dialog.setCbbDepartment(model.getValueAt(realIndex, 5).toString());
+                    dialog.setaDes(model.getValueAt(realIndex, 6).toString());
+                    dialog.setaSick(model.getValueAt(realIndex, 7).toString());
+                    dialog.setTxtDoctor(model.getValueAt(realIndex, 8).toString());
+                    dialog.setTxtDateIn(model.getValueAt(realIndex, 9).toString());
+                    dialog.setTxtDateOut( model.getValueAt(realIndex, 10).toString());
+                    dialog.setCbbIn( model.getValueAt(realIndex, 11).toString());
                     dialog.setVisible(true);
-                    JOptionPane.showMessageDialog(pnlMain, patient.toString());
+//                    JOptionPane.showMessageDialog(pnlMain, patient.toString());
                 }
             }
         });
