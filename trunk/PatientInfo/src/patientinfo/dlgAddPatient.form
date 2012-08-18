@@ -83,7 +83,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="pnlPatientInfo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAddPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAddReset" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -131,6 +131,7 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbbDoctor" pref="247" max="32767" attributes="0"/>
                                   <Component id="cbbAddDepartment" pref="247" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
@@ -146,7 +147,6 @@
                                       <Component id="cbbAddDayIn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="txtAddDoctor" alignment="1" pref="247" max="32767" attributes="0"/>
                                   <Component id="jScrollPane2" alignment="0" pref="247" max="32767" attributes="0"/>
                                   <Component id="txtAddAge" alignment="1" pref="247" max="32767" attributes="0"/>
                                   <Component id="txtAddFName" alignment="0" pref="247" max="32767" attributes="0"/>
@@ -195,11 +195,11 @@
                           <Component id="cbbAddDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtAddDoctor" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbbDoctor" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cbbAddYearIn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -403,11 +403,18 @@
                 <Property name="text" type="java.lang.String" value="Doctor"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAddDoctor">
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel50">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Day"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbbDoctor">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="1">
+                    <StringItem index="0" value="(empty)"/>
+                  </StringArray>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>

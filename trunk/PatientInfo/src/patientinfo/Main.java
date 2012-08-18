@@ -93,7 +93,7 @@ public class Main extends javax.swing.JFrame {
                     int selectedIndex = tblResult.getSelectedRow();
                     int realIndex = tblResult.convertRowIndexToModel(selectedIndex);
                     TableModel model = tblResult.getModel();
-                    DetailPatient dialog = new DetailPatient(new Main(), true);
+                    dlgUpdate dialog = new dlgUpdate(new Main(), true);
                     dialog.setTxtID(model.getValueAt(realIndex, 0).toString());
                     dialog.setTxtName(model.getValueAt(realIndex, 1).toString());
                     dialog.setTxtAD(model.getValueAt(realIndex, 2).toString());
@@ -116,6 +116,36 @@ public class Main extends javax.swing.JFrame {
 
     }
 
+    public void setValuePatientExm() {
+
+        tblRSE.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblRSE.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedIndex = tblRSE.getSelectedRow();
+                    int realIndex = tblRSE.convertRowIndexToModel(selectedIndex);
+                    TableModel model = tblRSE.getModel();
+                    dlgExamine dialog = new dlgExamine(new Main(), true);
+                    dialog.setTxtID(model.getValueAt(realIndex, 0).toString());
+                    dialog.setTxtName(model.getValueAt(realIndex, 1).toString());
+                    dialog.setTxtAD(model.getValueAt(realIndex, 2).toString());
+                    dialog.setTxtAge(model.getValueAt(realIndex, 3).toString());
+                    dialog.setRbtMale(model.getValueAt(realIndex, 4).toString());
+                    dialog.setCbbDepartment(model.getValueAt(realIndex, 7).toString());
+                    dialog.setaDes(model.getValueAt(realIndex, 5).toString());
+                    dialog.setTxtDoctor(model.getValueAt(realIndex, 8).toString());
+                    dialog.setTxtDateI(model.getValueAt(realIndex, 9).toString());
+                    selectedIndex = 0;
+                    dialog.setVisible(true);
+                    selectedIndex = 0;
+//                    JOptionPane.showMessageDialog(pnlMain, patient.toString());
+                }
+            }
+        });
+
+    }
     public void allPatient() {
         try {
 
@@ -1836,6 +1866,7 @@ public class Main extends javax.swing.JFrame {
             int vv = 0;
         }
         searchPatientExam();
+        setValuePatientExm();
     }//GEN-LAST:event_btnSearchEActionPerformed
 
     private void btnReset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReset1ActionPerformed
@@ -1851,6 +1882,7 @@ public class Main extends javax.swing.JFrame {
             int vv = 0;
         }
         allPatientEx();
+        setValuePatientExm();
         lblTTE.setText("" + tblRSE.getRowCount());
 
     }//GEN-LAST:event_btnAllEActionPerformed
