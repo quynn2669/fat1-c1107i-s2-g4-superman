@@ -462,15 +462,16 @@ public class DetailPatient extends javax.swing.JDialog{
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-//        try {
-//            String sDelete = "Delete * from tblPatient";
-//            PreparedStatement pstmt = conn.prepareCall(sDelete);
-//            pstmt.executeUpdate();
-//            JOptionPane.showMessageDialog(this, "Delete Success!!");
-//            pstmt.close();
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
+        try {
+            String sDelete = "Delete from tblPatient where ID = ? ";
+            PreparedStatement pstmt = conn.prepareCall(sDelete);
+            pstmt.setString(1, txtID.getText());
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Delete Success!!");
+            pstmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
 
     }//GEN-LAST:event_btnDeleteActionPerformed
