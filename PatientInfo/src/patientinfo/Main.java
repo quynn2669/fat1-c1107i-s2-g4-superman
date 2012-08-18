@@ -172,6 +172,32 @@ public class Main extends javax.swing.JFrame {
         }
 
     }
+    public void allPatientIH() {
+        try {
+
+            CallableStatement cs = conn.prepareCall("{call selectAllIH}");
+            ResultSet rs = cs.executeQuery();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            for (int i = 1; i <= meta.getColumnCount(); i++) {
+                model.addColumn(meta.getColumnName(i));
+            }
+            while (rs.next()) {
+                Vector v = new Vector();
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    v.addElement(rs.getObject(i).toString());
+
+                }
+                model.addRow(v);
+
+            }
+            rs.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void searchByID() {
         try {
@@ -643,6 +669,30 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
+    public void searchByNameIH() {
+        try {
+            CallableStatement cs = conn.prepareCall("{call findByNameIH(?)}");
+            cs.setString(1, FName);
+            ResultSet rs = cs.executeQuery();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            for (int i = 1; i <= meta.getColumnCount(); i++) {
+                model.addColumn(meta.getColumnName(i));
+            }
+            while (rs.next()) {
+                Vector v = new Vector();
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    v.addElement(rs.getObject(i).toString());
+                }
+                model.addRow(v);
+            }
+
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void searchByDepartmentEx() {
         try {
             CallableStatement cs = conn.prepareCall("{call findByDepartmentEx(?,?)}");
@@ -669,12 +719,10 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-    public void searchBy1And2Ex() {
+    public void searchByDepartmentIH() {
         try {
-            CallableStatement cs = conn.prepareCall("{call findBy1And2Ex(?,?,?)}");
-            cs.setString(1, FName);
-            cs.setString(2, Department);
-            cs.setInt(2, DrSTT);
+            CallableStatement cs = conn.prepareCall("{call findByDepartmentIH(?)}");
+            cs.setString(1, Department);
             ResultSet rs = cs.executeQuery();
 
             ResultSetMetaData meta = rs.getMetaData();
@@ -696,6 +744,58 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
+    public void searchBy1And2Ex() {
+        try {
+            CallableStatement cs = conn.prepareCall("{call findBy1And2Ex(?,?,?)}");
+            cs.setString(1, FName);
+            cs.setString(2, Department);
+            cs.setInt(3, DrSTT);
+            ResultSet rs = cs.executeQuery();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            for (int i = 1; i <= meta.getColumnCount(); i++) {
+                model.addColumn(meta.getColumnName(i));
+            }
+            while (rs.next()) {
+                Vector v = new Vector();
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    v.addElement(rs.getObject(i).toString());
+                }
+                model.addRow(v);
+            }
+
+
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void searchBy1And2IH() {
+        try {
+            CallableStatement cs = conn.prepareCall("{call findBy1And2IH(?,?)}");
+            cs.setString(1, FName);
+            cs.setString(2, Department);
+            ResultSet rs = cs.executeQuery();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            for (int i = 1; i <= meta.getColumnCount(); i++) {
+                model.addColumn(meta.getColumnName(i));
+            }
+            while (rs.next()) {
+                Vector v = new Vector();
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    v.addElement(rs.getObject(i).toString());
+                }
+                model.addRow(v);
+            }
+
+
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void searchPatientEmp() {
         if (!cbxByName.isSelected() && !cbxByDate.isSelected() && !cbxByDepartment.isSelected() && !cbxByIn.isSelected()) {
             JOptionPane.showMessageDialog(this, "Choice Search Option!!!");
@@ -862,6 +962,34 @@ public class Main extends javax.swing.JFrame {
 
     }
 
+    public void searchPatientIH() {
+        if (!cbxLN.isSelected() && !cbxLD.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Choice Search Option!!!");
+        } else if (cbxLN.isSelected() && !cbxLD.isSelected()) {
+            if (txtNameL.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Enter Name!!!");
+            } else {
+                FName = txtNameL.getText();
+                searchByNameIH();
+                lblTTL.setText("" + tblRSL.getRowCount());
+            }
+        } else if (cbxLN.isSelected()&& cbxLD.isSelected()) {
+            if (txtNameL.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Enter Name!!!");
+            } else {
+                FName = txtNameL.getText();
+                Department = cbbLDepartment.getSelectedItem().toString();
+                searchBy1And2IH();
+                lblTTL.setText("" + tblRSL.getRowCount());
+            }
+        }else if (!cbxLN.isSelected() && cbxLD.isSelected() ) {
+            Department = cbbLDepartment.getSelectedItem().toString();
+            searchByDepartmentIH();
+            lblTTE.setText("" + tblRSL.getRowCount());
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -923,6 +1051,32 @@ public class Main extends javax.swing.JFrame {
         cbxByDate = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
+        pnlManager = new javax.swing.JPanel();
+        pnlContent3 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblRSL = new javax.swing.JTable();
+        jLabel29 = new javax.swing.JLabel();
+        lblTTL = new javax.swing.JLabel();
+        pnlChoice2 = new javax.swing.JPanel();
+        btnSearchL = new javax.swing.JButton();
+        btnReset2 = new javax.swing.JButton();
+        btnAllL = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        txtNameL = new javax.swing.JTextField();
+        cbbLDepartment = new javax.swing.JComboBox();
+        jLabel24 = new javax.swing.JLabel();
+        pnlRole2 = new javax.swing.JPanel();
+        xxx2 = new javax.swing.JLabel();
+        a2 = new javax.swing.JLabel();
+        lblAccS2 = new javax.swing.JLabel();
+        lblRole2 = new javax.swing.JLabel();
+        cbxLD = new javax.swing.JCheckBox();
+        cbxLN = new javax.swing.JCheckBox();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
         pnlExamine = new javax.swing.JPanel();
         pnlContent1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -945,6 +1099,8 @@ public class Main extends javax.swing.JFrame {
         lblRole1 = new javax.swing.JLabel();
         cbxED = new javax.swing.JCheckBox();
         cbxEN = new javax.swing.JCheckBox();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -1000,10 +1156,10 @@ public class Main extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Comics-Older-Superman-icon.png")); // NOI18N
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 48));
         jLabel13.setText("Patient Info System");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel14.setText("Created by a group Superman");
 
         javax.swing.GroupLayout pnlContent2Layout = new javax.swing.GroupLayout(pnlContent2);
@@ -1431,6 +1587,272 @@ public class Main extends javax.swing.JFrame {
 
         pnlMain.add(pnlPatientInfomation, "cardSearch");
 
+        pnlManager.setBackground(new java.awt.Color(-1,true));
+        pnlManager.setLayout(new java.awt.BorderLayout());
+
+        pnlContent3.setPreferredSize(new java.awt.Dimension(740, 600));
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jScrollPane3.setBackground(new java.awt.Color(-1,true));
+
+        tblRSL.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tblRSL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRSLMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblRSL);
+
+        jLabel29.setText("Patient's Total:");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTTL, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel29)
+                    .addComponent(lblTTL, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pnlChoice2.setForeground(new java.awt.Color(-8355712,true));
+        pnlChoice2.setPreferredSize(new java.awt.Dimension(330, 599));
+
+        btnSearchL.setText("Search");
+        btnSearchL.setPreferredSize(new java.awt.Dimension(125, 23));
+        btnSearchL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchLActionPerformed(evt);
+            }
+        });
+
+        btnReset2.setText("Reset");
+        btnReset2.setPreferredSize(new java.awt.Dimension(125, 23));
+        btnReset2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReset2ActionPerformed(evt);
+            }
+        });
+
+        btnAllL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAllL.setText("All Patient");
+        btnAllL.setPreferredSize(new java.awt.Dimension(270, 23));
+        btnAllL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllLActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setText("Name");
+
+        cbbLDepartment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Internal medicine", "Surgical", "Cardiovascular" }));
+        cbbLDepartment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbbLDepartment.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbLDepartmentItemStateChanged(evt);
+            }
+        });
+
+        jLabel24.setText("Department");
+
+        pnlRole2.setBorder(javax.swing.BorderFactory.createTitledBorder("Role"));
+
+        xxx2.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Keys-icon.png")); // NOI18N
+        xxx2.setText("Account :");
+
+        a2.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-irc-operator-icon.png")); // NOI18N
+        a2.setText("Role :");
+
+        lblAccS2.setText("...");
+
+        lblRole2.setText("...");
+
+        javax.swing.GroupLayout pnlRole2Layout = new javax.swing.GroupLayout(pnlRole2);
+        pnlRole2.setLayout(pnlRole2Layout);
+        pnlRole2Layout.setHorizontalGroup(
+            pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRole2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlRole2Layout.createSequentialGroup()
+                        .addComponent(a2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblRole2))
+                    .addGroup(pnlRole2Layout.createSequentialGroup()
+                        .addComponent(xxx2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAccS2)))
+                .addContainerGap(184, Short.MAX_VALUE))
+        );
+        pnlRole2Layout.setVerticalGroup(
+            pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRole2Layout.createSequentialGroup()
+                .addGroup(pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(xxx2)
+                    .addComponent(lblAccS2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(a2)
+                    .addComponent(lblRole2)))
+        );
+
+        cbxLD.setText("Search By Department");
+
+        cbxLN.setText("Search By Name");
+        cbxLN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxLNActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\blue_medical_symbol_pc_image_500_clr.png")); // NOI18N
+
+        jLabel18.setText("Health care for all people");
+
+        javax.swing.GroupLayout pnlChoice2Layout = new javax.swing.GroupLayout(pnlChoice2);
+        pnlChoice2.setLayout(pnlChoice2Layout);
+        pnlChoice2Layout.setHorizontalGroup(
+            pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlChoice2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlChoice2Layout.createSequentialGroup()
+                        .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxLD)
+                            .addComponent(cbxLN)
+                            .addGroup(pnlChoice2Layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNameL, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlChoice2Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel24)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(cbbLDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
+                    .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChoice2Layout.createSequentialGroup()
+                            .addComponent(pnlRole2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap())
+                        .addGroup(pnlChoice2Layout.createSequentialGroup()
+                            .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlChoice2Layout.createSequentialGroup()
+                                    .addComponent(btnSearchL, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnReset2, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                                .addComponent(btnAllL, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGap(13, 13, 13)))))
+            .addGroup(pnlChoice2Layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(jLabel18)
+                .addContainerGap(115, Short.MAX_VALUE))
+        );
+        pnlChoice2Layout.setVerticalGroup(
+            pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlChoice2Layout.createSequentialGroup()
+                .addComponent(pnlRole2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbxLN)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(txtNameL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(cbxLD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbbLDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(btnAllL, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearchL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReset2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel8.setBackground(new java.awt.Color(-6710887,true));
+
+        jLabel30.setFont(new java.awt.Font("Dialog", 0, 36));
+        jLabel30.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\App-edit-icon (1).png")); // NOI18N
+        jLabel30.setText("Log Examine");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(393, 393, 393)
+                .addComponent(jLabel30)
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel30)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlContent3Layout = new javax.swing.GroupLayout(pnlContent3);
+        pnlContent3.setLayout(pnlContent3Layout);
+        pnlContent3Layout.setHorizontalGroup(
+            pnlContent3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContent3Layout.createSequentialGroup()
+                .addComponent(pnlChoice2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlContent3Layout.setVerticalGroup(
+            pnlContent3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContent3Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlContent3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlChoice2, 0, 482, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        pnlManager.add(pnlContent3, java.awt.BorderLayout.CENTER);
+
+        pnlMain.add(pnlManager, "cardManager");
+
         pnlExamine.setBackground(new java.awt.Color(-1,true));
         pnlExamine.setLayout(new java.awt.BorderLayout());
 
@@ -1471,8 +1893,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTE, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1504,7 +1926,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnAllE.setFont(new java.awt.Font("Tahoma", 1, 11));
+        btnAllE.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnAllE.setText("All Patient");
         btnAllE.setPreferredSize(new java.awt.Dimension(270, 23));
         btnAllE.addActionListener(new java.awt.event.ActionListener() {
@@ -1517,7 +1939,6 @@ public class Main extends javax.swing.JFrame {
 
         cbbEDepartment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Internal medicine", "Surgical", "Cardiovascular" }));
         cbbEDepartment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cbbEDepartment.setEnabled(false);
         cbbEDepartment.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbEDepartmentItemStateChanged(evt);
@@ -1553,7 +1974,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(xxx1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAccS1)))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         pnlRole1Layout.setVerticalGroup(
             pnlRole1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1576,6 +1997,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\blue_medical_symbol_pc_image_500_clr.png")); // NOI18N
+
+        jLabel16.setText("Health care for all people");
+
         javax.swing.GroupLayout pnlChoice1Layout = new javax.swing.GroupLayout(pnlChoice1);
         pnlChoice1.setLayout(pnlChoice1Layout);
         pnlChoice1Layout.setHorizontalGroup(
@@ -1585,37 +2010,43 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlChoice1Layout.createSequentialGroup()
                         .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlRole1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlChoice1Layout.createSequentialGroup()
-                                .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlChoice1Layout.createSequentialGroup()
-                                        .addGap(36, 36, 36)
-                                        .addComponent(jLabel22)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cbbEDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cbxED))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE))
+                            .addComponent(cbxED)
                             .addComponent(cbxEN)
                             .addGroup(pnlChoice1Layout.createSequentialGroup()
                                 .addGap(60, 60, 60)
                                 .addComponent(jLabel21)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNameE, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(pnlChoice1Layout.createSequentialGroup()
-                        .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNameE, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlChoice1Layout.createSequentialGroup()
-                                .addComponent(btnSearchE, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel22)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnReset1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
-                            .addComponent(btnAllE, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(13, 13, 13))))
+                                .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(cbbEDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
+                    .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChoice1Layout.createSequentialGroup()
+                            .addComponent(pnlRole1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap())
+                        .addGroup(pnlChoice1Layout.createSequentialGroup()
+                            .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlChoice1Layout.createSequentialGroup()
+                                    .addComponent(btnSearchE, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnReset1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                                .addComponent(btnAllE, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGap(13, 13, 13)))))
+            .addGroup(pnlChoice1Layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(jLabel16)
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         pnlChoice1Layout.setVerticalGroup(
             pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlChoice1Layout.createSequentialGroup()
                 .addComponent(pnlRole1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(18, 18, 18)
                 .addComponent(cbxEN)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1627,7 +2058,11 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbEDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel15)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(btnAllE, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1639,7 +2074,7 @@ public class Main extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(-6710887,true));
 
         jLabel28.setFont(new java.awt.Font("Dialog", 0, 36));
-        jLabel28.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\health-care-shield-icon (1).png")); // NOI18N
+        jLabel28.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Untitled 5.png")); // NOI18N
         jLabel28.setText("Examine");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1649,7 +2084,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel28)
-                .addContainerGap(481, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1730,7 +2165,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem7.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\health-care-shield-icon.png")); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Untitled 51.png")); // NOI18N
         jMenuItem7.setText("Examine");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1739,7 +2174,7 @@ public class Main extends javax.swing.JFrame {
         });
         mnDr.add(jMenuItem7);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\doctor-icon (1).png")); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\App-edit-icon.png")); // NOI18N
         jMenuItem6.setText("Patient Manager");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1906,6 +2341,8 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
+        CardLayout cc = (CardLayout)pnlMain.getLayout();
+        cc.show(pnlMain, "cardManager");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void cbxByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxByNameActionPerformed
@@ -1982,6 +2419,45 @@ public class Main extends javax.swing.JFrame {
         CardLayout card = (CardLayout) pnlMain.getLayout();
         card.show(pnlMain, "cardAbout");
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void tblRSLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRSLMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblRSLMouseClicked
+
+    private void btnSearchLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchLActionPerformed
+        // TODO add your handling code here:
+        try {
+            model = new DefaultTableModel();
+            tblRSL.setModel(model);
+        } catch (Exception e) {
+            int vv = 0;
+        }
+        searchPatientIH();
+    }//GEN-LAST:event_btnSearchLActionPerformed
+
+    private void btnReset2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReset2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReset2ActionPerformed
+
+    private void btnAllLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllLActionPerformed
+        // TODO add your handling code here:
+        try {
+            model = new DefaultTableModel();
+            tblRSL.setModel(model);
+        } catch (Exception e) {
+            int vv = 0;
+        }
+        allPatientIH();
+        lblTTL.setText("" + tblRSL.getRowCount());
+    }//GEN-LAST:event_btnAllLActionPerformed
+
+    private void cbbLDepartmentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbLDepartmentItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbLDepartmentItemStateChanged
+
+    private void cbxLNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxLNActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -2026,14 +2502,19 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel a;
     private javax.swing.JLabel a1;
+    private javax.swing.JLabel a2;
     private javax.swing.ButtonGroup btgAddGender;
     private javax.swing.ButtonGroup btgGenderU;
     private javax.swing.JButton btnAllE;
+    private javax.swing.JButton btnAllL;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnReset1;
+    private javax.swing.JButton btnReset2;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchE;
+    private javax.swing.JButton btnSearchL;
     private javax.swing.JComboBox cbbEDepartment;
+    private javax.swing.JComboBox cbbLDepartment;
     private javax.swing.JComboBox cbbSDayF;
     private javax.swing.JComboBox cbbSDayT;
     private javax.swing.JComboBox cbbSDepartment;
@@ -2048,6 +2529,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbxByName;
     private javax.swing.JCheckBox cbxED;
     private javax.swing.JCheckBox cbxEN;
+    private javax.swing.JCheckBox cbxLD;
+    private javax.swing.JCheckBox cbxLN;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2055,14 +2538,22 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2086,32 +2577,45 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblAccS;
     private javax.swing.JLabel lblAccS1;
+    private javax.swing.JLabel lblAccS2;
     private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblRole1;
+    private javax.swing.JLabel lblRole2;
     private javax.swing.JLabel lblTTDT;
     private javax.swing.JLabel lblTTE;
+    private javax.swing.JLabel lblTTL;
     private javax.swing.JMenu mnDr;
     private javax.swing.JMenu mnEmp;
     private javax.swing.JPanel pnlAbout;
     private javax.swing.JPanel pnlChoice;
     private javax.swing.JPanel pnlChoice1;
+    private javax.swing.JPanel pnlChoice2;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlContent1;
     private javax.swing.JPanel pnlContent2;
+    private javax.swing.JPanel pnlContent3;
     private javax.swing.JPanel pnlExamine;
     private javax.swing.JPanel pnlMain;
+    private javax.swing.JPanel pnlManager;
     private javax.swing.JPanel pnlPatientInfomation;
     private javax.swing.JPanel pnlRole;
     private javax.swing.JPanel pnlRole1;
+    private javax.swing.JPanel pnlRole2;
     private javax.swing.JTable tblRSE;
+    private javax.swing.JTable tblRSL;
     private javax.swing.JTable tblResult;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNameE;
+    private javax.swing.JTextField txtNameL;
     private javax.swing.JLabel xxx;
     private javax.swing.JLabel xxx1;
+    private javax.swing.JLabel xxx2;
     // End of variables declaration//GEN-END:variables
 }
