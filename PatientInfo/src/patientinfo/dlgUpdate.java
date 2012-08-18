@@ -47,7 +47,6 @@ public class dlgUpdate extends javax.swing.JDialog{
         DateTimeTDV dateTDV = new DateTimeTDV();
         cbbYI.setModel(dateTDV.getListYear());
         cbbDoctor.setModel(getListDoctor());
-
     }
     public DefaultComboBoxModel getListDoctor() {
         DefaultComboBoxModel doctorName = new DefaultComboBoxModel();
@@ -56,9 +55,7 @@ public class dlgUpdate extends javax.swing.JDialog{
             String sSelect = "Select FullName from tblDoctor";
             PreparedStatement pstmt = conn.prepareStatement(sSelect);
             ResultSet rs = pstmt.executeQuery();
-            if(!rs.next()){
-                doctorName.addElement("(empty)");
-            }
+            
             ResultSetMetaData meta = rs.getMetaData();
 
             while (rs.next()) {
@@ -72,7 +69,33 @@ public class dlgUpdate extends javax.swing.JDialog{
         }
         return doctorName;
     }
-
+    public void rsUp(){
+        txtID.setText(null);
+        txtName.setText(null);
+        txtAD.setText(null);
+        txtAge.setText(null);
+        txtDateIn.setText(null);
+        txtDateOut.setText(null);
+        txtDoctor.setText(null);
+        btgGender.clearSelection();
+        txtInHospital.setText(null);
+        cbbDepartment.setSelectedIndex(0);
+        cbbDoctor.setSelectedIndex(0);
+        cbbDI.setSelectedIndex(0);
+        cbbYI.setSelectedIndex(0);
+        cbbMI.setSelectedIndex(0);
+        patientDlg = new Patient();
+        date = "";
+        doctor = "";
+        gender="";
+        if(txtID.getText().isEmpty()){
+            btnDelete.setEnabled(false);
+            btnUpdate.setEnabled(false);
+        }else{
+            btnDelete.setEnabled(true);
+            btnUpdate.setEnabled(true);
+        }
+    }
     dlgUpdate() {
     }
     public void Update(){
@@ -396,12 +419,6 @@ public class dlgUpdate extends javax.swing.JDialog{
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                 .addGap(29, 29, 29))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(234, 234, 234)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                .addGap(67, 67, 67)
-                .addComponent(btnDelete)
-                .addGap(214, 214, 214))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cbxUpdateDateIn)
@@ -418,6 +435,12 @@ public class dlgUpdate extends javax.swing.JDialog{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbbDI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(470, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(214, 214, 214))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,7 +570,9 @@ public class dlgUpdate extends javax.swing.JDialog{
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        
         Update();
+        rsUp();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -558,6 +583,7 @@ public class dlgUpdate extends javax.swing.JDialog{
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Delete Success!!");
             pstmt.close();
+            rsUp();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -576,6 +602,7 @@ public class dlgUpdate extends javax.swing.JDialog{
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
+
                 dlgUpdate dialog = new dlgUpdate(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -583,6 +610,7 @@ public class dlgUpdate extends javax.swing.JDialog{
                         System.exit(0);
                     }
                 });
+
                 dialog.setVisible(true);
             }
         });
