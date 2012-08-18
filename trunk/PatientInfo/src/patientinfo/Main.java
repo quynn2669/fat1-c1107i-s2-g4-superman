@@ -126,8 +126,9 @@ public class Main extends javax.swing.JFrame {
                     dialog.setTxtDoctor(model.getValueAt(realIndex, 8).toString());
                     dialog.setTxtDateIn(model.getValueAt(realIndex, 9).toString());
                     dialog.setTxtDateOut( model.getValueAt(realIndex, 10).toString());
-                    dialog.setCbbIn( model.getValueAt(realIndex, 11).toString());
+                    dialog.setTxtInHospital( model.getValueAt(realIndex, 11).toString());
                     dialog.setVisible(true);
+                    selectedIndex = 0;
 //                    JOptionPane.showMessageDialog(pnlMain, patient.toString());
                 }
             }
