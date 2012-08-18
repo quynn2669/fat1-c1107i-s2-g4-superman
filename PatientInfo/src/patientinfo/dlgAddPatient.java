@@ -14,9 +14,13 @@ import DateTime.DateTimeTDV;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,11 +44,12 @@ public class dlgAddPatient extends javax.swing.JDialog {
         }
         DateTimeTDV dateTDV = new DateTimeTDV();
         cbbAddYearIn.setModel(dateTDV.getListYear());
+
+        cbbDoctor.setModel(getListDoctor());
     }
     public void reset(){
         txtAddAddress.setText(null);
         txtAddAge.setText(null);
-        txtAddDoctor.setText(null);
         txtAddFName.setText(null);
         aDescript.setText(null);
         btgGender.clearSelection();
@@ -53,6 +58,29 @@ public class dlgAddPatient extends javax.swing.JDialog {
         int month = Integer.parseInt(cbbAddMonthIn.getSelectedItem().toString());
         int year = Integer.parseInt(cbbAddYearIn.getSelectedItem().toString());
         cbbAddDayIn.setModel(tdv.getDayByMonth(month, year));
+    }
+    public DefaultComboBoxModel getListDoctor() {
+        DefaultComboBoxModel doctorName = new DefaultComboBoxModel();
+        try {
+
+            String sSelect = "Select FullName from tblDoctor";
+            PreparedStatement pstmt = conn.prepareStatement(sSelect);
+            ResultSet rs = pstmt.executeQuery();
+            if(!rs.next()){
+                doctorName.addElement("(empty)");
+            }
+            ResultSetMetaData meta = rs.getMetaData();
+
+            while (rs.next()) {
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    doctorName.addElement(rs.getObject(i).toString());
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return doctorName;
     }
 
     /** This method is called from within the constructor to
@@ -88,8 +116,8 @@ public class dlgAddPatient extends javax.swing.JDialog {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        txtAddDoctor = new javax.swing.JTextField();
         jLabel50 = new javax.swing.JLabel();
+        cbbDoctor = new javax.swing.JComboBox();
         btnAddPatient = new javax.swing.JButton();
         btnAddReset = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -177,6 +205,8 @@ public class dlgAddPatient extends javax.swing.JDialog {
 
         jLabel50.setText("Day");
 
+        cbbDoctor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(empty)" }));
+
         javax.swing.GroupLayout pnlPatientInfoLayout = new javax.swing.GroupLayout(pnlPatientInfo);
         pnlPatientInfo.setLayout(pnlPatientInfoLayout);
         pnlPatientInfoLayout.setHorizontalGroup(
@@ -208,6 +238,7 @@ public class dlgAddPatient extends javax.swing.JDialog {
                             .addComponent(jLabel19))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbbDoctor, 0, 247, Short.MAX_VALUE)
                             .addComponent(cbbAddDepartment, 0, 247, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPatientInfoLayout.createSequentialGroup()
                                 .addComponent(jLabel21)
@@ -222,7 +253,6 @@ public class dlgAddPatient extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbbAddDayIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6))
-                            .addComponent(txtAddDoctor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                             .addComponent(txtAddAge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                             .addComponent(txtAddFName, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
@@ -259,10 +289,10 @@ public class dlgAddPatient extends javax.swing.JDialog {
                     .addComponent(jLabel19)
                     .addComponent(cbbAddDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAddDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
-                .addGap(18, 18, 18)
+                .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(cbbDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(cbbAddYearIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,7 +339,7 @@ public class dlgAddPatient extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(pnlPatientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(pnlAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddPatient)
                     .addComponent(btnAddReset)))
@@ -411,8 +441,6 @@ public class dlgAddPatient extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Choice Gender!");
         } else if (aDescript.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter Decription!");
-        } else if (txtAddDoctor.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Enter Doctor's Name!");
         } else {
             try {
                 addAge = Integer.parseInt(txtAddAge.getText());
@@ -432,7 +460,7 @@ public class dlgAddPatient extends javax.swing.JDialog {
                     cs.setString(4, Gender);
                     cs.setString(5, aDescript.getText());
                     cs.setString(6, cbbAddDepartment.getSelectedItem().toString());
-                    cs.setString(7, txtAddDoctor.getText());
+                    cs.setString(7, cbbDoctor.getSelectedItem().toString());
                     cs.setString(8, DateTemp);
                     cs.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Add Completed!");
@@ -479,6 +507,7 @@ public class dlgAddPatient extends javax.swing.JDialog {
     private javax.swing.JComboBox cbbAddDepartment;
     private javax.swing.JComboBox cbbAddMonthIn;
     private javax.swing.JComboBox cbbAddYearIn;
+    private javax.swing.JComboBox cbbDoctor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
@@ -499,7 +528,6 @@ public class dlgAddPatient extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbtAddMale;
     private javax.swing.JTextField txtAddAddress;
     private javax.swing.JTextField txtAddAge;
-    private javax.swing.JTextField txtAddDoctor;
     private javax.swing.JTextField txtAddFName;
     // End of variables declaration//GEN-END:variables
 }
