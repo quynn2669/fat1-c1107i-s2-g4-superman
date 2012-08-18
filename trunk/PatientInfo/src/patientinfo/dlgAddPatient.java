@@ -66,9 +66,7 @@ public class dlgAddPatient extends javax.swing.JDialog {
             String sSelect = "Select FullName from tblDoctor";
             PreparedStatement pstmt = conn.prepareStatement(sSelect);
             ResultSet rs = pstmt.executeQuery();
-            if(!rs.next()){
-                doctorName.addElement("(empty)");
-            }
+            
             ResultSetMetaData meta = rs.getMetaData();
 
             while (rs.next()) {

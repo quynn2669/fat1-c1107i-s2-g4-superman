@@ -132,7 +132,7 @@ public class Main extends javax.swing.JFrame {
                     dialog.setTxtName(model.getValueAt(realIndex, 1).toString());
                     dialog.setTxtAD(model.getValueAt(realIndex, 2).toString());
                     dialog.setTxtAge(model.getValueAt(realIndex, 3).toString());
-                    dialog.setRbtMale(model.getValueAt(realIndex, 4).toString());
+                    dialog.setTxtGender(model.getValueAt(realIndex, 4).toString());
                     dialog.setCbbDepartment(model.getValueAt(realIndex, 7).toString());
                     dialog.setaDes(model.getValueAt(realIndex, 5).toString());
                     dialog.setTxtDoctor(model.getValueAt(realIndex, 8).toString());
@@ -876,6 +876,11 @@ public class Main extends javax.swing.JFrame {
         btgAddGender = new javax.swing.ButtonGroup();
         btgGenderU = new javax.swing.ButtonGroup();
         pnlMain = new javax.swing.JPanel();
+        pnlAbout = new javax.swing.JPanel();
+        pnlContent2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         pnlPatientInfomation = new javax.swing.JPanel();
         pnlContent = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -954,6 +959,7 @@ public class Main extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -986,6 +992,52 @@ public class Main extends javax.swing.JFrame {
         pnlMain.setBackground(new java.awt.Color(-1,true));
         pnlMain.setPreferredSize(new java.awt.Dimension(1205, 800));
         pnlMain.setLayout(new java.awt.CardLayout());
+
+        pnlAbout.setBackground(new java.awt.Color(-1,true));
+        pnlAbout.setLayout(new java.awt.BorderLayout());
+
+        pnlContent2.setPreferredSize(new java.awt.Dimension(740, 600));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Comics-Older-Superman-icon.png")); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel13.setText("Patient Info System");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setText("Created by a group Superman");
+
+        javax.swing.GroupLayout pnlContent2Layout = new javax.swing.GroupLayout(pnlContent2);
+        pnlContent2.setLayout(pnlContent2Layout);
+        pnlContent2Layout.setHorizontalGroup(
+            pnlContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContent2Layout.createSequentialGroup()
+                .addContainerGap(332, Short.MAX_VALUE)
+                .addGroup(pnlContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContent2Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(441, 441, 441))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContent2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(404, 404, 404))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContent2Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(264, 264, 264))))
+        );
+        pnlContent2Layout.setVerticalGroup(
+            pnlContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContent2Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(jLabel3)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel14)
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
+
+        pnlAbout.add(pnlContent2, java.awt.BorderLayout.CENTER);
+
+        pnlMain.add(pnlAbout, "cardAbout");
 
         pnlPatientInfomation.setBackground(new java.awt.Color(-1,true));
         pnlPatientInfomation.setLayout(new java.awt.BorderLayout());
@@ -1452,7 +1504,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnAllE.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAllE.setFont(new java.awt.Font("Tahoma", 1, 11));
         btnAllE.setText("All Patient");
         btnAllE.setPreferredSize(new java.awt.Dimension(270, 23));
         btnAllE.addActionListener(new java.awt.event.ActionListener() {
@@ -1713,6 +1765,21 @@ public class Main extends javax.swing.JFrame {
 
         jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-help-about-icon.png")); // NOI18N
         jMenu2.setText("About");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem8.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-help-about-icon (1).png")); // NOI18N
+        jMenuItem8.setText("About");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -1904,6 +1971,17 @@ public class Main extends javax.swing.JFrame {
         CardLayout card = (CardLayout) pnlMain.getLayout();
         card.show(pnlMain, "cardExamine");
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) pnlMain.getLayout();
+        card.show(pnlMain, "cardAbout");
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1975,6 +2053,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1982,6 +2062,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1998,6 +2079,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -2014,10 +2096,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblTTE;
     private javax.swing.JMenu mnDr;
     private javax.swing.JMenu mnEmp;
+    private javax.swing.JPanel pnlAbout;
     private javax.swing.JPanel pnlChoice;
     private javax.swing.JPanel pnlChoice1;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlContent1;
+    private javax.swing.JPanel pnlContent2;
     private javax.swing.JPanel pnlExamine;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JPanel pnlPatientInfomation;
