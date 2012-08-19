@@ -434,9 +434,6 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnOk">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\health-care-shield-icon.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Ok"/>
       </Properties>
       <Events>
@@ -487,7 +484,7 @@
               <Font name="Tahoma" size="36" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\Untitled 5.png"/>
+              <Image iconType="3" name="/Image/Examine.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Examine"/>
           </Properties>

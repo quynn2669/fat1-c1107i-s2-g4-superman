@@ -82,7 +82,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  <Component id="pnlPatientInfo" min="-2" max="-2" attributes="0"/>
+                  <Component id="pnlPatientInfo" min="-2" pref="159" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAddPatient" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -258,7 +258,7 @@
               <Font name="Tahoma" size="36" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\Actions-list-add-user-icon.png"/>
+              <Image iconType="3" name="/Image/add.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Add Doctor"/>
           </Properties>

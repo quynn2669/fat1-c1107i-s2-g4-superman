@@ -1379,7 +1379,7 @@ public class Main extends javax.swing.JFrame {
         jPanel9.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\user-login-icon.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Login2.png"))); // NOI18N
         jLabel3.setText("Login");
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -1435,12 +1435,12 @@ public class Main extends javax.swing.JFrame {
 
         pnlContent2.setPreferredSize(new java.awt.Dimension(740, 600));
 
-        jLabel20.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Comics-Older-Superman-icon.png")); // NOI18N
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Logo.png"))); // NOI18N
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel31.setText("Patient Info System");
 
-        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel32.setText("Created by a group Superman");
 
         javax.swing.GroupLayout pnlContent2Layout = new javax.swing.GroupLayout(pnlContent2);
@@ -1448,7 +1448,7 @@ public class Main extends javax.swing.JFrame {
         pnlContent2Layout.setHorizontalGroup(
             pnlContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContent2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(332, Short.MAX_VALUE)
                 .addGroup(pnlContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContent2Layout.createSequentialGroup()
                         .addComponent(jLabel32)
@@ -1637,10 +1637,10 @@ public class Main extends javax.swing.JFrame {
 
         pnlRole.setBorder(javax.swing.BorderFactory.createTitledBorder("Role"));
 
-        xxx.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Keys-icon.png")); // NOI18N
+        xxx.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Login.png"))); // NOI18N
         xxx.setText("Account :");
 
-        a.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-irc-operator-icon.png")); // NOI18N
+        a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Role.png"))); // NOI18N
         a.setText("Role :");
 
         lblAccS.setText("...");
@@ -1662,7 +1662,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(xxx)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAccS)))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
         pnlRoleLayout.setVerticalGroup(
             pnlRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1817,13 +1817,13 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(-6710887,true));
 
         jLabel26.setFont(new java.awt.Font("Dialog", 0, 36));
-        jLabel26.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\search-b-icon.png")); // NOI18N
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Search.png"))); // NOI18N
         jLabel26.setText("Search Patient ");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -1908,8 +1908,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTL, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1964,10 +1964,8 @@ public class Main extends javax.swing.JFrame {
 
         pnlRole2.setBorder(javax.swing.BorderFactory.createTitledBorder("Role"));
 
-        xxx2.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Keys-icon.png")); // NOI18N
         xxx2.setText("Account :");
 
-        a2.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-irc-operator-icon.png")); // NOI18N
         a2.setText("Role :");
 
         lblAccS2.setText("...");
@@ -1989,7 +1987,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(xxx2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAccS2)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         pnlRole2Layout.setVerticalGroup(
             pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2012,7 +2010,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\blue_medical_symbol_pc_image_500_clr.png")); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Hi.png"))); // NOI18N
 
         jLabel18.setText("Health care for all people");
 
@@ -2077,7 +2075,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel17)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(btnAllL, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2089,7 +2087,7 @@ public class Main extends javax.swing.JFrame {
         jPanel8.setBackground(new java.awt.Color(-6710887,true));
 
         jLabel30.setFont(new java.awt.Font("Dialog", 0, 36));
-        jLabel30.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\App-edit-icon (1).png")); // NOI18N
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Daily.png"))); // NOI18N
         jLabel30.setText("Log Examine");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -2099,7 +2097,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel30)
-                .addContainerGap(403, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2174,8 +2172,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTE, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2230,10 +2228,8 @@ public class Main extends javax.swing.JFrame {
 
         pnlRole1.setBorder(javax.swing.BorderFactory.createTitledBorder("Role"));
 
-        xxx1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Keys-icon.png")); // NOI18N
         xxx1.setText("Account :");
 
-        a1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-irc-operator-icon.png")); // NOI18N
         a1.setText("Role :");
 
         lblAccS1.setText("...");
@@ -2255,7 +2251,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(xxx1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAccS1)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         pnlRole1Layout.setVerticalGroup(
             pnlRole1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2278,7 +2274,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\blue_medical_symbol_pc_image_500_clr.png")); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Hi.png"))); // NOI18N
 
         jLabel16.setText("Health care for all people");
 
@@ -2343,7 +2339,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(btnAllE, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2355,7 +2351,7 @@ public class Main extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(-6710887,true));
 
         jLabel28.setFont(new java.awt.Font("Dialog", 0, 36));
-        jLabel28.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Untitled 5.png")); // NOI18N
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Examine.png"))); // NOI18N
         jLabel28.setText("Examine");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -2365,7 +2361,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel28)
-                .addContainerGap(473, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2400,7 +2396,7 @@ public class Main extends javax.swing.JFrame {
 
         pnlMain.add(pnlExamine, "cardExamine");
 
-        mnEmp.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\nurse-icon.png")); // NOI18N
+        mnEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Employee1.png"))); // NOI18N
         mnEmp.setText("Employee");
         mnEmp.setEnabled(false);
         mnEmp.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12));
@@ -2410,7 +2406,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\search-b-icon (.png")); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/search1.png"))); // NOI18N
         jMenuItem2.setText("Patient's Information");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2419,7 +2415,7 @@ public class Main extends javax.swing.JFrame {
         });
         mnEmp.add(jMenuItem2);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/add1.png"))); // NOI18N
         jMenuItem3.setText("Add Patient");
         jMenuItem3.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -2435,7 +2431,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(mnEmp);
 
-        mnDr.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\doctor-icon (2).png")); // NOI18N
+        mnDr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Doctor2.png"))); // NOI18N
         mnDr.setText("Doctor");
         mnDr.setEnabled(false);
         mnDr.addActionListener(new java.awt.event.ActionListener() {
@@ -2444,7 +2440,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem7.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Untitled 51.png")); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Exam1.png"))); // NOI18N
         jMenuItem7.setText("Examine");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2453,7 +2449,7 @@ public class Main extends javax.swing.JFrame {
         });
         mnDr.add(jMenuItem7);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\App-edit-icon.png")); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Daily1.png"))); // NOI18N
         jMenuItem6.setText("Patient Manager");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2464,11 +2460,11 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(mnDr);
 
-        mnAd.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Keys-icon.png")); // NOI18N
+        mnAd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Role.png"))); // NOI18N
         mnAd.setText("Admin");
         mnAd.setEnabled(false);
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\add-key-icon.png")); // NOI18N
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/account1.png"))); // NOI18N
         jMenuItem5.setText("Add Account");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2477,7 +2473,7 @@ public class Main extends javax.swing.JFrame {
         });
         mnAd.add(jMenuItem5);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/add1.png"))); // NOI18N
         jMenuItem1.setText("Add Employee");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2486,7 +2482,7 @@ public class Main extends javax.swing.JFrame {
         });
         mnAd.add(jMenuItem1);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/add1.png"))); // NOI18N
         jMenuItem4.setText(" Add Doctor");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2497,7 +2493,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(mnAd);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-help-about-icon.png")); // NOI18N
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/about.png"))); // NOI18N
         jMenu2.setText("About");
         jMenu2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2505,7 +2501,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem8.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-help-about-icon (1).png")); // NOI18N
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/about1.png"))); // NOI18N
         jMenuItem8.setText("About");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2516,10 +2512,10 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\user-login-icon (2).png")); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/login1.png"))); // NOI18N
         jMenu1.setText("Login");
 
-        jMenuItem9.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\user-login-icon (1).png")); // NOI18N
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Login.png"))); // NOI18N
         jMenuItem9.setText("Login");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2528,7 +2524,7 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem9);
 
-        jMenuItem10.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\user-login-icon (1).png")); // NOI18N
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Login.png"))); // NOI18N
         jMenuItem10.setText("Log out");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2551,7 +2547,7 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();

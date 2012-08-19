@@ -89,7 +89,7 @@
               <Font name="Tahoma" size="36" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\App-edit-icon (1).png"/>
+              <Image iconType="3" name="/Image/Daily.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Examine Daily"/>
           </Properties>
