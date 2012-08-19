@@ -10,6 +10,12 @@
  */
 package patientinfo;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tug
@@ -17,14 +23,27 @@ package patientinfo;
 public class dlgAddEmployee extends javax.swing.JDialog {
 
     /** Creates new form dlgAddPatient */
-   
+    Connection conn = null;
+    String gender = "";
+    int age = 0;
 
     public dlgAddEmployee(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-       
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
+        } catch (Exception e) {
+        }
+
     }
-    
+    public void rs(){
+        txtAddAge.setText(null);
+        txtAddFName.setText(null);
+        age = 0;
+        gender = "";
+        btgGender.clearSelection();
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -52,7 +71,7 @@ public class dlgAddEmployee extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        pnlAdd.setBorder(javax.swing.BorderFactory.createTitledBorder("Employee's Information"));
+        pnlAdd.setBorder(javax.swing.BorderFactory.createTitledBorder("Doctor's Information"));
         pnlAdd.setPreferredSize(new java.awt.Dimension(400, 500));
 
         txtAddFName.addActionListener(new java.awt.event.ActionListener() {
@@ -224,23 +243,58 @@ public class dlgAddEmployee extends javax.swing.JDialog {
 
     private void rbtAddMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtAddMaleActionPerformed
         // TODO add your handling code here:
-       
 }//GEN-LAST:event_rbtAddMaleActionPerformed
 
     private void rbtAddFMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtAddFMaleActionPerformed
         // TODO add your handling code here:
-       
 }//GEN-LAST:event_rbtAddFMaleActionPerformed
 
     private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPatientActionPerformed
         // TODO add your handling code here:
-        
+        int check = 0;
+        if (rbtAddFMale.isSelected()) {
+            gender = "Female";
+        } else if (rbtAddMale.isSelected()) {
+            gender = "Male";
+        }
+        if (txtAddFName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter name!!!");
+        } else if (txtAddAge.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Age!");
+        } else {
+            try {
+                age = Integer.parseInt(txtAddAge.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Age Valid!!");
+                check = 1;
+            }
+        }
+        if (check == 0) {
+            if (age < 20) {
+                JOptionPane.showMessageDialog(this, "Age lesser the limit!!");
+            } else if (gender == "") {
+                JOptionPane.showMessageDialog(this, "Choice Gender!");
+            } else {
+                try {
+                    String sUpdate = "INSERT IN tblEmployee VALUES(?,?,?)";
+                    PreparedStatement pstmt = conn.prepareStatement(sUpdate);
+                    pstmt.setString(1, txtAddFName.getText());
+                    pstmt.setInt(2, age);
+                    pstmt.setString(4, gender);
+                    pstmt.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Add success!!");
+                    rs();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
 }//GEN-LAST:event_btnAddPatientActionPerformed
 
     private void btnAddResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddResetActionPerformed
         // TODO add your handling code here:
-       
-
+        rs();
 }//GEN-LAST:event_btnAddResetActionPerformed
 
     /**

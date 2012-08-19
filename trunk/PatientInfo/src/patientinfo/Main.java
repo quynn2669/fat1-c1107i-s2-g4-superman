@@ -67,7 +67,19 @@ public class Main extends javax.swing.JFrame {
         try {
             model = new DefaultTableModel();
             tblResult.setModel(model);
-
+            tblRSL.setModel(model);
+            tblRSE.setModel(model);
+            txtName.setText(null);
+            txtNameE.setText(null);
+            txtNameL.setText(null);
+            cbxByDate.setSelected(false);
+            cbxByDepartment.setSelected(false);
+            cbxByIn.setSelected(false);
+            cbxByName.setSelected(false);
+            cbxED.setSelected(false);
+            cbxEN.setSelected(false);
+            cbxLD.setSelected(false);
+            cbxLN.setSelected(false);
         } catch (Exception e) {
             int vv = 0;
         }
@@ -2557,6 +2569,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnReset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReset1ActionPerformed
         // TODO add your handling code here:
+        Reset();
     }//GEN-LAST:event_btnReset1ActionPerformed
 
     private void btnAllEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllEActionPerformed
@@ -2619,6 +2632,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnReset2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReset2ActionPerformed
         // TODO add your handling code here:
+        Reset();
     }//GEN-LAST:event_btnReset2ActionPerformed
 
     private void btnAllLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllLActionPerformed
