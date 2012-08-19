@@ -1138,13 +1138,13 @@ public class Main extends javax.swing.JFrame {
         mnEmp = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         mnDr = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
 
@@ -1658,8 +1658,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTL, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addContainerGap(614, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1691,7 +1691,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnAllL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAllL.setFont(new java.awt.Font("Tahoma", 1, 11));
         btnAllL.setText("All Patient");
         btnAllL.setPreferredSize(new java.awt.Dimension(270, 23));
         btnAllL.addActionListener(new java.awt.event.ActionListener() {
@@ -1849,7 +1849,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel30)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(403, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1924,8 +1924,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTE, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addContainerGap(614, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1957,7 +1957,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnAllE.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAllE.setFont(new java.awt.Font("Tahoma", 1, 11));
         btnAllE.setText("All Patient");
         btnAllE.setPreferredSize(new java.awt.Dimension(270, 23));
         btnAllE.addActionListener(new java.awt.event.ActionListener() {
@@ -2115,7 +2115,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel28)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(473, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2182,10 +2182,6 @@ public class Main extends javax.swing.JFrame {
         });
         mnEmp.add(jMenuItem3);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
-        jMenuItem4.setText("Add Employee");
-        mnEmp.add(jMenuItem4);
-
         jMenuBar1.add(mnEmp);
 
         mnDr.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\doctor-icon (2).png")); // NOI18N
@@ -2214,18 +2210,22 @@ public class Main extends javax.swing.JFrame {
         });
         mnDr.add(jMenuItem6);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
-        jMenuItem1.setText("Add Doctor");
-        mnDr.add(jMenuItem1);
-
         jMenuBar1.add(mnDr);
 
         jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Keys-icon.png")); // NOI18N
-        jMenu1.setText("Account");
+        jMenu1.setText("Admin");
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\add-key-icon.png")); // NOI18N
         jMenuItem5.setText("Add Account");
         jMenu1.add(jMenuItem5);
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
+        jMenuItem1.setText("Add Employee");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
+        jMenuItem4.setText(" Add Doctor");
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
