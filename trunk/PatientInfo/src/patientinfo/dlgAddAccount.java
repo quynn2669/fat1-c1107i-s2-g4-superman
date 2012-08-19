@@ -381,6 +381,9 @@ public class dlgAddAccount extends javax.swing.JDialog {
                         try {
                             String sUpdate = "INSERT IN tblAccount VALUES(?,?,?,?,?)";
                             PreparedStatement pstmt = conn.prepareStatement(sUpdate);
+                            pstmt.setInt(1, ID);
+                            pstmt.setString(2, txtAddFName.getText());
+                            pstmt.setString(2, txtAddFName.getText());
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }

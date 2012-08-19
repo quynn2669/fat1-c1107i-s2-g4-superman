@@ -36,6 +36,8 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="btgGenderU">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="btgRole">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnEmp">
@@ -344,6 +346,9 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="rbtDr">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="btgRole"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Doctor"/>
                   </Properties>
                   <Events>
@@ -352,6 +357,9 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="rbtEmp">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="btgRole"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Employee"/>
                   </Properties>
                 </Component>

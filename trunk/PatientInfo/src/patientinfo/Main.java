@@ -1034,6 +1034,7 @@ public class Main extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btgAddGender = new javax.swing.ButtonGroup();
         btgGenderU = new javax.swing.ButtonGroup();
+        btgRole = new javax.swing.ButtonGroup();
         pnlMain = new javax.swing.JPanel();
         pnlLogin = new javax.swing.JPanel();
         pnlLogin1 = new javax.swing.JPanel();
@@ -1201,6 +1202,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel19.setText("Role:");
 
+        btgRole.add(rbtDr);
         rbtDr.setText("Doctor");
         rbtDr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1208,6 +1210,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btgRole.add(rbtEmp);
         rbtEmp.setText("Employee");
 
         btnLogin.setText("Login");
@@ -2676,6 +2679,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel a2;
     private javax.swing.ButtonGroup btgAddGender;
     private javax.swing.ButtonGroup btgGenderU;
+    private javax.swing.ButtonGroup btgRole;
     private javax.swing.JButton btnAllE;
     private javax.swing.JButton btnAllL;
     private javax.swing.JButton btnLogin;
