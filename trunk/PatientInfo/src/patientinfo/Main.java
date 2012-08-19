@@ -94,6 +94,68 @@ public class Main extends javax.swing.JFrame {
         btgAddGender.clearSelection();
     }
 
+    public void Checklogin(String acc, String pass, String role) {
+        if (acc.equals("admin") && pass.equals("admin")) {
+            role = "admin";
+            mnEmp.setEnabled(true);
+            mnDr.setEnabled(true);
+            mnAd.setEnabled(true);
+            CardLayout cc = (CardLayout) pnlMain.getLayout();
+            cc.show(pnlMain, "cardSearch");
+            lblAccS.setText(acc);
+            lblAccS1.setText(acc);
+            lblAccS2.setText(acc);
+            lblRole.setText(role);
+            lblRole1.setText(role);
+            lblRole2.setText(role);
+            JOptionPane.showMessageDialog(this, "Login success!\nRole: Admin");
+            txtAccount.setText(null);
+            password.setText(null);
+            btgRole.clearSelection();
+
+        } else {
+            try {
+                String sSelect = "SELECT password,role FROM tblAccount WHERE Account = ? ";
+                PreparedStatement pstmt = conn.prepareStatement(sSelect);
+                pstmt.setString(1, acc);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    if (rs.getString(2) != role) {
+                        JOptionPane.showMessageDialog(this, "Account or Password Wrong!!");
+                    } else {
+                        if (role == "Employee") {
+                            mnEmp.setEnabled(true);
+                            mnDr.setEnabled(false);
+                            mnAd.setEnabled(false);
+                            CardLayout cc = (CardLayout) pnlMain.getLayout();
+                            cc.show(pnlMain, "cardSearch");
+                            lblAccS.setText(acc);
+                            lblAccS1.setText(acc);
+                            lblAccS2.setText(acc);
+                            lblRole.setText(role);
+                            lblRole1.setText(role);
+                            lblRole2.setText(role);
+                        } else if (role == "Doctor") {
+                            mnEmp.setEnabled(false);
+                            mnDr.setEnabled(true);
+                            mnAd.setEnabled(false);
+                            CardLayout cc = (CardLayout) pnlMain.getLayout();
+                            cc.show(pnlMain, "cardExamine");
+                        }
+                        JOptionPane.showMessageDialog(this, "Login success!\nRole: " + role);
+                        txtAccount.setText(null);
+                        password.setText(null);
+                        btgRole.clearSelection();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Account or Password Wrong!!");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public void setDetailsPatient() {
 
         tblResult.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1062,8 +1124,10 @@ public class Main extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         btnResetLogin = new javax.swing.JButton();
+        admin = new javax.swing.JRadioButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
         pnlAbout = new javax.swing.JPanel();
         pnlContent2 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -1170,12 +1234,15 @@ public class Main extends javax.swing.JFrame {
         mnDr = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        mnAd = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1217,6 +1284,12 @@ public class Main extends javax.swing.JFrame {
 
         jLabel19.setText("Role:");
 
+        txtAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAccountActionPerformed(evt);
+            }
+        });
+
         btgRole.add(rbtDr);
         rbtDr.setText("Doctor");
         rbtDr.addActionListener(new java.awt.event.ActionListener() {
@@ -1236,6 +1309,19 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnResetLogin.setText("Reset");
+        btnResetLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetLoginActionPerformed(evt);
+            }
+        });
+
+        btgRole.add(admin);
+        admin.setText("admin");
+        admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlLogin1Layout = new javax.swing.GroupLayout(pnlLogin1);
         pnlLogin1.setLayout(pnlLogin1Layout);
@@ -1254,12 +1340,17 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(pnlLogin1Layout.createSequentialGroup()
                         .addGroup(pnlLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbtDr)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(pnlLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnResetLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rbtEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addGroup(pnlLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlLogin1Layout.createSequentialGroup()
+                                .addComponent(rbtEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(admin))
+                            .addGroup(pnlLogin1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(btnResetLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         pnlLogin1Layout.setVerticalGroup(
             pnlLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1276,6 +1367,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(rbtDr)
+                    .addComponent(admin)
                     .addComponent(rbtEmp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1287,24 +1379,34 @@ public class Main extends javax.swing.JFrame {
         jPanel9.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\add-key-icon1.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\user-login-icon.png")); // NOI18N
         jLabel3.setText("Login");
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel33.setText("Patient Info System");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(437, 437, 437)
-                .addComponent(jLabel3)
-                .addContainerGap(504, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(437, 437, 437)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(470, 470, 470)
+                        .addComponent(jLabel33)))
+                .addContainerGap(471, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
@@ -1313,7 +1415,7 @@ public class Main extends javax.swing.JFrame {
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
-                .addContainerGap(367, Short.MAX_VALUE)
+                .addGap(259, 259, 259)
                 .addComponent(pnlLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(337, 337, 337))
         );
@@ -1321,12 +1423,12 @@ public class Main extends javax.swing.JFrame {
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLoginLayout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(132, 132, 132)
+                .addGap(122, 122, 122)
                 .addComponent(pnlLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
-        pnlMain.add(pnlLogin, "cardAbout");
+        pnlMain.add(pnlLogin, "cardLogin");
 
         pnlAbout.setBackground(new java.awt.Color(-328966,true));
         pnlAbout.setLayout(new java.awt.BorderLayout());
@@ -1335,7 +1437,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel20.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Comics-Older-Superman-icon.png")); // NOI18N
 
-        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 48));
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel31.setText("Patient Info System");
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 12));
@@ -1346,7 +1448,7 @@ public class Main extends javax.swing.JFrame {
         pnlContent2Layout.setHorizontalGroup(
             pnlContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContent2Layout.createSequentialGroup()
-                .addContainerGap(332, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContent2Layout.createSequentialGroup()
                         .addComponent(jLabel32)
@@ -2300,6 +2402,7 @@ public class Main extends javax.swing.JFrame {
 
         mnEmp.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\nurse-icon.png")); // NOI18N
         mnEmp.setText("Employee");
+        mnEmp.setEnabled(false);
         mnEmp.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12));
         mnEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2334,6 +2437,7 @@ public class Main extends javax.swing.JFrame {
 
         mnDr.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\doctor-icon (2).png")); // NOI18N
         mnDr.setText("Doctor");
+        mnDr.setEnabled(false);
         mnDr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnDrActionPerformed(evt);
@@ -2360,8 +2464,9 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(mnDr);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Keys-icon.png")); // NOI18N
-        jMenu1.setText("Admin");
+        mnAd.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Keys-icon.png")); // NOI18N
+        mnAd.setText("Admin");
+        mnAd.setEnabled(false);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\add-key-icon.png")); // NOI18N
         jMenuItem5.setText("Add Account");
@@ -2370,7 +2475,7 @@ public class Main extends javax.swing.JFrame {
                 jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        mnAd.add(jMenuItem5);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
         jMenuItem1.setText("Add Employee");
@@ -2379,7 +2484,7 @@ public class Main extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mnAd.add(jMenuItem1);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
         jMenuItem4.setText(" Add Doctor");
@@ -2388,9 +2493,9 @@ public class Main extends javax.swing.JFrame {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        mnAd.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mnAd);
 
         jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-help-about-icon.png")); // NOI18N
         jMenu2.setText("About");
@@ -2410,6 +2515,29 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\user-login-icon (2).png")); // NOI18N
+        jMenu1.setText("Login");
+
+        jMenuItem9.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\user-login-icon (1).png")); // NOI18N
+        jMenuItem9.setText("Login");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem9);
+
+        jMenuItem10.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\user-login-icon (1).png")); // NOI18N
+        jMenuItem10.setText("Log out");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem10);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -2662,6 +2790,28 @@ public class Main extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        String role = "";
+        if (rbtDr.isSelected()) {
+            role = "Doctor";
+        } else if (rbtEmp.isSelected()) {
+            role = "Employee";
+        } else if (admin.isSelected()) {
+            role = "Admin";
+        }
+        String pass = new String(password.getPassword());
+        if (txtAccount.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Account!");
+        } else if (txtAccount.getText().length() < 4) {
+            JOptionPane.showMessageDialog(this, "Account length must be greater than 4 characters!");
+        } else if (pass == "") {
+            JOptionPane.showMessageDialog(this, "Enter Password!!");
+        } else if (pass.length() < 4) {
+            JOptionPane.showMessageDialog(this, "Password length must be greater than 4 characters!");
+        } else if (role == "") {
+            JOptionPane.showMessageDialog(this, "Choice ROle!!!");
+        } else {
+            Checklogin(txtAccount.getText(), pass, role);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -2681,6 +2831,41 @@ public class Main extends javax.swing.JFrame {
         dlg.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void txtAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAccountActionPerformed
+
+    private void adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adminActionPerformed
+
+    private void btnResetLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetLoginActionPerformed
+        // TODO add your handling code here:
+        txtAccount.setText(null);
+        password.setText(null);
+        btgRole.clearSelection();
+    }//GEN-LAST:event_btnResetLoginActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cc = (CardLayout) pnlMain.getLayout();
+        cc.show(pnlMain, "cardLogin");
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cc = (CardLayout) pnlMain.getLayout();
+        cc.show(pnlMain, "cardLogin");
+        Reset();
+        mnEmp.setEnabled(false);
+            mnDr.setEnabled(false);
+            mnAd.setEnabled(false);
+            txtAccount.setText(null);
+            password.setText(null);
+            btgRole.clearSelection();
+
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -2726,6 +2911,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel a;
     private javax.swing.JLabel a1;
     private javax.swing.JLabel a2;
+    private javax.swing.JRadioButton admin;
     private javax.swing.ButtonGroup btgAddGender;
     private javax.swing.ButtonGroup btgGenderU;
     private javax.swing.ButtonGroup btgRole;
@@ -2784,6 +2970,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2794,6 +2981,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -2801,6 +2989,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -2822,6 +3011,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblTTDT;
     private javax.swing.JLabel lblTTE;
     private javax.swing.JLabel lblTTL;
+    private javax.swing.JMenu mnAd;
     private javax.swing.JMenu mnDr;
     private javax.swing.JMenu mnEmp;
     private javax.swing.JPasswordField password;
