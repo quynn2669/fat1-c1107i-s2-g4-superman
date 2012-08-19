@@ -491,24 +491,28 @@ public class dlgExamine extends javax.swing.JDialog {
         } else if (In.equals("Yes")) {
             date = cbbMO.getSelectedItem().toString() + "/" + cbbDO.getSelectedItem().toString() + "/" + cbbYO.getSelectedItem().toString();
             try {
-                CallableStatement cs = conn.prepareCall("{call ExamineYes(?,?,?,?,?,?,?,?)}");
+                CallableStatement cs = conn.prepareCall("{call ExamineYes(?,?,?,?,?,?,?,?,?,?,?)}");
                 cs.setString(1, txtID.getText());
                 cs.setString(2, txtName.getText());
                 cs.setString(3, txtGender.getText());
-                cs.setString(4, aSick.getText());
-                cs.setString(5, aDes.getText());
-                cs.setString(6, txtDateI.getText());
-                cs.setString(7, date);
-                cs.setString(8, cbbDoctor.getSelectedItem().toString());
+                cs.setString(4, cbbDepartment.getSelectedItem().toString());
+                cs.setString(5, aSick.getText());
+                cs.setString(6, aDes.getText());
+                cs.setString(7, aSick.getText());
+                cs.setString(8, txtDateI.getText());
+                cs.setString(9, date);
+                cs.setString(10, txtDateI.getText());
+                cs.setString(11, cbbDoctor.getSelectedItem().toString());
                 cs.executeUpdate();
                 try {
                     CallableStatement cs1 = conn.prepareCall("{call ExamineP(?,?,?,?,?,?)}");
-                    cs1.setString(1, txtID.getText());
-                    cs1.setString(2, aSick.getText());
-                    cs1.setString(5, "Yes");
-                    cs1.setInt(6, 1);
-                    cs1.setString(4, date);
-                    cs1.setString(3, cbbDoctor.getSelectedItem().toString());
+                    cs.setString(1, cbbDepartment.getSelectedItem().toString());
+                    cs1.setString(2, txtID.getText());
+                    cs1.setString(3, aSick.getText());
+                    cs1.setString(6, "Yes");
+                    cs1.setInt(7, 1);
+                    cs1.setString(5, date);
+                    cs1.setString(4, cbbDoctor.getSelectedItem().toString());
                     cs1.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Examine success!");
                     rsExam();

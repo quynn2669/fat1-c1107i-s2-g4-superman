@@ -280,6 +280,7 @@ create table tblInHospital(
 ID_Patient int foreign key References tblPatient(ID),
 PName nvarchar(300),
 PGender nvarchar(6),
+PDepartment nvarchar(50),
 PSick nvarchar(300),
 PDes nvarchar(300),
 PChange nvarchar(300),
@@ -288,6 +289,11 @@ DateOut nvarchar(50),
 DateChange smalldatetime,
 DName nvarchar(300)
 )
+go
+Insert into tblInHospital values (1,'Duong Tung','Male','Internal medicine','Love Sick','Break up','Tien trien hon 1 chut','12/12/2012','12/12/2012','12/12/2012','MrThanh')
+Insert into tblInHospital values (1,'Duong Tung','Male','Internal medicine','Love Sick','Break up','Tien trien hon 1 chut','12/12/2012','12/12/2012','12/12/2012','MrThanh')
+Insert into tblInHospital values (1,'Duong Tung','Male','Internal medicine','Love Sick','Break up','Tien trien hon 1 chut','12/12/2012','12/12/2012','12/12/2012','MrThanh')
+Insert into tblInHospital values (1,'Duong Tung','Male','Internal medicine','Love Sick','Break up','Tien trien hon 1 chut','12/12/2012','12/12/2012','12/12/2012','MrThanh')
 go
 --proc to get patient in hospital
 create proc selectAllIH
@@ -323,17 +329,21 @@ create proc ExamineYes
 @ID_Patient int,
 @PName nvarchar(300),
 @PGender nvarchar(6),
+@PDepartment nvarchar(50),
 @PSick nvarchar(300),
 @PDes nvarchar(300),
+@PChanges nvarchar(300),
 @DateIn smalldatetime,
 @DateOut nvarchar(50),
+@DateChange smalldatetime,
 @DName nvarchar(300)
 as
-INSERT INTO tblInHospital VALUES (@ID_Patient,@PName,@PGender,@PSick,@PDes,'(empty)',@DateIn,@DateIn,'(empty)',@DName)
+INSERT INTO tblInHospital VALUES (@ID_Patient,@PName,@PGender,@PDepartment,@PSick,@PDes,@PChanges,@DateIn,@DateIn,@DateChange,@DName)
 go
 --Proc Examine in tblPatient
 create proc ExamineP
 @ID int,
+@PDepartment nvarchar(50),
 @Sick nvarchar(300),
 @Dr nvarchar(300),
 @DateOut smalldatetime,
@@ -341,5 +351,13 @@ create proc ExamineP
 @DrSTT int
 as
 UPDATE tblPatient
-SET Sick = @Sick,Doctor = @Dr,DateOut = @DateOut,InHospital = @InHospital,DrStt = @DrSTT WHERE ID= @ID
+SET Department = @PDepartment, Sick = @Sick,Doctor = @Dr,DateOut = @DateOut,InHospital = @InHospital,DrStt = @DrSTT WHERE ID= @ID
 go
+--Proc get data on tblInHospital for daily examine
+create proc selectChanges
+@ID int
+as
+select ID_Patient, PName, PGender,PDepartment,DateChange, DName,PChange 
+from tblInHospital where ID_Patient = @ID
+go
+exec selectChanges 2
