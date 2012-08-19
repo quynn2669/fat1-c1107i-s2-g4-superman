@@ -146,6 +146,37 @@ public class Main extends javax.swing.JFrame {
         });
 
     }
+
+    public void setValuePatientIH() {
+
+        tblRSL.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblRSL.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedIndex = tblRSL.getSelectedRow();
+                    int realIndex = tblRSL.convertRowIndexToModel(selectedIndex);
+                    TableModel model = tblRSL.getModel();
+                    dlgCheck dialog = new dlgCheck(new Main(), true);
+                    dialog.settxtIDP(model.getValueAt(realIndex, 0).toString());
+                    dialog.settxtNameP(model.getValueAt(realIndex, 1).toString());
+                    dialog.settxtGender(model.getValueAt(realIndex, 4).toString());
+                    dialog.settxtDepartment(model.getValueAt(realIndex, 7).toString());
+                    dialog.settxtSick(model.getValueAt(realIndex, 6).toString());
+                    dialog.settxtDes(model.getValueAt(realIndex, 5).toString());
+                    dialog.settxtDateIn(model.getValueAt(realIndex, 9).toString());
+                    dialog.settxtDateOut(model.getValueAt(realIndex, 10).toString());
+                    selectedIndex = 0;
+                    dialog.setVisible(true);
+                    selectedIndex = 0;
+//                    JOptionPane.showMessageDialog(pnlMain, patient.toString());
+                }
+            }
+        });
+
+    }
+
     public void allPatient() {
         try {
 
@@ -2433,6 +2464,7 @@ public class Main extends javax.swing.JFrame {
             int vv = 0;
         }
         searchPatientIH();
+        setValuePatientIH();
     }//GEN-LAST:event_btnSearchLActionPerformed
 
     private void btnReset2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReset2ActionPerformed
@@ -2448,6 +2480,7 @@ public class Main extends javax.swing.JFrame {
             int vv = 0;
         }
         allPatientIH();
+        setValuePatientIH();
         lblTTL.setText("" + tblRSL.getRowCount());
     }//GEN-LAST:event_btnAllLActionPerformed
 
