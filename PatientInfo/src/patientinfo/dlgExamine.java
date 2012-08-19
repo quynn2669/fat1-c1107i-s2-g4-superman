@@ -47,7 +47,7 @@ public class dlgExamine extends javax.swing.JDialog {
         DateTimeTDV dateTDV = new DateTimeTDV();
         cbbYO.setModel(dateTDV.getListYear());
         cbbDoctor.setModel(getListDoctor());
-        
+
 
     }
 
@@ -150,6 +150,7 @@ public class dlgExamine extends javax.swing.JDialog {
         txtDoctor = new javax.swing.JTextField();
         cbxUpdateDoctor = new javax.swing.JCheckBox();
         txtGender = new javax.swing.JTextField();
+        btnRS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Details Patient");
@@ -248,7 +249,7 @@ public class dlgExamine extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Untitled 5.png")); // NOI18N
         jLabel1.setText("Examine");
 
@@ -300,15 +301,18 @@ public class dlgExamine extends javax.swing.JDialog {
 
         txtGender.setEditable(false);
 
+        btnRS.setText("Reset");
+        btnRS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(332, 332, 332)
-                .addComponent(btnOk, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                .addGap(304, 304, 304))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,15 +330,15 @@ public class dlgExamine extends javax.swing.JDialog {
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel27)
                                             .addComponent(jLabel29))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtAge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                            .addComponent(txtAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                            .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                            .addComponent(txtGender, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                            .addComponent(cbbDoctor, javax.swing.GroupLayout.Alignment.TRAILING, 0, 254, Short.MAX_VALUE)
-                                            .addComponent(txtDoctor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)))
+                                            .addComponent(txtAge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                                            .addComponent(txtAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                                            .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                                            .addComponent(txtGender, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                                            .addComponent(cbbDoctor, javax.swing.GroupLayout.Alignment.TRAILING, 0, 317, Short.MAX_VALUE)
+                                            .addComponent(txtDoctor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel31)
@@ -342,12 +346,12 @@ public class dlgExamine extends javax.swing.JDialog {
                                             .addComponent(jLabel36))
                                         .addGap(36, 36, 36)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtDateI, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                            .addComponent(txtDateI, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(rbtYes)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(rbtNo))
-                                            .addComponent(cbbDepartment, 0, 254, Short.MAX_VALUE)
+                                            .addComponent(cbbDepartment, 0, 298, Short.MAX_VALUE)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel11)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -357,26 +361,33 @@ public class dlgExamine extends javax.swing.JDialog {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(cbbMO, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(cbbDO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(89, 89, 89))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(10, 10, 10)
+                                                        .addComponent(btnOk, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel6)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(cbbDO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addGap(6, 6, 6))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel34)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel30)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 403, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel32)
-                                .addGap(6, 6, 6))
-                            .addComponent(jLabel33))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel32)
+                                    .addGap(6, 6, 6))
+                                .addComponent(jLabel33))
+                            .addComponent(btnRS, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addGap(29, 29, 29))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,7 +453,9 @@ public class dlgExamine extends javax.swing.JDialog {
                     .addComponent(jLabel11)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRS, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -484,9 +497,9 @@ public class dlgExamine extends javax.swing.JDialog {
         } else {
             doctor = txtDoctor.getText();
         }
-        if(aSick.getText().isEmpty()){
+        if (aSick.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter Sick!!");
-        }else if (In.equals("")) {
+        } else if (In.equals("")) {
             JOptionPane.showMessageDialog(this, "Choice In Hospital??");
         } else if (In.equals("Yes")) {
             date = cbbMO.getSelectedItem().toString() + "/" + cbbDO.getSelectedItem().toString() + "/" + cbbYO.getSelectedItem().toString();
@@ -523,21 +536,23 @@ public class dlgExamine extends javax.swing.JDialog {
                 ex.printStackTrace();
             }
 
-        }else{
+        } else {
             try {
-                    CallableStatement cs1 = conn.prepareCall("{call ExamineP(?,?,?,?,?,?)}");
-                    cs1.setString(1, txtID.getText());
-                    cs1.setString(2, aSick.getText());
-                    cs1.setString(5, "No");
-                    cs1.setInt(6, 1);
-                    cs1.setString(4, date);
-                    cs1.setString(3, cbbDoctor.getSelectedItem().toString());
-                    cs1.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Examine success!");
-                    rsExam();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                CallableStatement cs1 = conn.prepareCall("{call ExamineP(?,?,?,?,?,?)}");
+                cs1.setString(1, txtID.getText());
+                cs1.setString(2, aSick.getText());
+                cs1.setString(5, "No");
+                cs1.setInt(6, 1);
+                cs1.setString(4, date);
+                cs1.setString(3, cbbDoctor.getSelectedItem().toString());
+                cs1.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Examine success!");
+                btgIn.clearSelection();
+                aSick.setText(null);
+                rsExam();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -560,6 +575,12 @@ public class dlgExamine extends javax.swing.JDialog {
     private void cbxUpdateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUpdateDoctorActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_cbxUpdateDoctorActionPerformed
+
+    private void btnRSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRSActionPerformed
+        // TODO add your handling code here:
+        btgIn.clearSelection();
+        aSick.setText(null);
+    }//GEN-LAST:event_btnRSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -585,6 +606,7 @@ public class dlgExamine extends javax.swing.JDialog {
     private javax.swing.ButtonGroup btgGender;
     private javax.swing.ButtonGroup btgIn;
     private javax.swing.JButton btnOk;
+    private javax.swing.JButton btnRS;
     private javax.swing.JComboBox cbbDO;
     private javax.swing.JComboBox cbbDepartment;
     private javax.swing.JComboBox cbbDoctor;

@@ -30,11 +30,6 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="332" max="-2" attributes="0"/>
-              <Component id="btnOk" pref="158" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="304" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -54,15 +49,15 @@
                                           <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="49" max="-2" attributes="0"/>
+                                      <EmptySpace pref="30" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtAge" alignment="1" pref="254" max="32767" attributes="1"/>
-                                          <Component id="txtAD" alignment="1" pref="254" max="32767" attributes="1"/>
-                                          <Component id="txtID" alignment="1" pref="254" max="32767" attributes="1"/>
-                                          <Component id="txtName" alignment="1" pref="254" max="32767" attributes="1"/>
-                                          <Component id="txtGender" alignment="0" pref="254" max="32767" attributes="1"/>
-                                          <Component id="cbbDoctor" alignment="1" pref="254" max="32767" attributes="1"/>
-                                          <Component id="txtDoctor" alignment="1" pref="254" max="32767" attributes="1"/>
+                                          <Component id="txtAge" alignment="1" pref="317" max="32767" attributes="1"/>
+                                          <Component id="txtAD" alignment="1" pref="317" max="32767" attributes="1"/>
+                                          <Component id="txtID" alignment="1" pref="317" max="32767" attributes="1"/>
+                                          <Component id="txtName" alignment="1" pref="317" max="32767" attributes="1"/>
+                                          <Component id="txtGender" alignment="0" pref="317" max="32767" attributes="1"/>
+                                          <Component id="cbbDoctor" alignment="1" pref="317" max="32767" attributes="1"/>
+                                          <Component id="txtDoctor" alignment="1" pref="317" max="32767" attributes="1"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -73,13 +68,13 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtDateI" pref="254" max="32767" attributes="1"/>
+                                          <Component id="txtDateI" pref="298" max="32767" attributes="1"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="rbtYes" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="rbtNo" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="cbbDepartment" alignment="0" pref="254" max="32767" attributes="1"/>
+                                          <Component id="cbbDepartment" alignment="0" pref="298" max="32767" attributes="1"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
@@ -89,14 +84,22 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="cbbMO" min="-2" pref="52" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="cbbDO" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                                      <Component id="btnOk" pref="119" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="cbbDO" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                           </Group>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="89" pref="89" max="-2" attributes="0"/>
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
@@ -104,15 +107,18 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="403" max="32767" attributes="0"/>
+                              <EmptySpace pref="364" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel33" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel33" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRS" pref="119" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -121,7 +127,7 @@
                   <Component id="jScrollPane2" alignment="0" pref="246" max="32767" attributes="1"/>
                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="1"/>
               </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -204,7 +210,10 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnOk" min="-2" pref="48" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnOk" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                  <Component id="btnRS" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -538,6 +547,14 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRS">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reset"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRSActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -14,9 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -388,6 +386,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
                             pstmt.setString(5, password);
                             pstmt.executeUpdate();
                             JOptionPane.showMessageDialog(this, "Add success!!");
+                            reset();
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }

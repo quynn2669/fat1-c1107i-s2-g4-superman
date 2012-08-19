@@ -51,6 +51,10 @@ public class dlgCheck extends javax.swing.JDialog {
 
 
     }
+    public void rs(){
+        aRS.setText(null);
+        cbxCheck.setSelected(false);
+    }
 
     public void updateInfo() {
         try {
@@ -188,7 +192,7 @@ public class dlgCheck extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\App-edit-icon (1).png")); // NOI18N
         jLabel14.setText("Examine Daily");
 
@@ -406,6 +410,11 @@ public class dlgCheck extends javax.swing.JDialog {
         });
 
         btnRS.setText("Reset");
+        btnRS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRSActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Update Examine Daily");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -572,12 +581,18 @@ public class dlgCheck extends javax.swing.JDialog {
                 cs.setString(11, cbbDoctor.getSelectedItem().toString());
                 cs.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Success!");
+                rs();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
         }
     }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnRSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRSActionPerformed
+        // TODO add your handling code here:
+        rs();
+    }//GEN-LAST:event_btnRSActionPerformed
 
     /**
      * @param args the command line arguments
