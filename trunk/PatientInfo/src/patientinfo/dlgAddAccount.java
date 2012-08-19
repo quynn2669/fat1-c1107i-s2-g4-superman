@@ -383,7 +383,33 @@ public class dlgAddAccount extends javax.swing.JDialog {
                             PreparedStatement pstmt = conn.prepareStatement(sUpdate);
                             pstmt.setInt(1, ID);
                             pstmt.setString(2, txtAddFName.getText());
+                            pstmt.setString(3, Role);
+                            pstmt.setString(4, txtAccount.getText());
+                            pstmt.setString(5, password);
+                            pstmt.executeUpdate();
+                            JOptionPane.showMessageDialog(this, "Add success!!");
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+
+                 }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Wrong ID or name!!!");
+                }
+            }else if(Role.equals("Employee")){
+                if(checkEmp(ID, txtAddFName.getText())){
+                 if(checkAc(ID, txtAddFName.getText(), Role)){
+                     JOptionPane.showMessageDialog(this, "You already have the Account!");
+                 }else{
+                        try {
+                            String sUpdate = "INSERT IN tblAccount VALUES(?,?,?,?,?)";
+                            PreparedStatement pstmt = conn.prepareStatement(sUpdate);
+                            pstmt.setInt(1, ID);
                             pstmt.setString(2, txtAddFName.getText());
+                            pstmt.setString(3, Role);
+                            pstmt.setString(4, txtAccount.getText());
+                            pstmt.setString(5, password);
+                            JOptionPane.showMessageDialog(this, "Add success!!");
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
