@@ -203,6 +203,7 @@ public class Main extends javax.swing.JFrame {
         }
 
     }
+
     public void allPatientIH() {
         try {
 
@@ -647,6 +648,7 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     public void allPatientEx() {
         try {
 
@@ -827,6 +829,7 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     public void searchPatientEmp() {
         if (!cbxByName.isSelected() && !cbxByDate.isSelected() && !cbxByDepartment.isSelected() && !cbxByIn.isSelected()) {
             JOptionPane.showMessageDialog(this, "Choice Search Option!!!");
@@ -976,7 +979,7 @@ public class Main extends javax.swing.JFrame {
                 searchByNameEx();
                 lblTTE.setText("" + tblRSE.getRowCount());
             }
-        } else if (cbxEN.isSelected()&& cbxED.isSelected()) {
+        } else if (cbxEN.isSelected() && cbxED.isSelected()) {
             if (txtNameE.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Enter Name!!!");
             } else {
@@ -985,11 +988,11 @@ public class Main extends javax.swing.JFrame {
                 searchBy1And2Ex();
                 lblTTE.setText("" + tblRSE.getRowCount());
             }
-        }else if (!cbxEN.isSelected() && cbxED.isSelected() ) {
+        } else if (!cbxEN.isSelected() && cbxED.isSelected()) {
             Department = cbbEDepartment.getSelectedItem().toString();
             searchByDepartmentEx();
             lblTTE.setText("" + tblRSE.getRowCount());
-        } 
+        }
 
     }
 
@@ -1004,7 +1007,7 @@ public class Main extends javax.swing.JFrame {
                 searchByNameIH();
                 lblTTL.setText("" + tblRSL.getRowCount());
             }
-        } else if (cbxLN.isSelected()&& cbxLD.isSelected()) {
+        } else if (cbxLN.isSelected() && cbxLD.isSelected()) {
             if (txtNameL.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Enter Name!!!");
             } else {
@@ -1013,7 +1016,7 @@ public class Main extends javax.swing.JFrame {
                 searchBy1And2IH();
                 lblTTL.setText("" + tblRSL.getRowCount());
             }
-        }else if (!cbxLN.isSelected() && cbxLD.isSelected() ) {
+        } else if (!cbxLN.isSelected() && cbxLD.isSelected()) {
             Department = cbbLDepartment.getSelectedItem().toString();
             searchByDepartmentIH();
             lblTTE.setText("" + tblRSL.getRowCount());
@@ -2350,14 +2353,29 @@ public class Main extends javax.swing.JFrame {
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\add-key-icon.png")); // NOI18N
         jMenuItem5.setText("Add Account");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
         jMenuItem1.setText("Add Employee");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon("C:\\Users\\tug\\Desktop\\fat1-c1107i-s2-g4-superman\\Image\\Actions-list-add-user-icon (1).png")); // NOI18N
         jMenuItem4.setText(" Add Doctor");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
@@ -2505,7 +2523,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
-        CardLayout cc = (CardLayout)pnlMain.getLayout();
+        CardLayout cc = (CardLayout) pnlMain.getLayout();
         cc.show(pnlMain, "cardManager");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
@@ -2575,7 +2593,6 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -2632,6 +2649,24 @@ public class Main extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        dlgAddAccount dlg = new dlgAddAccount(this, rootPaneCheckingEnabled);
+        dlg.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        dlgAddEmployee dlg = new dlgAddEmployee(this, rootPaneCheckingEnabled);
+        dlg.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        dlgAddDoctor dlg = new dlgAddDoctor(this, rootPaneCheckingEnabled);
+        dlg.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
     /**
      * @param args the command line arguments
      */
