@@ -361,3 +361,11 @@ select ID_Patient, PName, PGender,PDepartment,DateChange, DName,PChange
 from tblInHospital where ID_Patient = @ID
 go
 exec selectChanges 2
+--Table to store account
+create table tblAccount(
+ID int,
+Name nvarchar(300),
+Role varchar(25),
+Account varchar(12),
+Password varchar(50)
+)

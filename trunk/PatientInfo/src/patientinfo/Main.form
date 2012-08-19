@@ -75,14 +75,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\Actions-list-add-user-icon (1).png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Add Employee"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnDr">
@@ -118,14 +110,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\Actions-list-add-user-icon (1).png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Add Doctor"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
@@ -133,7 +117,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\Keys-icon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Account"/>
+            <Property name="text" type="java.lang.String" value="Admin"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
@@ -142,6 +126,22 @@
                   <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\add-key-icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Add Account"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\Actions-list-add-user-icon (1).png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Add Employee"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\tug\Desktop\fat1-c1107i-s2-g4-superman\Image\Actions-list-add-user-icon (1).png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value=" Add Doctor"/>
               </Properties>
             </MenuItem>
           </SubComponents>
