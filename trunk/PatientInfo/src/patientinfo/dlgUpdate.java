@@ -20,21 +20,23 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author tug
  */
-public class dlgUpdate extends javax.swing.JDialog{
+public class dlgUpdate extends javax.swing.JDialog {
 
     /** Creates new form DetailPatient */
-    public  Patient patientDlg = new Patient();
-    int age=0;
-    String gender="";
+    public Patient patientDlg = new Patient();
+    int age = 0;
+    String gender = "";
     Connection conn = null;
-    String date="";
-    String doctor="";
-
+    String date = "";
+    String doctor = "";
+    int room = 0;
+    int bed = 0;
 
     public dlgUpdate(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -47,7 +49,10 @@ public class dlgUpdate extends javax.swing.JDialog{
         DateTimeTDV dateTDV = new DateTimeTDV();
         cbbYI.setModel(dateTDV.getListYear());
         cbbDoctor.setModel(getListDoctor());
+        cbbRoom.setModel(getListRoom());
+        cbbBed.setModel(getListBed());
     }
+
     public DefaultComboBoxModel getListDoctor() {
         DefaultComboBoxModel doctorName = new DefaultComboBoxModel();
         try {
@@ -55,7 +60,7 @@ public class dlgUpdate extends javax.swing.JDialog{
             String sSelect = "Select FullName from tblDoctor";
             PreparedStatement pstmt = conn.prepareStatement(sSelect);
             ResultSet rs = pstmt.executeQuery();
-            
+
             ResultSetMetaData meta = rs.getMetaData();
 
             while (rs.next()) {
@@ -69,7 +74,8 @@ public class dlgUpdate extends javax.swing.JDialog{
         }
         return doctorName;
     }
-    public void rsUp(){
+
+    public void rsUp() {
         txtID.setText(null);
         txtName.setText(null);
         txtAD.setText(null);
@@ -87,27 +93,40 @@ public class dlgUpdate extends javax.swing.JDialog{
         patientDlg = new Patient();
         date = "";
         doctor = "";
-        gender="";
-        if(txtID.getText().isEmpty()){
+        gender = "";
+        if (txtID.getText().isEmpty()) {
             btnDelete.setEnabled(false);
             btnUpdate.setEnabled(false);
-        }else{
+        } else {
             btnDelete.setEnabled(true);
             btnUpdate.setEnabled(true);
         }
     }
+
     dlgUpdate() {
     }
-    public void Update(){
-        if(txtName.getText().isEmpty()){
+
+    public void setSTTBed(int bed,String STT) {
+        try {
+            CallableStatement cs = conn.prepareCall("{call setSTTBed(?,?)}");
+            cs.setInt(1, bed);
+            cs.setString(2, STT);
+            cs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void Update() {
+        if (txtName.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter patient's name!");
-        }else if(txtAD.getText().isEmpty()){
+        } else if (txtAD.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter patient's address!");
-        }else if(txtAge.getText().isEmpty()){
+        } else if (txtAge.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter patient's age!");
-        }else if(rbtFemale.isSelected() && rbtMale.isSelected()){
+        } else if (rbtFemale.isSelected() && rbtMale.isSelected()) {
             JOptionPane.showMessageDialog(this, "Choice patient's Gender!");
-        }else if(aDes.getText().isEmpty()){
+        } else if (aDes.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter Description!");
         } else {
             boolean check = true;
@@ -117,20 +136,27 @@ public class dlgUpdate extends javax.swing.JDialog{
                 JOptionPane.showMessageDialog(this, "Valid age!!!");
                 check = false;
             }
-            if(check){
-                if(cbxUpdateDoctor.isSelected()){
+            if (check) {
+                if (cbxUpdateDoctor.isSelected()) {
                     doctor = cbbDoctor.getSelectedItem().toString();
-                }else{
+                } else {
                     doctor = txtDoctor.getText();
                 }
                 try {
-                    if(cbxUpdateDateIn.isSelected()){
-                    date = cbbMI.getSelectedItem().toString()+"/"+cbbDI.getSelectedItem().toString()+"/"+cbbYI.getSelectedItem().toString();
-                    }else{
+                    if (cbxUpdateDateIn.isSelected()) {
+                        date = cbbMI.getSelectedItem().toString() + "/" + cbbDI.getSelectedItem().toString() + "/" + cbbYI.getSelectedItem().toString();
+                    } else {
                         date = txtDateIn.getText();
                     }
-                    CallableStatement cs = conn.prepareCall("{call updatePatient(?,?,?,?,?,?,?,?,?)}");
-                    cs.setInt(1,Integer.parseInt(txtID.getText()));
+                    if (cbxUpdateRoom.isSelected()) {
+                        room = Integer.parseInt(cbbRoom.getSelectedItem().toString());
+                        bed = Integer.parseInt(cbbBed.getSelectedItem().toString());
+                    } else {
+                        room = Integer.parseInt(txtRoom.getText());
+                        bed = Integer.parseInt(txtBed.getText());
+                    }
+                    CallableStatement cs = conn.prepareCall("{call updatePatient(?,?,?,?,?,?,?,?,?,?,?)}");
+                    cs.setInt(1, Integer.parseInt(txtID.getText()));
                     cs.setString(2, txtName.getText());
                     cs.setString(3, txtAD.getText());
                     cs.setInt(4, age);
@@ -139,7 +165,10 @@ public class dlgUpdate extends javax.swing.JDialog{
                     cs.setString(7, cbbDepartment.getSelectedItem().toString());
                     cs.setString(8, doctor);
                     cs.setString(9, date);
+                    cs.setInt(10, room);
+                    cs.setInt(11, bed);
                     cs.executeUpdate();
+                    setSTTBed(bed, "Using");
                     JOptionPane.showMessageDialog(this, "update success!!");
                     cs.close();
                 } catch (SQLException ex) {
@@ -147,6 +176,51 @@ public class dlgUpdate extends javax.swing.JDialog{
                 }
             }
         }
+    }
+
+    public DefaultComboBoxModel getListRoom() {
+        DefaultComboBoxModel listRoom = new DefaultComboBoxModel();
+        try {
+
+            String sSelect = "Select id from tblRoom";
+            PreparedStatement pstmt = conn.prepareStatement(sSelect);
+            ResultSet rs = pstmt.executeQuery();
+
+            ResultSetMetaData meta = rs.getMetaData();
+
+            while (rs.next()) {
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    listRoom.addElement(rs.getObject(i).toString());
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return listRoom;
+    }
+
+    public DefaultComboBoxModel getListBed() {
+        DefaultComboBoxModel listbed = new DefaultComboBoxModel();
+        try {
+
+            String sSelect = "Select id from tblbed where room = ? and stt = 'empty'";
+            PreparedStatement pstmt = conn.prepareStatement(sSelect);
+            pstmt.setString(1, cbbRoom.getSelectedItem().toString());
+            ResultSet rs = pstmt.executeQuery();
+
+            ResultSetMetaData meta = rs.getMetaData();
+
+            while (rs.next()) {
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    listbed.addElement(rs.getObject(i).toString());
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return listbed;
     }
 
     /** This method is called from within the constructor to
@@ -199,6 +273,15 @@ public class dlgUpdate extends javax.swing.JDialog{
         txtDoctor = new javax.swing.JTextField();
         cbbDoctor = new javax.swing.JComboBox();
         cbxUpdateDoctor = new javax.swing.JCheckBox();
+        cbbRoom = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbbBed = new javax.swing.JComboBox();
+        cbxUpdateRoom = new javax.swing.JCheckBox();
+        txtRoom = new javax.swing.JTextField();
+        txtBed = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Details Patient");
@@ -250,7 +333,6 @@ public class dlgUpdate extends javax.swing.JDialog{
         });
 
         cbbYI.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012" }));
-        cbbYI.setEnabled(false);
         cbbYI.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbYIItemStateChanged(evt);
@@ -263,7 +345,6 @@ public class dlgUpdate extends javax.swing.JDialog{
         });
 
         cbbMI.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-        cbbMI.setEnabled(false);
         cbbMI.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbMIItemStateChanged(evt);
@@ -282,7 +363,6 @@ public class dlgUpdate extends javax.swing.JDialog{
         jLabel6.setText("Day");
 
         cbbDI.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        cbbDI.setEnabled(false);
 
         txtDateIn.setEditable(false);
 
@@ -317,7 +397,7 @@ public class dlgUpdate extends javax.swing.JDialog{
 
         txtInHospital.setEditable(false);
 
-        cbxUpdateDateIn.setText("Update Date In");
+        cbxUpdateDateIn.setText("Update ");
         cbxUpdateDateIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxUpdateDateInActionPerformed(evt);
@@ -326,7 +406,7 @@ public class dlgUpdate extends javax.swing.JDialog{
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Update.png"))); // NOI18N
         jLabel1.setText("Update Patient");
 
@@ -335,7 +415,7 @@ public class dlgUpdate extends javax.swing.JDialog{
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(273, Short.MAX_VALUE)
+                .addContainerGap(281, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(240, 240, 240))
         );
@@ -358,87 +438,151 @@ public class dlgUpdate extends javax.swing.JDialog{
             }
         });
 
+        cbbRoom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbRoom.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbRoomItemStateChanged(evt);
+            }
+        });
+        cbbRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbRoomActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Room");
+
+        jLabel5.setText("Bed");
+
+        cbbBed.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbBed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbBedActionPerformed(evt);
+            }
+        });
+
+        cbxUpdateRoom.setText("Update");
+        cbxUpdateRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUpdateRoomActionPerformed(evt);
+            }
+        });
+
+        txtRoom.setEditable(false);
+
+        txtBed.setEditable(false);
+
+        jLabel7.setText("Room");
+
+        jLabel8.setText("Bed");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel30)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(105, 105, 105)
-                                .addComponent(rbtMale)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbtFemale)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel27)
-                                    .addComponent(jLabel29))
-                                .addGap(55, 55, 55)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                                    .addComponent(txtAD, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel34)
-                                    .addComponent(cbxUpdateDoctor))
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbbDoctor, 0, 290, Short.MAX_VALUE)
-                                    .addComponent(txtDoctor, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel31)
-                                    .addComponent(jLabel35))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDateIn, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                                    .addComponent(cbbDepartment, 0, 291, Short.MAX_VALUE))))
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel33)
-                        .addGap(0, 0, 0)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel36)
-                            .addComponent(jLabel32)
-                            .addComponent(jLabel37))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDateOut)
-                    .addComponent(txtInHospital)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
-                .addGap(29, 29, 29))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbxUpdateDateIn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbYI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbMI, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbbDI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(470, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(214, 214, 214))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel30)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(105, 105, 105)
+                                .addComponent(rbtMale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbtFemale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jLabel29))
+                                .addGap(55, 55, 55)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                    .addComponent(txtAD, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel34)
+                                    .addComponent(cbxUpdateDoctor))
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbbDoctor, 0, 256, Short.MAX_VALUE)
+                                    .addComponent(txtDoctor, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel31)
+                                    .addComponent(jLabel35)
+                                    .addComponent(jLabel36)
+                                    .addComponent(cbxUpdateDateIn))
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDateOut, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                                    .addComponent(txtDateIn, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                                    .addComponent(cbbDepartment, 0, 255, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbbYI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbbMI, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel6)
+                                        .addGap(8, 8, 8)
+                                        .addComponent(cbbDI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(89, 89, 89)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel32)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel33)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel37)
+                                            .addGap(6, 6, 6))))
+                                .addGap(33, 33, 33))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbxUpdateRoom)
+                                .addGap(2, 2, 2)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtInHospital)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                                .addComponent(jLabel8))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbbBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -446,77 +590,93 @@ public class dlgUpdate extends javax.swing.JDialog{
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(210, 210, 210)
-                        .addComponent(jLabel33)
-                        .addGap(114, 114, 114))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtInHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel37))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel32)
+                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel28)
+                            .addComponent(txtAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel29)
+                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel32)
-                                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel27))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel28)
-                                    .addComponent(txtAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel29)
-                                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(rbtMale)
-                                        .addComponent(rbtFemale))
-                                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel34)
-                                    .addComponent(txtDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cbbDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxUpdateDoctor))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel31)
-                                    .addComponent(cbbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtInHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel37))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(rbtMale)
+                                .addComponent(rbtFemale))
+                            .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel34)
+                            .addComponent(txtDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbbDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxUpdateDoctor)
+                            .addComponent(jLabel33))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel31)
+                            .addComponent(cbbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel36)
-                                .addComponent(txtDateOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtDateIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel35)))
-                        .addGap(6, 6, 6)))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxUpdateDateIn)
-                    .addComponent(cbbDI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbMI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(cbbYI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel36)
+                            .addComponent(txtDateOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtDateIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel35))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(cbbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxUpdateRoom))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(cbbYI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(cbbMI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbbDI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(cbxUpdateDateIn)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbbBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))))
                 .addContainerGap())
         );
 
@@ -525,7 +685,6 @@ public class dlgUpdate extends javax.swing.JDialog{
 
     private void cbbDepartmentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbDepartmentItemStateChanged
         // TODO add your handling code here:
-
 }//GEN-LAST:event_cbbDepartmentItemStateChanged
 
     private void cbbYIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbYIItemStateChanged
@@ -568,7 +727,7 @@ public class dlgUpdate extends javax.swing.JDialog{
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        
+
         Update();
         rsUp();
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -579,6 +738,7 @@ public class dlgUpdate extends javax.swing.JDialog{
             PreparedStatement pstmt = conn.prepareCall(sDelete);
             pstmt.setString(1, txtID.getText());
             pstmt.executeUpdate();
+            setSTTBed(Integer.parseInt(txtBed.getText()), "empty");
             JOptionPane.showMessageDialog(this, "Delete Success!!");
             pstmt.close();
             rsUp();
@@ -592,6 +752,23 @@ public class dlgUpdate extends javax.swing.JDialog{
     private void cbxUpdateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUpdateDoctorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxUpdateDoctorActionPerformed
+
+    private void cbbRoomItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbRoomItemStateChanged
+        // TODO add your handling code here:
+        cbbBed.setModel(getListBed());
+}//GEN-LAST:event_cbbRoomItemStateChanged
+
+    private void cbbBedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbBedActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_cbbBedActionPerformed
+
+    private void cbxUpdateRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUpdateRoomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxUpdateRoomActionPerformed
+
+    private void cbbRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbRoomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbRoomActionPerformed
 
     /**
      * @param args the command line arguments
@@ -619,13 +796,16 @@ public class dlgUpdate extends javax.swing.JDialog{
     private javax.swing.ButtonGroup btgGender;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox cbbBed;
     private javax.swing.JComboBox cbbDI;
     private javax.swing.JComboBox cbbDepartment;
     private javax.swing.JComboBox cbbDoctor;
     private javax.swing.JComboBox cbbMI;
+    private javax.swing.JComboBox cbbRoom;
     private javax.swing.JComboBox cbbYI;
     private javax.swing.JCheckBox cbxUpdateDateIn;
     private javax.swing.JCheckBox cbxUpdateDoctor;
+    private javax.swing.JCheckBox cbxUpdateRoom;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel27;
@@ -640,7 +820,11 @@ public class dlgUpdate extends javax.swing.JDialog{
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -649,12 +833,14 @@ public class dlgUpdate extends javax.swing.JDialog{
     private javax.swing.JRadioButton rbtMale;
     private javax.swing.JTextField txtAD;
     private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtBed;
     private javax.swing.JTextField txtDateIn;
     private javax.swing.JTextField txtDateOut;
     private javax.swing.JTextField txtDoctor;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtInHospital;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtRoom;
     // End of variables declaration//GEN-END:variables
 
     public void setaDes(String a) {
@@ -666,11 +852,11 @@ public class dlgUpdate extends javax.swing.JDialog{
     }
 
     public void setCbbDepartment(String c) {
-        if("Internal medicine".equals(c)){
+        if ("Internal medicine".equals(c)) {
             cbbDepartment.setSelectedIndex(0);
-        }else if("Surgical".equals(c)){
+        } else if ("Surgical".equals(c)) {
             cbbDepartment.setSelectedIndex(1);
-        }else{
+        } else {
             cbbDepartment.setSelectedIndex(2);
         }
     }
@@ -679,12 +865,11 @@ public class dlgUpdate extends javax.swing.JDialog{
         txtInHospital.setText(s);
     }
 
-    
     public void setRbtMale(String s) {
-        if("Male".equals(s)){
+        if ("Male".equals(s)) {
             rbtMale.setSelected(true);
             rbtFemale.setSelected(false);
-        }else{
+        } else {
             rbtMale.setSelected(false);
             rbtFemale.setSelected(true);
         }
@@ -718,4 +903,11 @@ public class dlgUpdate extends javax.swing.JDialog{
         txtID.setText(s);
     }
 
- }
+    public void setTxtBed(String s) {
+        txtBed.setText(s);
+    }
+
+    public void setTxtRoom(String s) {
+        txtRoom.setText(s);
+    }
+}

@@ -9,7 +9,19 @@ go
 
 use PI
 go
-
+-- Table to store room
+create table tblRoom(
+ID int identity(1,1) primary key ,
+stt varchar(5)
+)
+go
+--Table to store bed
+create table tblBed(
+id int identity(1,1)primary key,
+room int foreign key References tblRoom(ID),
+Stt varchar(5)
+)
+go
 create table tblPatient(
 ID int identity(1,1) primary key ,
 FullName nvarchar(300) not null,
@@ -21,42 +33,37 @@ Description nvarchar(300),
 Sick nvarchar(300),
 Doctor nvarchar(300) not null, 
 DateIn smalldatetime,
-DateOut varchar(125),
+DateOut smalldatetime,
 InHospital varchar(3) default 'No',
+room int foreign key references tblRoom(id),
+bed int foreign key references tblbed(id),
 DrStt int
 )
-go 
-insert into tblPatient values('Duong Tung','HaÒi Dýõng',12,'Male','Internal medicine','Break upaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa','Love Sick','Doctor A','1/10/2012','--/--/---','Yes',1)
-insert into tblPatient values('Ngoc Thien','HaÌ Nôòi',11,'Male','Surgical','Headache',' Head injuries','Doctor A','10/12/2012','--/--/---','Yes',0)
-insert into tblPatient values('Nguyen Hinh','Hýng Yên',12,'Male','Cardiovascular','tired','flu','Doctor A','11/12/2012','--/--/---','Yes',1)
-insert into tblPatient values('Duong A','HaÒi Dýõng',12,'Male','Internal medicine','Break up','Love Sick','Doctor A','12/12/2012','--/--/---','No',0)
-insert into tblPatient values('Ngoc T','HaÌ Nôòi',11,'Male','Surgical','Headache',' Head injuries','Doctor A','10/12/2012','--/--/---','No',1)
-insert into tblPatient values('Nguyen H','Hýng Yên',12,'Male','Cardiovascular','tired','flu','Doctor A','11/12/2012','--/--/---','No',0)
 go
 
 Create proc selectAll
 as 
-select ID [ID],  FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],  FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient
 go	
 Create proc selectAllEx
 @DrSTT int
 as 
-select ID [ID],  FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],  FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient where DrStt = @DrSTT
 go	
 -- Proc find Patient by ID
 create proc findByID
 @ID int
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE ID = @ID
 go
 -- Proc find Patient by Name
 create proc findByName
 @Name nvarchar(100)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name
 go
 -- Proc find Patient by Name Ex
@@ -64,7 +71,7 @@ create proc findByNameEx
 @Name nvarchar(100),
 @DrStt int
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name and DrStt = @DrStt
 go
 -- Proc find Patient by Name and Department
@@ -72,7 +79,7 @@ create proc findBy1And2
 @Name nvarchar(300),
 @Department	nvarchar(50)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name and Department = @Department
 go
 -- Proc find Patient by Name and Department Ex
@@ -81,7 +88,7 @@ create proc findBy1And2Ex
 @Department	nvarchar(50),
 @DrSTT int
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name and Department = @Department and DrStt = @DrSTT
 go
 -- Proc find Patient by Name,Department and In Hospital
@@ -90,7 +97,7 @@ create proc findBy12And3
 @Department nvarchar(50),
 @InHospital varchar(3)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name and Department = @Department and InHospital = @InHospital
 go
 
@@ -102,7 +109,7 @@ create proc findBy123And4
 @DateF smalldatetime,
 @DateT smalldatetime
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name and Department = @Department and InHospital = @InHospital and DateIn between @DateF and @DateT
 go
  
@@ -115,7 +122,7 @@ create proc findBy12And4
 @DateF smalldatetime,
 @DateT smalldatetime
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name and Department = @Department  and DateIn between @DateF and @DateT
 go
 
@@ -124,7 +131,7 @@ create proc findBy1And3
 @Name nvarchar(300),
 @InHospital	varchar(3)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name and InHospital = @InHospital
 go
 
@@ -135,7 +142,7 @@ create proc findBy13And4
 @DateF smalldatetime,
 @DateT smalldatetime
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE  FullName = @Name and InHospital = @InHospital  and DateIn between @DateF and @DateT
 go
 
@@ -143,7 +150,7 @@ go
 create proc findByIn
 @InHospital varchar(3)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE InHospital = @InHospital
 go
 
@@ -151,7 +158,7 @@ go
 create proc findByDepartment
 @Department nvarchar(50)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE Department = @Department
 go
 -- Proc find Patient by Department Ex
@@ -159,7 +166,7 @@ create proc findByDepartmentEx
 @Department nvarchar(50),
 @DrSTT int
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE Department = @Department and DrStt = @DrSTT
 go
 -- Proc find Patient by DateIn
@@ -167,7 +174,7 @@ create proc findByDateIn
 @DateF smalldatetime,
 @DateT smalldatetime
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE DateIn between @DateF and @DateT
 go
 
@@ -177,7 +184,7 @@ create proc findBy1And4
 @DateF smalldatetime,
 @DateT smalldatetime
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE FullName= @Name and DateIn between @DateF and @DateT
 go
 
@@ -188,7 +195,7 @@ create proc findBy2And4
 @DateF smalldatetime,
 @DateT smalldatetime
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE Department = @Department and DateIn between @DateF and @DateT
 go
 
@@ -198,7 +205,7 @@ create proc findBy3And4
 @DateF smalldatetime,
 @DateT smalldatetime
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE InHospital =@InHospital and DateIn between @DateF and @DateT
 go
 
@@ -209,7 +216,7 @@ create proc findBy23And4
 @DateF smalldatetime,
 @DateT smalldatetime
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE Department = @Department and InHospital =@InHospital and DateIn between @DateF and @DateT
 go
 
@@ -218,7 +225,7 @@ create proc findBy2And3
 @Department varchar(50),
 @InHospital varchar(3)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE InHospital =@InHospital and Department = @Department
 go
 
@@ -233,7 +240,7 @@ create proc empAddPatient
 @Dr nvarchar(300),
 @DateIn smalldatetime
 as
-INSERT INTO tblPatient VALUES (@FName,@Address,@Age,@Gender,@Dep,@Dec,'(empty)',@Dr,@DateIn,'(empty)','No','0')
+INSERT INTO tblPatient VALUES (@FName,@Address,@Age,@Gender,@Dep,@Dec,'null',@Dr,@DateIn,'null','No','null','null','0')
 go
 select * from tblPatient
 --Proc Employee's updatePatient
@@ -247,10 +254,12 @@ create proc updatePatient
 @Dec nvarchar(300),
 @Dep varchar(50),
 @Dr nvarchar(300),
-@DateIn smalldatetime
+@DateIn smalldatetime,
+@Room int,
+@Bed int
 as
 UPDATE tblPatient
-SET FullName = @FName,Address = @Address,Age = @Age,Gender = @Gender,Department = @Dep,Description =  @Dec,Doctor = @Dr,DateIn = @DateIn WHERE ID= @ID
+SET FullName = @FName,Address = @Address,Age = @Age,Gender = @Gender,Department = @Dep,Description =  @Dec,Doctor = @Dr,DateIn = @DateIn,room = @Room, bed = @Bed WHERE ID= @ID
 go
 
 
@@ -262,11 +271,8 @@ Age int,
 Gender varchar(6),
 )
 go
-insert into tblDoctor values('Dr Thanh','25','Male')
-insert into tblDoctor values('Dr Vu Thuy','20','Female')
-insert into tblDoctor values('Dr Le Hoang','33','Male')
-insert into tblDoctor values('Dr Hai','25','Female')
-go
+
+
 --Create table to store Employee
 create table tblEmployee(
 ID int identity(1,1) primary key ,
@@ -287,32 +293,30 @@ PChange nvarchar(300),
 DateIn smalldatetime,
 DateOut nvarchar(50),
 DateChange smalldatetime,
-DName nvarchar(300)
+DName nvarchar(300),
+Room int,
+Bed int
 )
 go
-Insert into tblInHospital values (1,'Duong Tung','Male','Internal medicine','Love Sick','Break up','Tien trien hon 1 chut','12/12/2012','12/12/2012','12/12/2012','MrThanh')
-Insert into tblInHospital values (1,'Duong Tung','Male','Internal medicine','Love Sick','Break up','Tien trien hon 1 chut','12/12/2012','12/12/2012','12/12/2012','MrThanh')
-Insert into tblInHospital values (1,'Duong Tung','Male','Internal medicine','Love Sick','Break up','Tien trien hon 1 chut','12/12/2012','12/12/2012','12/12/2012','MrThanh')
-Insert into tblInHospital values (1,'Duong Tung','Male','Internal medicine','Love Sick','Break up','Tien trien hon 1 chut','12/12/2012','12/12/2012','12/12/2012','MrThanh')
-go
+
 --proc to get patient in hospital
 create proc selectAllIH
 as
-select ID [ID],  FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],  FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient where InHospital = 'yes'
 go
 -- Proc find Patient by Department In Hospital
 create proc findByDepartmentIH
 @Department nvarchar(50)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE Department = @Department and InHospital ='Yes'
 go
 -- Proc find Patient by Name In Hospital
 create proc findByNameIH
 @Name nvarchar(300)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE FullName = @Name and InHospital ='Yes'
 go
 -- Proc find Patient by Name and Department In Hospital
@@ -320,7 +324,7 @@ create proc findBy1And2IH
 @Name nvarchar(300),
 @Department nvarchar(30)
 as
-select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital]
+select ID [ID],   FullName [Full Name],Address [Address],Age [Age],Gender [Gender],Description [Description],Sick [Sick],Department [Department],Doctor [Dr.Manager],DateIn [DateIn],DateOut [DateOut],InHospital [In Hospital],Room [Room], bed [Bed]
 from tblPatient WHERE FullName = @Name and Department = @Department and InHospital ='Yes'
 go
  
@@ -336,9 +340,11 @@ create proc ExamineYes
 @DateIn smalldatetime,
 @DateOut nvarchar(50),
 @DateChange smalldatetime,
-@DName nvarchar(300)
+@DName nvarchar(300),
+@Room int,
+@Bed int
 as
-INSERT INTO tblInHospital VALUES (@ID_Patient,@PName,@PGender,@PDepartment,@PSick,@PDes,@PChanges,@DateIn,@DateIn,@DateChange,@DName)
+INSERT INTO tblInHospital VALUES (@ID_Patient,@PName,@PGender,@PDepartment,@PSick,@PDes,@PChanges,@DateIn,@DateIn,@DateChange,@DName,@Room,@Bed)
 go
 --Proc Examine in tblPatient
 create proc ExamineP
@@ -370,3 +376,60 @@ Account varchar(12),
 Password varchar(50)
 )
 select * from tblAccount
+go
+
+--Proc to add Room
+create proc addRoom
+as
+INSERT INTO tblRoom values ('Empty')
+go
+
+--Proc to add Bed
+create proc addBed
+@Room int
+as
+INSERT INTO tblBed values (@Room,'Empty')
+go
+--Proc set STT bed
+create proc setSTTBed
+@bed int,
+@STT varchar(6)
+as
+UPDATE tblBed SET Stt = @STT where id = @bed
+go
+-------------------------------------------------------------------------------------------
+insert into tblRoom values('empty')
+insert into tblRoom values('empty')
+insert into tblRoom values('empty')
+insert into tblRoom values('empty')
+go
+INSERT INTO tblBed VALUES (1,'Using')
+INSERT INTO tblBed VALUES (1,'empty')
+INSERT INTO tblBed VALUES (1,'empty')
+INSERT INTO tblBed VALUES (1,'empty')
+INSERT INTO tblBed VALUES (2,'empty')
+INSERT INTO tblBed VALUES (2,'empty')
+INSERT INTO tblBed VALUES (2,'empty')
+INSERT INTO tblBed VALUES (2,'empty')
+INSERT INTO tblBed VALUES (3,'empty')
+INSERT INTO tblBed VALUES (3,'empty')
+INSERT INTO tblBed VALUES (3,'empty')
+INSERT INTO tblBed VALUES (3,'empty')
+INSERT INTO tblBed VALUES (4,'empty')
+INSERT INTO tblBed VALUES (4,'empty')
+INSERT INTO tblBed VALUES (4,'empty')
+INSERT INTO tblBed VALUES (4,'empty')
+go
+INSERT INTO tblDoctor VALUES ('Duong tung',20,'Male')
+INSERT INTO tblDoctor VALUES ('Thanh Tung',20,'Male')
+INSERT INTO tblDoctor VALUES ('Nguyen Hinh',20,'Male')
+INSERT INTO tblDoctor VALUES ('Ngoc Thien',20,'Male')
+go
+INSERT INTO tblPatient VALUES ('Benh Nhan 1','Ha Noi','12','Nam','Dau Hong','Internal medicine','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
+INSERT INTO tblPatient VALUES ('Benh Nhan 2','Ha Noi','12','Nam','Dau Hong','Surgical','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
+INSERT INTO tblPatient VALUES ('Benh Nhan 3','Ha Noi','12','Nam','Dau Hong','Cardiovascular ','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
+INSERT INTO tblPatient VALUES ('Benh Nhan 4','Ha Noi','12','Nam','Dau Hong','Cardiovascular','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
+INSERT INTO tblPatient VALUES ('Benh Nhan 5','Ha Noi','12','Nam','Dau Hong','Internal medicine','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
+INSERT INTO tblPatient VALUES ('Benh Nhan 6','Ha Noi','12','Nam','Dau Hong','Surgical','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
+INSERT INTO tblPatient VALUES ('Benh Nhan 7','Ha Noi','12','Nam','Dau Hong','Internal medicine','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
+go
