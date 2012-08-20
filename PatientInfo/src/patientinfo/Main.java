@@ -183,6 +183,8 @@ public class Main extends javax.swing.JFrame {
                     dialog.setTxtDateIn(model.getValueAt(realIndex, 9).toString());
                     dialog.setTxtDateOut(model.getValueAt(realIndex, 10).toString());
                     dialog.setTxtInHospital(model.getValueAt(realIndex, 11).toString());
+                    dialog.setTxtRoom(model.getValueAt(realIndex, 12).toString());
+                    dialog.setTxtBed(model.getValueAt(realIndex, 13).toString());
                     selectedIndex = 0;
                     dialog.setVisible(true);
                     selectedIndex = 0;
@@ -244,10 +246,10 @@ public class Main extends javax.swing.JFrame {
                     dialog.settxtDes(model.getValueAt(realIndex, 5).toString());
                     dialog.settxtDateIn(model.getValueAt(realIndex, 9).toString());
                     dialog.settxtDateOut(model.getValueAt(realIndex, 10).toString());
-                    selectedIndex = 0;
+                    dialog.setTxtRoom(model.getValueAt(realIndex, 12).toString());
+                    dialog.setTxtBed(model.getValueAt(realIndex, 13).toString());
                     dialog.setVisible(true);
                     selectedIndex = 0;
-//                    JOptionPane.showMessageDialog(pnlMain, patient.toString());
                 }
             }
         });
@@ -1241,6 +1243,7 @@ public class Main extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -1381,11 +1384,11 @@ public class Main extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Login2.png"))); // NOI18N
         jLabel3.setText("Login");
 
-        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel33.setText("Patient Info System");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1440,10 +1443,10 @@ public class Main extends javax.swing.JFrame {
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Logo.png"))); // NOI18N
 
-        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 48));
         jLabel31.setText("Patient Info System");
 
-        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel32.setText("Created by a group Superman");
 
         javax.swing.GroupLayout pnlContent2Layout = new javax.swing.GroupLayout(pnlContent2);
@@ -1911,8 +1914,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTL, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addContainerGap(614, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2100,7 +2103,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel30)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(403, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2175,8 +2178,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTE, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addContainerGap(614, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2364,7 +2367,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel28)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(473, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2402,7 +2405,7 @@ public class Main extends javax.swing.JFrame {
         mnEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Employee1.png"))); // NOI18N
         mnEmp.setText("Employee");
         mnEmp.setEnabled(false);
-        mnEmp.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12));
+        mnEmp.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12)); // NOI18N
         mnEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnEmpActionPerformed(evt);
@@ -2466,6 +2469,11 @@ public class Main extends javax.swing.JFrame {
         mnAd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Role.png"))); // NOI18N
         mnAd.setText("Admin");
         mnAd.setEnabled(false);
+        mnAd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnAdActionPerformed(evt);
+            }
+        });
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/account1.png"))); // NOI18N
         jMenuItem5.setText("Add Account");
@@ -2493,6 +2501,15 @@ public class Main extends javax.swing.JFrame {
             }
         });
         mnAd.add(jMenuItem4);
+
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/bed.png"))); // NOI18N
+        jMenuItem11.setText("Add or remove room_bed");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        mnAd.add(jMenuItem11);
 
         jMenuBar1.add(mnAd);
 
@@ -2865,6 +2882,17 @@ public class Main extends javax.swing.JFrame {
         btgRole.clearSelection();
 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void mnAdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAdActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_mnAdActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        dlgAddRoom_Bed dialog = new dlgAddRoom_Bed(this, rootPaneCheckingEnabled);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -2981,6 +3009,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

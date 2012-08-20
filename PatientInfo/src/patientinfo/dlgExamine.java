@@ -47,8 +47,62 @@ public class dlgExamine extends javax.swing.JDialog {
         DateTimeTDV dateTDV = new DateTimeTDV();
         cbbYO.setModel(dateTDV.getListYear());
         cbbDoctor.setModel(getListDoctor());
+        cbbRoom.setModel(getListRoom());
+        cbbBed.setModel(getListBed());
 
+    }
+    public void setSTTBed(int bed,String STT) {
+        try {
+            CallableStatement cs = conn.prepareCall("{call setSTTBed(?,?)}");
+            cs.setInt(1, bed);
+            cs.setString(2, STT);
+            cs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public DefaultComboBoxModel getListRoom() {
+        DefaultComboBoxModel listRoom = new DefaultComboBoxModel();
+        try {
 
+            String sSelect = "Select id from tblRoom";
+            PreparedStatement pstmt = conn.prepareStatement(sSelect);
+            ResultSet rs = pstmt.executeQuery();
+
+            ResultSetMetaData meta = rs.getMetaData();
+
+            while (rs.next()) {
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    listRoom.addElement(rs.getObject(i).toString());
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return listRoom;
+    }
+    public DefaultComboBoxModel getListBed() {
+        DefaultComboBoxModel listbed = new DefaultComboBoxModel();
+        try {
+
+            String sSelect = "Select id from tblbed where room = ? and stt = 'empty'";
+            PreparedStatement pstmt = conn.prepareStatement(sSelect);
+            pstmt.setString(1, cbbRoom.getSelectedItem().toString());
+            ResultSet rs = pstmt.executeQuery();
+
+            ResultSetMetaData meta = rs.getMetaData();
+
+            while (rs.next()) {
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    listbed.addElement(rs.getObject(i).toString());
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return listbed;
     }
 
     public void rsExam() {
@@ -151,6 +205,10 @@ public class dlgExamine extends javax.swing.JDialog {
         cbxUpdateDoctor = new javax.swing.JCheckBox();
         txtGender = new javax.swing.JTextField();
         btnRS = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbbRoom = new javax.swing.JComboBox();
+        cbbBed = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Details Patient");
@@ -248,7 +306,7 @@ public class dlgExamine extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Examine.png"))); // NOI18N
         jLabel1.setText("Examine");
 
@@ -307,6 +365,26 @@ public class dlgExamine extends javax.swing.JDialog {
             }
         });
 
+        jLabel4.setText("Room");
+
+        jLabel5.setText("Bed");
+
+        cbbRoom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbRoom.setEnabled(false);
+        cbbRoom.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbRoomItemStateChanged(evt);
+            }
+        });
+
+        cbbBed.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbBed.setEnabled(false);
+        cbbBed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbBedActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -323,70 +401,75 @@ public class dlgExamine extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jLabel29)
+                                    .addComponent(jLabel31)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel36))
+                                .addGap(78, 78, 78)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel27)
-                                            .addComponent(jLabel29))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtAge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                                            .addComponent(txtAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                                            .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                                            .addComponent(txtGender, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                                            .addComponent(cbbDoctor, javax.swing.GroupLayout.Alignment.TRAILING, 0, 317, Short.MAX_VALUE)
-                                            .addComponent(txtDoctor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel11))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel31)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel36))
-                                        .addGap(36, 36, 36)
+                                            .addComponent(cbbYO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtDateI, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(rbtYes)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(rbtNo))
-                                            .addComponent(cbbDepartment, 0, 298, Short.MAX_VALUE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel11)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cbbYO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabel9)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(cbbMO, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(10, 10, 10)
-                                                        .addComponent(btnOk, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel6)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(cbbDO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(cbbDO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cbbBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(rbtYes)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(rbtNo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE))
+                                    .addComponent(txtDateI, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtGender, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtAge, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtAD, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                                    .addComponent(cbbDoctor, 0, 314, Short.MAX_VALUE)
+                                    .addComponent(txtDoctor, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                                    .addComponent(cbbDepartment, 0, 314, Short.MAX_VALUE))
                                 .addGap(6, 6, 6))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel34)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel30)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel32)
-                                    .addGap(6, 6, 6))
-                                .addComponent(jLabel33))
-                            .addComponent(btnRS, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 422, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel32)
+                                .addGap(6, 6, 6))
+                            .addComponent(jLabel33))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(289, 289, 289)
+                .addComponent(btnOk, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
+                .addComponent(btnRS, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addGap(261, 261, 261))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,11 +534,21 @@ public class dlgExamine extends javax.swing.JDialog {
                     .addComponent(jLabel6)
                     .addComponent(jLabel11)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRS, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRS, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(cbbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(cbbBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
 
         pack();
@@ -503,7 +596,7 @@ public class dlgExamine extends javax.swing.JDialog {
         } else if (In.equals("Yes")) {
             date = cbbMO.getSelectedItem().toString() + "/" + cbbDO.getSelectedItem().toString() + "/" + cbbYO.getSelectedItem().toString();
             try {
-                CallableStatement cs = conn.prepareCall("{call ExamineYes(?,?,?,?,?,?,?,?,?,?,?)}");
+                CallableStatement cs = conn.prepareCall("{call ExamineYes(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
                 cs.setString(1, txtID.getText());
                 cs.setString(2, txtName.getText());
                 cs.setString(3, txtGender.getText());
@@ -515,17 +608,20 @@ public class dlgExamine extends javax.swing.JDialog {
                 cs.setString(9, date);
                 cs.setString(10, txtDateI.getText());
                 cs.setString(11, cbbDoctor.getSelectedItem().toString());
+                cs.setInt(12, Integer.parseInt(cbbRoom.getSelectedItem().toString()));
+                cs.setInt(13, Integer.parseInt(cbbBed.getSelectedItem().toString()));
                 cs.executeUpdate();
                 try {
-                    CallableStatement cs1 = conn.prepareCall("{call ExamineP(?,?,?,?,?,?)}");
-                    cs.setString(1, cbbDepartment.getSelectedItem().toString());
-                    cs1.setString(2, txtID.getText());
+                    CallableStatement cs1 = conn.prepareCall("{call ExamineP(?,?,?,?,?,?,?)}");
+                    cs1.setString(2, cbbDepartment.getSelectedItem().toString());
+                    cs1.setString(1, txtID.getText());
                     cs1.setString(3, aSick.getText());
                     cs1.setString(6, "Yes");
                     cs1.setInt(7, 1);
                     cs1.setString(5, date);
                     cs1.setString(4, cbbDoctor.getSelectedItem().toString());
                     cs1.executeUpdate();
+                    setSTTBed(Integer.parseInt(cbbBed.getSelectedItem().toString()), "Using");
                     JOptionPane.showMessageDialog(this, "Examine success!");
                     rsExam();
                 } catch (SQLException ex) {
@@ -560,6 +656,8 @@ public class dlgExamine extends javax.swing.JDialog {
         cbbYO.setEnabled(true);
         cbbMO.setEnabled(true);
         cbbDO.setEnabled(true);
+        cbbBed.setEnabled(true);
+        cbbRoom.setEnabled(true);
         In = "Yes";
     }//GEN-LAST:event_rbtYesActionPerformed
 
@@ -568,7 +666,10 @@ public class dlgExamine extends javax.swing.JDialog {
         cbbYO.setEnabled(false);
         cbbDO.setEnabled(false);
         cbbMO.setEnabled(false);
+        cbbBed.setEnabled(false);
+        cbbRoom.setEnabled(false);
         In = "No";
+        
     }//GEN-LAST:event_rbtNoActionPerformed
 
     private void cbxUpdateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUpdateDoctorActionPerformed
@@ -580,6 +681,15 @@ public class dlgExamine extends javax.swing.JDialog {
         btgIn.clearSelection();
         aSick.setText(null);
     }//GEN-LAST:event_btnRSActionPerformed
+
+    private void cbbBedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbBedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbBedActionPerformed
+
+    private void cbbRoomItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbRoomItemStateChanged
+        // TODO add your handling code here:
+        cbbBed.setModel(getListBed());
+    }//GEN-LAST:event_cbbRoomItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -606,10 +716,12 @@ public class dlgExamine extends javax.swing.JDialog {
     private javax.swing.ButtonGroup btgIn;
     private javax.swing.JButton btnOk;
     private javax.swing.JButton btnRS;
+    private javax.swing.JComboBox cbbBed;
     private javax.swing.JComboBox cbbDO;
     private javax.swing.JComboBox cbbDepartment;
     private javax.swing.JComboBox cbbDoctor;
     private javax.swing.JComboBox cbbMO;
+    private javax.swing.JComboBox cbbRoom;
     private javax.swing.JComboBox cbbYO;
     private javax.swing.JCheckBox cbxUpdateDoctor;
     private javax.swing.JLabel jLabel1;
@@ -626,6 +738,8 @@ public class dlgExamine extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
