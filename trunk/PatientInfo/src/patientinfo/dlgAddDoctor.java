@@ -276,11 +276,11 @@ public class dlgAddDoctor extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Choice Gender!");
             } else {
                 try {
-                    String sUpdate = "INSERT IN tblDoctor VALUES(?,?,?)";
+                    String sUpdate = "INSERT INTO tblDoctor VALUES(?,?,?)";
                     PreparedStatement pstmt = conn.prepareStatement(sUpdate);
                     pstmt.setString(1, txtAddFName.getText());
                     pstmt.setInt(2, age);
-                    pstmt.setString(4, gender);
+                    pstmt.setString(3, gender);
                     pstmt.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Add success!!");
                     rs();
