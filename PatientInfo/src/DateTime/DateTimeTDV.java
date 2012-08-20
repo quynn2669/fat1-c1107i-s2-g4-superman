@@ -11,8 +11,9 @@ import javax.swing.DefaultComboBoxModel;
  * @author tug
  */
 public class DateTimeTDV {
+
    public DateTimeTDV() {
-    } 
+   } 
     private int date;
 
     private int month;

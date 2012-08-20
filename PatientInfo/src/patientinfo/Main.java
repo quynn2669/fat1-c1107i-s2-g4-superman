@@ -4,9 +4,6 @@ import DateTime.DateTimeTDV;
 import java.awt.CardLayout;
 import java.sql.*;
 import java.util.Vector;
-import java.util.jar.Attributes.Name;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -42,6 +39,7 @@ public class Main extends javax.swing.JFrame {
     int addAge = 0;
     public Patient patient = new Patient();
     int DrSTT = 0;
+    DateTimeTDV dateTDV = new DateTimeTDV();
 
     public Main() {
         initComponents();
@@ -56,7 +54,6 @@ public class Main extends javax.swing.JFrame {
 
     public void loadView() {
         Reset();
-        DateTimeTDV dateTDV = new DateTimeTDV();
         cbbSYearF.setModel(dateTDV.getListYear());
         cbbSYearT.setModel(dateTDV.getListYear());
 
@@ -2855,11 +2852,11 @@ public class Main extends javax.swing.JFrame {
         cc.show(pnlMain, "cardLogin");
         Reset();
         mnEmp.setEnabled(false);
-            mnDr.setEnabled(false);
-            mnAd.setEnabled(false);
-            txtAccount.setText(null);
-            password.setText(null);
-            btgRole.clearSelection();
+        mnDr.setEnabled(false);
+        mnAd.setEnabled(false);
+        txtAccount.setText(null);
+        password.setText(null);
+        btgRole.clearSelection();
 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
     /**
