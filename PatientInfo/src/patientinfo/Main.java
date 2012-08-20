@@ -117,10 +117,10 @@ public class Main extends javax.swing.JFrame {
                 pstmt.setString(1, acc);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
-                    if (rs.getString(2) != role) {
+                    if (!rs.getString(2).equals(role)) {
                         JOptionPane.showMessageDialog(this, "Account or Password Wrong!!");
                     } else {
-                        if (role == "Employee") {
+                        if (role.equals("Employee")) {
                             mnEmp.setEnabled(true);
                             mnDr.setEnabled(false);
                             mnAd.setEnabled(false);
@@ -132,12 +132,18 @@ public class Main extends javax.swing.JFrame {
                             lblRole.setText(role);
                             lblRole1.setText(role);
                             lblRole2.setText(role);
-                        } else if (role == "Doctor") {
+                        } else if (role.equals("Doctor")) {
                             mnEmp.setEnabled(false);
                             mnDr.setEnabled(true);
                             mnAd.setEnabled(false);
                             CardLayout cc = (CardLayout) pnlMain.getLayout();
                             cc.show(pnlMain, "cardExamine");
+                            lblAccS.setText(acc);
+                            lblAccS1.setText(acc);
+                            lblAccS2.setText(acc);
+                            lblRole.setText(role);
+                            lblRole1.setText(role);
+                            lblRole2.setText(role);
                         }
                         JOptionPane.showMessageDialog(this, "Login success!\nRole: " + role);
                         txtAccount.setText(null);
@@ -145,7 +151,7 @@ public class Main extends javax.swing.JFrame {
                         btgRole.clearSelection();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Account or Password Wrong!!");
+                    JOptionPane.showMessageDialog(this, "Account Wrong!!");
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();

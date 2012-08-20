@@ -369,3 +369,4 @@ Role varchar(25),
 Account varchar(12),
 Password varchar(50)
 )
+select * from tblAccount

@@ -45,57 +45,22 @@ public class dlgAddAccount extends javax.swing.JDialog {
         txtAddFName.setText(null);
         btgRole.clearSelection();
     }
-    public boolean checkEmp(int id,String Name){
+
+    public boolean checkEmp(int id, String Name) {
         boolean check = true;
         try {
             String sSelect = "Select FullName from tblEmployee where ID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sSelect);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                if(rs.getString(1).equals(Name)){
-                check = true;
-                }else{
+            if (rs.next()) {
+                if (rs.getString(1).equals(Name)) {
+                    check = true;
+                } else {
                     check = false;
                 }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return check;
-    }
-    public boolean checkDr(int id,String Name){
-        boolean check = true;
-        try {
-            String sSelect = "Select FullName from tblDoctor where ID = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sSelect);
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                if(rs.getString(1).equals(Name)){
-                check = true;
-                }else{
-                    check = false;
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return check;
-    }
-    public boolean checkAc(int id,String Name,String role){
-        boolean check = true;
-        try {
-            String sSelect = "Select FullName,Role from tblAccount where ID = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sSelect);
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                if(rs.getString(1).equals(Name) && rs.getString(2).equals(role)){
-                check = true;
-                }else{
-                    check = false;
-                }
+            }else {
+                check = false;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -103,6 +68,49 @@ public class dlgAddAccount extends javax.swing.JDialog {
         return check;
     }
 
+    public boolean checkDr(int id, String Name) {
+        boolean check = true;
+        try {
+            String sSelect = "Select FullName from tblDoctor where ID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sSelect);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                if (rs.getString(1).equals(Name)) {
+                    check = true;
+                } else {
+                    check = false;
+                }
+            } else {
+                check = false;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return check;
+    }
+
+    public boolean checkAc(int id, String Name, String role) {
+        boolean check = true;
+        try {
+            String sSelect = "Select Name,Role from tblAccount where ID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sSelect);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                if (rs.getString(1).equals(Name) && rs.getString(2).equals(role)) {
+                    check = true;
+                } else {
+                    check = false;
+                }
+            } else {
+                check = false;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return check;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -180,24 +188,23 @@ public class dlgAddAccount extends javax.swing.JDialog {
         pnlPatientInfoLayout.setHorizontalGroup(
             pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPatientInfoLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addContainerGap()
                 .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPatientInfoLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(rbtEm)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbtDoc))
-                    .addComponent(jLabel17))
-                .addContainerGap(179, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPatientInfoLayout.createSequentialGroup()
-                .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPatientInfoLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(41, 41, 41)
+                        .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPatientInfoLayout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(rbtEm)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbtDoc))
+                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlPatientInfoLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addGap(18, 18, 18)
                         .addComponent(pass, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
-                    .addGroup(pnlPatientInfoLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPatientInfoLayout.createSequentialGroup()
                         .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel15)
                             .addComponent(jLabel13)
@@ -212,7 +219,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
         pnlPatientInfoLayout.setVerticalGroup(
             pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPatientInfoLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(42, 42, 42)
                 .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -234,7 +241,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
                     .addGroup(pnlPatientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(rbtEm)
                         .addComponent(jLabel17)))
-                .addGap(21, 21, 21))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         btnAdd.setText("Add");
@@ -271,7 +278,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
             pnlAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlPatientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlPatientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(pnlAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
@@ -280,7 +287,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/add.png"))); // NOI18N
         jLabel1.setText("Add Account");
 
@@ -337,9 +344,10 @@ public class dlgAddAccount extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        if(rbtEm.isSelected()){
+
+        if (rbtEm.isSelected()) {
             Role = "Employee";
-        }else if(rbtDoc.isSelected()){
+        } else if (rbtDoc.isSelected()) {
             Role = "Doctor";
         }
         int check = 0;
@@ -367,15 +375,15 @@ public class dlgAddAccount extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Enter Password!!!");
             } else if (password.length() < 4) {
                 JOptionPane.showMessageDialog(this, "Password length must be greater than 4 characters!!!");
-            }else if(Role.equals("")){
+            } else if (Role.equals("")) {
                 JOptionPane.showMessageDialog(this, "Choice Role!");
-            }else if(Role.equals("Doctor")){
-                if(checkDr(ID, txtAddFName.getText())){
-                 if(checkAc(ID, txtAddFName.getText(), Role)){
-                     JOptionPane.showMessageDialog(this, "You already have the Account!");
-                 }else{
+            } else if (Role.equals("Doctor")) {
+                if (checkDr(ID, txtAddFName.getText())) {
+                    if (checkAc(ID, txtAddFName.getText(), Role)) {
+                        JOptionPane.showMessageDialog(this, "You already have the Account!");
+                    } else {
                         try {
-                            String sUpdate = "INSERT IN tblAccount VALUES(?,?,?,?,?)";
+                            String sUpdate = "INSERT INTO tblAccount VALUES(?,?,?,?,?)";
                             PreparedStatement pstmt = conn.prepareStatement(sUpdate);
                             pstmt.setInt(1, ID);
                             pstmt.setString(2, txtAddFName.getText());
@@ -389,17 +397,17 @@ public class dlgAddAccount extends javax.swing.JDialog {
                             ex.printStackTrace();
                         }
 
-                 }
-                }else{
+                    }
+                } else {
                     JOptionPane.showMessageDialog(this, "Wrong ID or name!!!");
                 }
-            }else if(Role.equals("Employee")){
-                if(checkEmp(ID, txtAddFName.getText())){
-                 if(checkAc(ID, txtAddFName.getText(), Role)){
-                     JOptionPane.showMessageDialog(this, "You already have the Account!");
-                 }else{
+            } else if (Role.equals("Employee")) {
+                if (checkEmp(ID, txtAddFName.getText())) {
+                    if (checkAc(ID, txtAddFName.getText(), Role)) {
+                        JOptionPane.showMessageDialog(this, "You already have the Account!");
+                    } else {
                         try {
-                            String sUpdate = "INSERT IN tblAccount VALUES(?,?,?,?,?)";
+                            String sUpdate = "INSERT INTO tblAccount VALUES(?,?,?,?,?)";
                             PreparedStatement pstmt = conn.prepareStatement(sUpdate);
                             pstmt.setInt(1, ID);
                             pstmt.setString(2, txtAddFName.getText());
@@ -411,8 +419,8 @@ public class dlgAddAccount extends javax.swing.JDialog {
                             ex.printStackTrace();
                         }
 
-                 }
-                }else{
+                    }
+                } else {
                     JOptionPane.showMessageDialog(this, "Wrong ID or name!!!");
                 }
             }
