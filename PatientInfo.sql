@@ -369,7 +369,7 @@ go
 exec selectChanges 2
 --Table to store account
 create table tblAccount(
-ID int,
+ID int foreign key References tblDoctor(ID),
 Name nvarchar(300),
 Role varchar(25),
 Account varchar(12),
@@ -420,10 +420,15 @@ INSERT INTO tblBed VALUES (4,'empty')
 INSERT INTO tblBed VALUES (4,'empty')
 INSERT INTO tblBed VALUES (4,'empty')
 go
-INSERT INTO tblDoctor VALUES ('Duong tung',20,'Male')
-INSERT INTO tblDoctor VALUES ('Thanh Tung',20,'Male')
-INSERT INTO tblDoctor VALUES ('Nguyen Hinh',20,'Male')
-INSERT INTO tblDoctor VALUES ('Ngoc Thien',20,'Male')
+INSERT INTO tblDoctor VALUES ('Bac Si 1',20,'Male')
+INSERT INTO tblDoctor VALUES ('Bac Si 2',20,'Female')
+INSERT INTO tblDoctor VALUES ('Bac Si 3',20,'Male')
+INSERT INTO tblDoctor VALUES ('Bac Si 4',20,'Female')
+go
+INSERT INTO tblEmployee VALUES ('Nhan Vien 1',20,'Male')
+INSERT INTO tblEmployee VALUES ('Nhan Vien 2',20,'Female')
+INSERT INTO tblEmployee VALUES ('Nhan Vien 3',20,'Male')
+INSERT INTO tblEmployee VALUES ('Nhan Vien 4',20,'Female')
 go
 INSERT INTO tblPatient VALUES ('Benh Nhan 1','Ha Noi','12','Nam','Dau Hong','Internal medicine','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
 INSERT INTO tblPatient VALUES ('Benh Nhan 2','Ha Noi','12','Nam','Dau Hong','Surgical','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
@@ -433,3 +438,7 @@ INSERT INTO tblPatient VALUES ('Benh Nhan 5','Ha Noi','12','Nam','Dau Hong','Int
 INSERT INTO tblPatient VALUES ('Benh Nhan 6','Ha Noi','12','Nam','Dau Hong','Surgical','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
 INSERT INTO tblPatient VALUES ('Benh Nhan 7','Ha Noi','12','Nam','Dau Hong','Internal medicine','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
 go
+INSERT INTO tblAccount VALUES (1,'Nhan Vien 1','employee','nhanvien1','nhanvien1')
+INSERT INTO tblAccount VALUES (1,'Bac si 1','doctor','bacsi1','bacsi1')
+go
+select * from tblAccount
