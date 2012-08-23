@@ -346,9 +346,9 @@ public class dlgAddAccount extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         if (rbtEm.isSelected()) {
-            Role = "Employee";
+            Role = "employee";
         } else if (rbtDoc.isSelected()) {
-            Role = "Doctor";
+            Role = "doctor";
         }
         int check = 0;
         String password = new String(pass.getPassword());
@@ -377,7 +377,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Password length must be greater than 4 characters!!!");
             } else if (Role.equals("")) {
                 JOptionPane.showMessageDialog(this, "Choice Role!");
-            } else if (Role.equals("Doctor")) {
+            } else if (Role.equals("doctor")) {
                 if (checkDr(ID, txtAddFName.getText())) {
                     if (checkAc(ID, txtAddFName.getText(), Role)) {
                         JOptionPane.showMessageDialog(this, "You already have the Account!");
@@ -401,7 +401,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
                 } else {
                     JOptionPane.showMessageDialog(this, "Wrong ID or name!!!");
                 }
-            } else if (Role.equals("Employee")) {
+            } else if (Role.equals("employee")) {
                 if (checkEmp(ID, txtAddFName.getText())) {
                     if (checkAc(ID, txtAddFName.getText(), Role)) {
                         JOptionPane.showMessageDialog(this, "You already have the Account!");

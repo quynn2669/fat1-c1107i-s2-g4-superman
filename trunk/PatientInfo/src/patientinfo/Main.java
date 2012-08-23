@@ -24,6 +24,8 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    String sPassword = "";
+    String Account = "";
     DefaultTableModel model = null;
     Connection conn = null;
     ResultSet rs = null;
@@ -106,6 +108,48 @@ public class Main extends javax.swing.JFrame {
             lblRole1.setText(role);
             lblRole2.setText(role);
             JOptionPane.showMessageDialog(this, "Login success!\nRole: Admin");
+            sPassword = pass;
+            Account = acc;
+            txtAccount.setText(null);
+            password.setText(null);
+            btgRole.clearSelection();
+
+        } else if (acc.equals("employee") && pass.equals("employee") && role == "employee") {
+            role = "employee";
+            mnEmp.setEnabled(true);
+            mnDr.setEnabled(false);
+            mnAd.setEnabled(false);
+            CardLayout cc = (CardLayout) pnlMain.getLayout();
+            cc.show(pnlMain, "cardSearch");
+            lblAccS.setText(acc);
+            lblAccS1.setText(acc);
+            lblAccS2.setText(acc);
+            lblRole.setText(role);
+            lblRole1.setText(role);
+            lblRole2.setText(role);
+            JOptionPane.showMessageDialog(this, "Login success!\nRole: Employee");
+            sPassword = pass;
+            Account = acc;
+            txtAccount.setText(null);
+            password.setText(null);
+            btgRole.clearSelection();
+
+        } else if (acc.equals("doctor") && pass.equals("doctor") && role == "doctor") {
+            role = "doctor";
+            mnEmp.setEnabled(false);
+            mnDr.setEnabled(true);
+            mnAd.setEnabled(false);
+            CardLayout cc = (CardLayout) pnlMain.getLayout();
+            cc.show(pnlMain, "cardSearch");
+            lblAccS.setText(acc);
+            lblAccS1.setText(acc);
+            lblAccS2.setText(acc);
+            lblRole.setText(role);
+            lblRole1.setText(role);
+            lblRole2.setText(role);
+            JOptionPane.showMessageDialog(this, "Login success!\nRole: Doctor");
+            sPassword = pass;
+            Account = acc;
             txtAccount.setText(null);
             password.setText(null);
             btgRole.clearSelection();
@@ -120,7 +164,7 @@ public class Main extends javax.swing.JFrame {
                     if (!rs.getString(2).equals(role)) {
                         JOptionPane.showMessageDialog(this, "Account or Password Wrong!!");
                     } else {
-                        if (role.equals("Employee")) {
+                        if (role.equals("employee") && rs.getString(1).equals(pass)) {
                             mnEmp.setEnabled(true);
                             mnDr.setEnabled(false);
                             mnAd.setEnabled(false);
@@ -132,7 +176,14 @@ public class Main extends javax.swing.JFrame {
                             lblRole.setText(role);
                             lblRole1.setText(role);
                             lblRole2.setText(role);
-                        } else if (role.equals("Doctor")) {
+                            JOptionPane.showMessageDialog(this, "Login success!\nRole: " + role);
+
+                            sPassword = pass;
+                            Account = acc;
+                            txtAccount.setText(null);
+                            password.setText(null);
+                            btgRole.clearSelection();
+                        } else if (role.equals("doctor") && rs.getString(1).equals(pass)) {
                             mnEmp.setEnabled(false);
                             mnDr.setEnabled(true);
                             mnAd.setEnabled(false);
@@ -144,11 +195,17 @@ public class Main extends javax.swing.JFrame {
                             lblRole.setText(role);
                             lblRole1.setText(role);
                             lblRole2.setText(role);
+                            JOptionPane.showMessageDialog(this, "Login success!\nRole: " + role);
+
+                            sPassword = pass;
+                            Account = acc;
+                            txtAccount.setText(null);
+                            password.setText(null);
+                            btgRole.clearSelection();
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Password valid");
                         }
-                        JOptionPane.showMessageDialog(this, "Login success!\nRole: " + role);
-                        txtAccount.setText(null);
-                        password.setText(null);
-                        btgRole.clearSelection();
+
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "Account Wrong!!");
@@ -1174,6 +1231,7 @@ public class Main extends javax.swing.JFrame {
         a = new javax.swing.JLabel();
         lblAccS = new javax.swing.JLabel();
         lblRole = new javax.swing.JLabel();
+        changepassS = new javax.swing.JButton();
         cbxByDepartment = new javax.swing.JCheckBox();
         cbxByName = new javax.swing.JCheckBox();
         cbxByIn = new javax.swing.JCheckBox();
@@ -1196,10 +1254,11 @@ public class Main extends javax.swing.JFrame {
         cbbLDepartment = new javax.swing.JComboBox();
         jLabel24 = new javax.swing.JLabel();
         pnlRole2 = new javax.swing.JPanel();
-        xxx2 = new javax.swing.JLabel();
-        a2 = new javax.swing.JLabel();
         lblAccS2 = new javax.swing.JLabel();
         lblRole2 = new javax.swing.JLabel();
+        changepassS1 = new javax.swing.JButton();
+        xxx3 = new javax.swing.JLabel();
+        a3 = new javax.swing.JLabel();
         cbxLD = new javax.swing.JCheckBox();
         cbxLN = new javax.swing.JCheckBox();
         jLabel17 = new javax.swing.JLabel();
@@ -1222,10 +1281,11 @@ public class Main extends javax.swing.JFrame {
         cbbEDepartment = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
         pnlRole1 = new javax.swing.JPanel();
-        xxx1 = new javax.swing.JLabel();
-        a1 = new javax.swing.JLabel();
         lblAccS1 = new javax.swing.JLabel();
         lblRole1 = new javax.swing.JLabel();
+        xxx4 = new javax.swing.JLabel();
+        a4 = new javax.swing.JLabel();
+        changepassS2 = new javax.swing.JButton();
         cbxED = new javax.swing.JCheckBox();
         cbxEN = new javax.swing.JCheckBox();
         jLabel15 = new javax.swing.JLabel();
@@ -1520,8 +1580,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTDT, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1653,12 +1713,18 @@ public class Main extends javax.swing.JFrame {
 
         lblRole.setText("...");
 
+        changepassS.setText("Change Password");
+        changepassS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changepassSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlRoleLayout = new javax.swing.GroupLayout(pnlRole);
         pnlRole.setLayout(pnlRoleLayout);
         pnlRoleLayout.setHorizontalGroup(
             pnlRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRoleLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
                 .addGroup(pnlRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlRoleLayout.createSequentialGroup()
                         .addComponent(a)
@@ -1668,18 +1734,23 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(xxx)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAccS)))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addComponent(changepassS)
+                .addContainerGap())
         );
         pnlRoleLayout.setVerticalGroup(
             pnlRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlRoleLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRoleLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(xxx)
                     .addComponent(lblAccS))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(a)
-                    .addComponent(lblRole)))
+                    .addComponent(lblRole)
+                    .addComponent(changepassS))
+                .addContainerGap())
         );
 
         cbxByDepartment.setText("Search By Department");
@@ -1709,43 +1780,43 @@ public class Main extends javax.swing.JFrame {
         pnlChoice.setLayout(pnlChoiceLayout);
         pnlChoiceLayout.setHorizontalGroup(
             pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlChoiceLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChoiceLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxByIn)
-                    .addComponent(cbxByName)
-                    .addComponent(pnlRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlChoiceLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlRole, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxByIn, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxByName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlChoiceLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlChoiceLayout.createSequentialGroup()
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                                .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(3, 3, 3))
-                    .addGroup(pnlChoiceLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlChoiceLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlChoiceLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlChoiceLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbbSDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlChoiceLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlChoiceLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbbSIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChoiceLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlChoiceLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlChoiceLayout.createSequentialGroup()
                                 .addComponent(jLabel12)
@@ -1771,8 +1842,8 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbbSDayF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(cbxByDepartment)
-                    .addComponent(cbxByDate))
+                    .addComponent(cbxByDepartment, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxByDate, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         pnlChoiceLayout.setVerticalGroup(
@@ -1823,7 +1894,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(-6710887,true));
@@ -1839,7 +1910,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(374, 374, 374)
                 .addComponent(jLabel26)
-                .addContainerGap(394, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1914,8 +1985,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTL, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1970,41 +2041,53 @@ public class Main extends javax.swing.JFrame {
 
         pnlRole2.setBorder(javax.swing.BorderFactory.createTitledBorder("Role"));
 
-        xxx2.setText("Account :");
-
-        a2.setText("Role :");
-
         lblAccS2.setText("...");
 
         lblRole2.setText("...");
+
+        changepassS1.setText("Change Password");
+        changepassS1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changepassS1ActionPerformed(evt);
+            }
+        });
+
+        xxx3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Login.png"))); // NOI18N
+        xxx3.setText("Account :");
+
+        a3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Role.png"))); // NOI18N
+        a3.setText("Role :");
 
         javax.swing.GroupLayout pnlRole2Layout = new javax.swing.GroupLayout(pnlRole2);
         pnlRole2.setLayout(pnlRole2Layout);
         pnlRole2Layout.setHorizontalGroup(
             pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRole2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addGroup(pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlRole2Layout.createSequentialGroup()
-                        .addComponent(a2)
+                        .addComponent(a3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblRole2))
                     .addGroup(pnlRole2Layout.createSequentialGroup()
-                        .addComponent(xxx2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(xxx3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblAccS2)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(changepassS1)
+                .addContainerGap())
         );
         pnlRole2Layout.setVerticalGroup(
             pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRole2Layout.createSequentialGroup()
                 .addGroup(pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(xxx2)
-                    .addComponent(lblAccS2))
+                    .addComponent(lblAccS2)
+                    .addComponent(xxx3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRole2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(a2)
-                    .addComponent(lblRole2)))
+                    .addComponent(lblRole2)
+                    .addComponent(changepassS1)
+                    .addComponent(a3)))
         );
 
         cbxLD.setText("Search By Department");
@@ -2081,7 +2164,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel17)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(btnAllL, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2103,7 +2186,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel30)
-                .addContainerGap(403, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2178,8 +2261,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTE, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2234,41 +2317,53 @@ public class Main extends javax.swing.JFrame {
 
         pnlRole1.setBorder(javax.swing.BorderFactory.createTitledBorder("Role"));
 
-        xxx1.setText("Account :");
-
-        a1.setText("Role :");
-
         lblAccS1.setText("...");
 
         lblRole1.setText("...");
+
+        xxx4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Login.png"))); // NOI18N
+        xxx4.setText("Account :");
+
+        a4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Role.png"))); // NOI18N
+        a4.setText("Role :");
+
+        changepassS2.setText("Change Password");
+        changepassS2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changepassS2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlRole1Layout = new javax.swing.GroupLayout(pnlRole1);
         pnlRole1.setLayout(pnlRole1Layout);
         pnlRole1Layout.setHorizontalGroup(
             pnlRole1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRole1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(12, 12, 12)
                 .addGroup(pnlRole1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlRole1Layout.createSequentialGroup()
-                        .addComponent(a1)
+                        .addComponent(a4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblRole1))
                     .addGroup(pnlRole1Layout.createSequentialGroup()
-                        .addComponent(xxx1)
+                        .addComponent(xxx4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAccS1)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addComponent(changepassS2)
+                .addContainerGap())
         );
         pnlRole1Layout.setVerticalGroup(
             pnlRole1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRole1Layout.createSequentialGroup()
                 .addGroup(pnlRole1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(xxx1)
-                    .addComponent(lblAccS1))
+                    .addComponent(lblAccS1)
+                    .addComponent(xxx4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRole1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(a1)
-                    .addComponent(lblRole1)))
+                    .addComponent(lblRole1)
+                    .addComponent(a4)
+                    .addComponent(changepassS2)))
         );
 
         cbxED.setText("Search By Department");
@@ -2289,8 +2384,15 @@ public class Main extends javax.swing.JFrame {
         pnlChoice1Layout.setHorizontalGroup(
             pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlChoice1Layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(jLabel16)
+                .addContainerGap(115, Short.MAX_VALUE))
+            .addGroup(pnlChoice1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlChoice1Layout.createSequentialGroup()
+                        .addComponent(pnlRole1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(pnlChoice1Layout.createSequentialGroup()
                         .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbxED)
@@ -2308,28 +2410,20 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(jLabel15)
                                     .addComponent(cbbEDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())
-                    .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlChoice1Layout.createSequentialGroup()
-                            .addComponent(pnlRole1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addContainerGap())
-                        .addGroup(pnlChoice1Layout.createSequentialGroup()
-                            .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnlChoice1Layout.createSequentialGroup()
-                                    .addComponent(btnSearchE, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnReset1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
-                                .addComponent(btnAllE, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addGap(13, 13, 13)))))
-            .addGroup(pnlChoice1Layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel16)
-                .addContainerGap(115, Short.MAX_VALUE))
+                    .addGroup(pnlChoice1Layout.createSequentialGroup()
+                        .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlChoice1Layout.createSequentialGroup()
+                                .addComponent(btnSearchE, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnReset1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                            .addComponent(btnAllE, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(13, 13, 13))))
         );
         pnlChoice1Layout.setVerticalGroup(
             pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlChoice1Layout.createSequentialGroup()
                 .addComponent(pnlRole1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbxEN)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2345,7 +2439,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(btnAllE, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2367,7 +2461,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel28)
-                .addContainerGap(473, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2405,7 +2499,7 @@ public class Main extends javax.swing.JFrame {
         mnEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Employee1.png"))); // NOI18N
         mnEmp.setText("Employee");
         mnEmp.setEnabled(false);
-        mnEmp.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12)); // NOI18N
+        mnEmp.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12));
         mnEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnEmpActionPerformed(evt);
@@ -2808,11 +2902,11 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         String role = "";
         if (rbtDr.isSelected()) {
-            role = "Doctor";
+            role = "doctor";
         } else if (rbtEmp.isSelected()) {
-            role = "Employee";
+            role = "employee";
         } else if (admin.isSelected()) {
-            role = "Admin";
+            role = "admin";
         }
         String pass = new String(password.getPassword());
         if (txtAccount.getText().isEmpty()) {
@@ -2885,7 +2979,6 @@ public class Main extends javax.swing.JFrame {
 
     private void mnAdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAdActionPerformed
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_mnAdActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -2893,6 +2986,33 @@ public class Main extends javax.swing.JFrame {
         dlgAddRoom_Bed dialog = new dlgAddRoom_Bed(this, rootPaneCheckingEnabled);
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void changepassSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepassSActionPerformed
+        // TODO add your handling code here:
+        dlgChangePass dlg = new dlgChangePass(this, rootPaneCheckingEnabled);
+        dlg.setAccount(Account);
+        dlg.setLblAccount(Account);
+        dlg.setPassword(sPassword);
+        dlg.setVisible(true);
+    }//GEN-LAST:event_changepassSActionPerformed
+
+    private void changepassS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepassS1ActionPerformed
+        // TODO add your handling code here:
+        dlgChangePass dlg = new dlgChangePass(this, rootPaneCheckingEnabled);
+        dlg.setAccount(Account);
+        dlg.setLblAccount(Account);
+        dlg.setPassword(sPassword);
+        dlg.setVisible(true);
+    }//GEN-LAST:event_changepassS1ActionPerformed
+
+    private void changepassS2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepassS2ActionPerformed
+        // TODO add your handling code here:
+        dlgChangePass dlg = new dlgChangePass(this, rootPaneCheckingEnabled);
+        dlg.setAccount(Account);
+        dlg.setLblAccount(Account);
+        dlg.setPassword(sPassword);
+        dlg.setVisible(true);
+    }//GEN-LAST:event_changepassS2ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -2936,8 +3056,8 @@ public class Main extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel a;
-    private javax.swing.JLabel a1;
-    private javax.swing.JLabel a2;
+    private javax.swing.JLabel a3;
+    private javax.swing.JLabel a4;
     private javax.swing.JRadioButton admin;
     private javax.swing.ButtonGroup btgAddGender;
     private javax.swing.ButtonGroup btgGenderU;
@@ -2970,6 +3090,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbxEN;
     private javax.swing.JCheckBox cbxLD;
     private javax.swing.JCheckBox cbxLN;
+    private javax.swing.JButton changepassS;
+    private javax.swing.JButton changepassS1;
+    private javax.swing.JButton changepassS2;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -3070,7 +3193,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField txtNameE;
     private javax.swing.JTextField txtNameL;
     private javax.swing.JLabel xxx;
-    private javax.swing.JLabel xxx1;
-    private javax.swing.JLabel xxx2;
+    private javax.swing.JLabel xxx3;
+    private javax.swing.JLabel xxx4;
     // End of variables declaration//GEN-END:variables
 }
