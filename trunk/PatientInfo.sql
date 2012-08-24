@@ -240,7 +240,7 @@ create proc empAddPatient
 @Dr nvarchar(300),
 @DateIn smalldatetime
 as
-INSERT INTO tblPatient VALUES (@FName,@Address,@Age,@Gender,@Dep,@Dec,'null',@Dr,@DateIn,'null','No','null','null','0')
+INSERT INTO tblPatient VALUES (@FName,@Address,@Age,@Gender,@Dep,@Dec,'(empty)',@Dr,@DateIn,@DateIn,'No',1,1,0)
 go
 select * from tblPatient
 --Proc Employee's updatePatient
@@ -430,15 +430,15 @@ INSERT INTO tblEmployee VALUES ('Nhan Vien 2',20,'Female')
 INSERT INTO tblEmployee VALUES ('Nhan Vien 3',20,'Male')
 INSERT INTO tblEmployee VALUES ('Nhan Vien 4',20,'Female')
 go
-INSERT INTO tblPatient VALUES ('Benh Nhan 1','Ha Noi','12','Nam','Dau Hong','Internal medicine','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
-INSERT INTO tblPatient VALUES ('Benh Nhan 2','Ha Noi','12','Nam','Dau Hong','Surgical','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
-INSERT INTO tblPatient VALUES ('Benh Nhan 3','Ha Noi','12','Nam','Dau Hong','Cardiovascular ','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
-INSERT INTO tblPatient VALUES ('Benh Nhan 4','Ha Noi','12','Nam','Dau Hong','Cardiovascular','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
-INSERT INTO tblPatient VALUES ('Benh Nhan 5','Ha Noi','12','Nam','Dau Hong','Internal medicine','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
-INSERT INTO tblPatient VALUES ('Benh Nhan 6','Ha Noi','12','Nam','Dau Hong','Surgical','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
-INSERT INTO tblPatient VALUES ('Benh Nhan 7','Ha Noi','12','Nam','Dau Hong','Internal medicine','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,'0')
+INSERT INTO tblPatient VALUES ('Benh Nhan 1','Ha Noi','12','Male','Internal medicine','om nang','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,0)
+INSERT INTO tblPatient VALUES ('Benh Nhan 2','Ha Noi','12','Female','Surgical','om nang','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,0)
+INSERT INTO tblPatient VALUES ('Benh Nhan 3','Ha Noi','12','Female','Cardiovascular','om nang','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,0)
+INSERT INTO tblPatient VALUES ('Benh Nhan 4','Ha Noi','12','Male','Cardiovascular','om nang','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,0)
+INSERT INTO tblPatient VALUES ('Benh Nhan 5','Ha Noi','12','Female','Internal medicine','om nang','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,0)
+INSERT INTO tblPatient VALUES ('Benh Nhan 6','Ha Noi','12','Male','Surgical','om nang','(empty)','Duong Tung','01/01/2012','01/01/2012','No',1,1,0)
+INSERT INTO tblPatient VALUES ('Benh Nhan 7','Ha Noi','12','Male','Internal medicine','om nang','Sick','Duong Tung','01/01/2012','01/01/2012','Yes',1,1,0)
 go
 INSERT INTO tblAccount VALUES (1,'Nhan Vien 1','employee','nhanvien1','nhanvien1')
 INSERT INTO tblAccount VALUES (1,'Bac si 1','doctor','bacsi1','bacsi1')
 go
-select * from tblAccount
+select * from tblPatient

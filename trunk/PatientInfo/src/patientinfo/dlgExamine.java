@@ -10,7 +10,7 @@
  */
 package patientinfo;
 
-import DateTime.DateTimeTDV;
+import DateTime.DateTimePatientInfo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,7 +44,8 @@ public class dlgExamine extends javax.swing.JDialog {
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
         } catch (Exception e) {
         }
-        DateTimeTDV dateTDV = new DateTimeTDV();
+        setTitle("Examine");
+        DateTimePatientInfo dateTDV = new DateTimePatientInfo();
         cbbYO.setModel(dateTDV.getListYear());
         cbbDoctor.setModel(getListDoctor());
         cbbRoom.setModel(getListRoom());
@@ -560,7 +561,7 @@ public class dlgExamine extends javax.swing.JDialog {
 
     private void cbbYOItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbYOItemStateChanged
         // TODO add your handling code here:
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbMO.getSelectedItem().toString());
         int year = Integer.parseInt(cbbYO.getSelectedItem().toString());
         cbbDO.setModel(tdv.getDayByMonth(month, year));
@@ -572,7 +573,7 @@ public class dlgExamine extends javax.swing.JDialog {
 
     private void cbbMOItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbMOItemStateChanged
         // TODO add your handling code here:
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbMO.getSelectedItem().toString());
         int year = Integer.parseInt(cbbYO.getSelectedItem().toString());
         cbbDO.setModel(tdv.getDayByMonth(month, year));

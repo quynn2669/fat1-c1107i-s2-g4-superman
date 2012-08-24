@@ -1,6 +1,6 @@
 package patientinfo;
 
-import DateTime.DateTimeTDV;
+import DateTime.DateTimePatientInfo;
 import java.awt.CardLayout;
 import java.sql.*;
 import java.util.Vector;
@@ -41,7 +41,7 @@ public class Main extends javax.swing.JFrame {
     int addAge = 0;
     public Patient patient = new Patient();
     int DrSTT = 0;
-    DateTimeTDV dateTDV = new DateTimeTDV();
+    DateTimePatientInfo dateTDV = new DateTimePatientInfo();
 
     public Main() {
         initComponents();
@@ -202,7 +202,7 @@ public class Main extends javax.swing.JFrame {
                             txtAccount.setText(null);
                             password.setText(null);
                             btgRole.clearSelection();
-                        }else{
+                        } else {
                             JOptionPane.showMessageDialog(this, "Password valid");
                         }
 
@@ -365,29 +365,6 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
-    }
-
-    public void searchByID() {
-        try {
-            CallableStatement cs = conn.prepareCall("{call findByID(?)}");
-            cs.setInt(1, iID);
-            ResultSet rs = cs.executeQuery();
-
-            ResultSetMetaData meta = rs.getMetaData();
-            for (int i = 1; i <= meta.getColumnCount(); i++) {
-                model.addColumn(meta.getColumnName(i));
-            }
-            while (rs.next()) {
-                Vector v = new Vector();
-                for (int i = 1; i <= meta.getColumnCount(); i++) {
-                    v.addElement(rs.getObject(i).toString());
-                }
-                model.addRow(v);
-            }
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void searchByName(String FName) {
@@ -975,8 +952,8 @@ public class Main extends javax.swing.JFrame {
             } else {
                 FName = txtName.getText();
                 searchByName(FName);
-                lblTTDT.setText("" + tblResult.getRowCount());
-                setDetailsPatient();
+
+
             }
         } else if (cbxByName.isSelected() && !cbxByDate.isSelected() && cbxByDepartment.isSelected() && !cbxByIn.isSelected()) {
             if (txtName.getText().isEmpty()) {
@@ -985,8 +962,8 @@ public class Main extends javax.swing.JFrame {
                 FName = txtName.getText();
                 Department = cbbSDepartment.getSelectedItem().toString();
                 searchBy1And2();
-                lblTTDT.setText("" + tblResult.getRowCount());
-                setDetailsPatient();
+
+
             }
         } else if (cbxByName.isSelected() && cbxByDate.isSelected() && !cbxByDepartment.isSelected() && !cbxByIn.isSelected()) {
             if (txtName.getText().isEmpty()) {
@@ -996,8 +973,8 @@ public class Main extends javax.swing.JFrame {
                 DateF = cbbSMonthF.getSelectedItem().toString() + "/" + cbbSDayF.getSelectedItem().toString() + "/" + cbbSYearF.getSelectedItem().toString();
                 DateT = cbbSMonthT.getSelectedItem().toString() + "/" + cbbSDayT.getSelectedItem().toString() + "/" + cbbSYearT.getSelectedItem().toString();
                 searchBy1And4();
-                lblTTDT.setText("" + tblResult.getRowCount());
-                setDetailsPatient();
+
+
             }
         } else if (cbxByName.isSelected() && cbxByDate.isSelected() && cbxByDepartment.isSelected() && !cbxByIn.isSelected()) {
             if (txtName.getText().isEmpty()) {
@@ -1008,8 +985,8 @@ public class Main extends javax.swing.JFrame {
                 DateF = cbbSMonthF.getSelectedItem().toString() + "/" + cbbSDayF.getSelectedItem().toString() + "/" + cbbSYearF.getSelectedItem().toString();
                 DateT = cbbSMonthT.getSelectedItem().toString() + "/" + cbbSDayT.getSelectedItem().toString() + "/" + cbbSYearT.getSelectedItem().toString();
                 searchBy12And4();
-                lblTTDT.setText("" + tblResult.getRowCount());
-                setDetailsPatient();
+
+
             }
         } else if (cbxByName.isSelected() && cbxByDate.isSelected() && cbxByDepartment.isSelected() && cbxByIn.isSelected()) {
             if (txtName.getText().isEmpty()) {
@@ -1021,8 +998,8 @@ public class Main extends javax.swing.JFrame {
                 DateT = cbbSMonthT.getSelectedItem().toString() + "/" + cbbSDayT.getSelectedItem().toString() + "/" + cbbSYearT.getSelectedItem().toString();
                 InHospital = cbbSIn.getSelectedItem().toString();
                 searchBy123And4();
-                lblTTDT.setText("" + tblResult.getRowCount());
-                setDetailsPatient();
+
+
             }
         } else if (cbxByName.isSelected() && !cbxByDate.isSelected() && cbxByDepartment.isSelected() && cbxByIn.isSelected()) {
             if (txtName.getText().isEmpty()) {
@@ -1032,8 +1009,8 @@ public class Main extends javax.swing.JFrame {
                 Department = cbbSDepartment.getSelectedItem().toString();
                 InHospital = cbbSIn.getSelectedItem().toString();
                 searchBy12And3();
-                lblTTDT.setText("" + tblResult.getRowCount());
-                setDetailsPatient();
+
+
             }
         } else if (cbxByName.isSelected() && cbxByDate.isSelected() && !cbxByDepartment.isSelected() && cbxByIn.isSelected()) {
             if (txtName.getText().isEmpty()) {
@@ -1044,8 +1021,8 @@ public class Main extends javax.swing.JFrame {
                 DateT = cbbSMonthT.getSelectedItem().toString() + "/" + cbbSDayT.getSelectedItem().toString() + "/" + cbbSYearT.getSelectedItem().toString();
                 InHospital = cbbSIn.getSelectedItem().toString();
                 searchBy13And4();
-                lblTTDT.setText("" + tblResult.getRowCount());
-                setDetailsPatient();
+
+
             }
         } else if (cbxByName.isSelected() && !cbxByDate.isSelected() && !cbxByDepartment.isSelected() && cbxByIn.isSelected()) {
             if (txtName.getText().isEmpty()) {
@@ -1054,53 +1031,53 @@ public class Main extends javax.swing.JFrame {
                 FName = txtName.getText();
                 InHospital = cbbSIn.getSelectedItem().toString();
                 searchBy1And3();
-                lblTTDT.setText("" + tblResult.getRowCount());
-                setDetailsPatient();
+
+
             }
         } else if (!cbxByName.isSelected() && !cbxByDate.isSelected() && cbxByDepartment.isSelected() && cbxByIn.isSelected()) {
             Department = cbbSDepartment.getSelectedItem().toString();
             InHospital = cbbSIn.getSelectedItem().toString();
             searchBy2And3();
-            lblTTDT.setText("" + tblResult.getRowCount());
-            setDetailsPatient();
+
+
         } else if (!cbxByName.isSelected() && cbxByDate.isSelected() && cbxByDepartment.isSelected() && cbxByIn.isSelected()) {
             Department = cbbSDepartment.getSelectedItem().toString();
             DateF = cbbSMonthF.getSelectedItem().toString() + "/" + cbbSDayF.getSelectedItem().toString() + "/" + cbbSYearF.getSelectedItem().toString();
             DateT = cbbSMonthT.getSelectedItem().toString() + "/" + cbbSDayT.getSelectedItem().toString() + "/" + cbbSYearT.getSelectedItem().toString();
             InHospital = cbbSIn.getSelectedItem().toString();
             searchBy23And4();
-            lblTTDT.setText("" + tblResult.getRowCount());
-            setDetailsPatient();
+
+
         } else if (!cbxByName.isSelected() && cbxByDate.isSelected() && cbxByDepartment.isSelected() && !cbxByIn.isSelected()) {
             Department = cbbSDepartment.getSelectedItem().toString();
             DateF = cbbSMonthF.getSelectedItem().toString() + "/" + cbbSDayF.getSelectedItem().toString() + "/" + cbbSYearF.getSelectedItem().toString();
             DateT = cbbSMonthT.getSelectedItem().toString() + "/" + cbbSDayT.getSelectedItem().toString() + "/" + cbbSYearT.getSelectedItem().toString();
             searchBy2And4();
-            lblTTDT.setText("" + tblResult.getRowCount());
-            setDetailsPatient();
+
+
         } else if (!cbxByName.isSelected() && cbxByDate.isSelected() && !cbxByDepartment.isSelected() && cbxByIn.isSelected()) {
             DateF = cbbSMonthF.getSelectedItem().toString() + "/" + cbbSDayF.getSelectedItem().toString() + "/" + cbbSYearF.getSelectedItem().toString();
             DateT = cbbSMonthT.getSelectedItem().toString() + "/" + cbbSDayT.getSelectedItem().toString() + "/" + cbbSYearT.getSelectedItem().toString();
             InHospital = cbbSIn.getSelectedItem().toString();
             searchBy3And4();
-            lblTTDT.setText("" + tblResult.getRowCount());
-            setDetailsPatient();
+
+
         } else if (!cbxByName.isSelected() && !cbxByDate.isSelected() && cbxByDepartment.isSelected() && !cbxByIn.isSelected()) {
             Department = cbbSDepartment.getSelectedItem().toString();
             searchByDepartment();
-            lblTTDT.setText("" + tblResult.getRowCount());
-            setDetailsPatient();
+
+
         } else if (!cbxByName.isSelected() && !cbxByDate.isSelected() && !cbxByDepartment.isSelected() && cbxByIn.isSelected()) {
             InHospital = cbbSIn.getSelectedItem().toString();
             searchByIn();
-            lblTTDT.setText("" + tblResult.getRowCount());
-            setDetailsPatient();
+
+
         } else if (!cbxByName.isSelected() && cbxByDate.isSelected() && !cbxByDepartment.isSelected() && !cbxByIn.isSelected()) {
             DateF = cbbSMonthF.getSelectedItem().toString() + "/" + cbbSDayF.getSelectedItem().toString() + "/" + cbbSYearF.getSelectedItem().toString();
             DateT = cbbSMonthT.getSelectedItem().toString() + "/" + cbbSDayT.getSelectedItem().toString() + "/" + cbbSYearT.getSelectedItem().toString();
             searchByDateIn();
-            lblTTDT.setText("" + tblResult.getRowCount());
-            setDetailsPatient();
+
+
         }
     }
 
@@ -1113,7 +1090,6 @@ public class Main extends javax.swing.JFrame {
             } else {
                 FName = txtNameE.getText();
                 searchByNameEx();
-                lblTTE.setText("" + tblRSE.getRowCount());
             }
         } else if (cbxEN.isSelected() && cbxED.isSelected()) {
             if (txtNameE.getText().isEmpty()) {
@@ -1122,12 +1098,12 @@ public class Main extends javax.swing.JFrame {
                 FName = txtNameE.getText();
                 Department = cbbEDepartment.getSelectedItem().toString();
                 searchBy1And2Ex();
-                lblTTE.setText("" + tblRSE.getRowCount());
+
             }
         } else if (!cbxEN.isSelected() && cbxED.isSelected()) {
             Department = cbbEDepartment.getSelectedItem().toString();
             searchByDepartmentEx();
-            lblTTE.setText("" + tblRSE.getRowCount());
+
         }
 
     }
@@ -1739,6 +1715,11 @@ public class Main extends javax.swing.JFrame {
         cbbSDepartment.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbSDepartmentItemStateChanged(evt);
+            }
+        });
+        cbbSDepartment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSDepartmentActionPerformed(evt);
             }
         });
 
@@ -2720,6 +2701,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_mnEmpActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        Department = cbbSDepartment.getSelectedItem().toString();
         try {
             model = new DefaultTableModel();
             tblResult.setModel(model);
@@ -2727,13 +2709,13 @@ public class Main extends javax.swing.JFrame {
             int vv = 0;
         }
         searchPatientEmp();
-
+        lblTTDT.setText("" + tblResult.getRowCount());
+        setDetailsPatient();
 
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void cbbSInItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbSInItemStateChanged
         // TODO add your handling code here:
-        stt = cbbSIn.getSelectedItem().toString();
     }//GEN-LAST:event_cbbSInItemStateChanged
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -2761,7 +2743,7 @@ public class Main extends javax.swing.JFrame {
 
     private void cbbSMonthFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbSMonthFItemStateChanged
         // TODO add your handling code here:
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbSMonthF.getSelectedItem().toString());
         int year = Integer.parseInt(cbbSYearF.getSelectedItem().toString());
         cbbSDayF.setModel(tdv.getDayByMonth(month, year));
@@ -2769,7 +2751,7 @@ public class Main extends javax.swing.JFrame {
 
     private void cbbSYearFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbSYearFItemStateChanged
         // TODO add your handling code here:
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbSMonthF.getSelectedItem().toString());
         int year = Integer.parseInt(cbbSYearF.getSelectedItem().toString());
         cbbSDayF.setModel(tdv.getDayByMonth(month, year));
@@ -2781,7 +2763,7 @@ public class Main extends javax.swing.JFrame {
 
     private void cbbSYearTItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbSYearTItemStateChanged
         // TODO add your handling code here:
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbSMonthT.getSelectedItem().toString());
         int year = Integer.parseInt(cbbSYearT.getSelectedItem().toString());
         cbbSDayT.setModel(tdv.getDayByMonth(month, year));
@@ -2789,7 +2771,7 @@ public class Main extends javax.swing.JFrame {
 
     private void cbbSMonthTItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbSMonthTItemStateChanged
         // TODO add your handling code here:
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbSMonthT.getSelectedItem().toString());
         int year = Integer.parseInt(cbbSYearT.getSelectedItem().toString());
         cbbSDayT.setModel(tdv.getDayByMonth(month, year));
@@ -2861,7 +2843,7 @@ public class Main extends javax.swing.JFrame {
         }
         allPatientEx();
         setValuePatientExm();
-        lblTTE.setText("" + tblRSE.getRowCount());
+
 
     }//GEN-LAST:event_btnAllEActionPerformed
 
@@ -3054,6 +3036,10 @@ public class Main extends javax.swing.JFrame {
         dlg.setPassword(sPassword);
         dlg.setVisible(true);
     }//GEN-LAST:event_changepassS2ActionPerformed
+
+    private void cbbSDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSDepartmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbSDepartmentActionPerformed
     /**
      * @param args the command line arguments
      */

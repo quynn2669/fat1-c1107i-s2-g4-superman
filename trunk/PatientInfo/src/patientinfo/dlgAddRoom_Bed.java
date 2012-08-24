@@ -37,6 +37,7 @@ public class dlgAddRoom_Bed extends javax.swing.JDialog {
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
         } catch (Exception e) {
         }
+        setTitle("Add Room!");
         cbbRoom.setModel(getListRoom());
         cbbRoomD.setModel(getListRoom());
         cbbBedDel.setModel(getListBed());

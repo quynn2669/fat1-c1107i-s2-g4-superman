@@ -10,9 +10,9 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author tug
  */
-public class DateTimeTDV {
+public class DateTimePatientInfo {
 
-   public DateTimeTDV() {
+   public DateTimePatientInfo() {
    } 
     private int date;
 

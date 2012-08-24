@@ -37,6 +37,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
         } catch (Exception e) {
         }
+        setTitle("Add Account");
     }
 
     public void reset() {
@@ -140,7 +141,7 @@ public class dlgAddAccount extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Datials Daily");
 
         pnlAdd.setBorder(javax.swing.BorderFactory.createTitledBorder("Account's Infomation"));
         pnlAdd.setPreferredSize(new java.awt.Dimension(400, 500));
