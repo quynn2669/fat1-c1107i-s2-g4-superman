@@ -100,7 +100,7 @@ public class Main extends javax.swing.JFrame {
             mnDr.setEnabled(true);
             mnAd.setEnabled(true);
             CardLayout cc = (CardLayout) pnlMain.getLayout();
-            cc.show(pnlMain, "cardSearch");
+            cc.show(pnlMain, "cardHome");
             lblAccS.setText(acc);
             lblAccS1.setText(acc);
             lblAccS2.setText(acc);
@@ -120,7 +120,7 @@ public class Main extends javax.swing.JFrame {
             mnDr.setEnabled(false);
             mnAd.setEnabled(false);
             CardLayout cc = (CardLayout) pnlMain.getLayout();
-            cc.show(pnlMain, "cardSearch");
+            cc.show(pnlMain, "cardHome");
             lblAccS.setText(acc);
             lblAccS1.setText(acc);
             lblAccS2.setText(acc);
@@ -140,7 +140,7 @@ public class Main extends javax.swing.JFrame {
             mnDr.setEnabled(true);
             mnAd.setEnabled(false);
             CardLayout cc = (CardLayout) pnlMain.getLayout();
-            cc.show(pnlMain, "cardSearch");
+            cc.show(pnlMain, "cardHome");
             lblAccS.setText(acc);
             lblAccS1.setText(acc);
             lblAccS2.setText(acc);
@@ -169,7 +169,7 @@ public class Main extends javax.swing.JFrame {
                             mnDr.setEnabled(false);
                             mnAd.setEnabled(false);
                             CardLayout cc = (CardLayout) pnlMain.getLayout();
-                            cc.show(pnlMain, "cardSearch");
+                            cc.show(pnlMain, "cardHome");
                             lblAccS.setText(acc);
                             lblAccS1.setText(acc);
                             lblAccS2.setText(acc);
@@ -188,7 +188,7 @@ public class Main extends javax.swing.JFrame {
                             mnDr.setEnabled(true);
                             mnAd.setEnabled(false);
                             CardLayout cc = (CardLayout) pnlMain.getLayout();
-                            cc.show(pnlMain, "cardExamine");
+                            cc.show(pnlMain, "cardHome");
                             lblAccS.setText(acc);
                             lblAccS1.setText(acc);
                             lblAccS2.setText(acc);
@@ -1190,6 +1190,10 @@ public class Main extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
+        pnlHome = new javax.swing.JPanel();
+        pnlContent4 = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
         pnlAbout = new javax.swing.JPanel();
         pnlContent2 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -1496,6 +1500,45 @@ public class Main extends javax.swing.JFrame {
 
         pnlMain.add(pnlLogin, "cardLogin");
 
+        pnlHome.setBackground(new java.awt.Color(-328966,true));
+        pnlHome.setLayout(new java.awt.BorderLayout());
+
+        pnlContent4.setPreferredSize(new java.awt.Dimension(740, 600));
+
+        jLabel35.setFont(new java.awt.Font("Tahoma", 1, 48));
+        jLabel35.setText("Patient Info System");
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel36.setText("Created by a group Superman");
+
+        javax.swing.GroupLayout pnlContent4Layout = new javax.swing.GroupLayout(pnlContent4);
+        pnlContent4.setLayout(pnlContent4Layout);
+        pnlContent4Layout.setHorizontalGroup(
+            pnlContent4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContent4Layout.createSequentialGroup()
+                .addContainerGap(332, Short.MAX_VALUE)
+                .addGroup(pnlContent4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContent4Layout.createSequentialGroup()
+                        .addComponent(jLabel36)
+                        .addGap(441, 441, 441))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContent4Layout.createSequentialGroup()
+                        .addComponent(jLabel35)
+                        .addGap(264, 264, 264))))
+        );
+        pnlContent4Layout.setVerticalGroup(
+            pnlContent4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContent4Layout.createSequentialGroup()
+                .addGap(374, 374, 374)
+                .addComponent(jLabel35)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel36)
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
+
+        pnlHome.add(pnlContent4, java.awt.BorderLayout.CENTER);
+
+        pnlMain.add(pnlHome, "cardHome");
+
         pnlAbout.setBackground(new java.awt.Color(-328966,true));
         pnlAbout.setLayout(new java.awt.BorderLayout());
 
@@ -1580,8 +1623,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTDT, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addContainerGap(614, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1787,7 +1830,6 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(cbxByIn, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbxByName, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlChoiceLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlChoiceLayout.createSequentialGroup()
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1812,7 +1854,6 @@ public class Main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbbSIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlChoiceLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlChoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
@@ -1910,7 +1951,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(374, 374, 374)
                 .addComponent(jLabel26)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(394, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1985,8 +2026,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTL, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addContainerGap(614, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2186,7 +2227,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel30)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(403, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2261,8 +2302,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTTE, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addContainerGap(614, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2461,7 +2502,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(393, 393, 393)
                 .addComponent(jLabel28)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(473, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3121,6 +3162,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -3174,7 +3217,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel pnlContent1;
     private javax.swing.JPanel pnlContent2;
     private javax.swing.JPanel pnlContent3;
+    private javax.swing.JPanel pnlContent4;
     private javax.swing.JPanel pnlExamine;
+    private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JPanel pnlLogin1;
     private javax.swing.JPanel pnlMain;
