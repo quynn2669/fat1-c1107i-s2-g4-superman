@@ -35,6 +35,7 @@ public class dlgAddEmployee extends javax.swing.JDialog {
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
         } catch (Exception e) {
         }
+        setTitle("Add Employee");
 
     }
     public void rs(){

@@ -10,7 +10,7 @@
  */
 package patientinfo;
 
-import DateTime.DateTimeTDV;
+import DateTime.DateTimePatientInfo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -42,7 +42,9 @@ public class dlgAddPatient extends javax.swing.JDialog {
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PI", "sa", "123456");
         } catch (Exception e) {
         }
-        DateTimeTDV dateTDV = new DateTimeTDV();
+
+        setTitle("Add Patient");
+        DateTimePatientInfo dateTDV = new DateTimePatientInfo();
         cbbAddYearIn.setModel(dateTDV.getListYear());
 
         cbbDoctor.setModel(getListDoctor());
@@ -54,7 +56,7 @@ public class dlgAddPatient extends javax.swing.JDialog {
         aDescript.setText(null);
         btgGender.clearSelection();
         cbbAddDepartment.setSelectedIndex(0);
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbAddMonthIn.getSelectedItem().toString());
         int year = Integer.parseInt(cbbAddYearIn.getSelectedItem().toString());
         cbbAddDayIn.setModel(tdv.getDayByMonth(month, year));
@@ -408,7 +410,7 @@ public class dlgAddPatient extends javax.swing.JDialog {
 
     private void cbbAddYearInItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbAddYearInItemStateChanged
         // TODO add your handling code here:
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbAddMonthIn.getSelectedItem().toString());
         int year = Integer.parseInt(cbbAddYearIn.getSelectedItem().toString());
         cbbAddDayIn.setModel(tdv.getDayByMonth(month, year));
@@ -420,7 +422,7 @@ public class dlgAddPatient extends javax.swing.JDialog {
 
     private void cbbAddMonthInItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbAddMonthInItemStateChanged
         // TODO add your handling code here:
-        DateTimeTDV tdv = new DateTimeTDV();
+        DateTimePatientInfo tdv = new DateTimePatientInfo();
         int month = Integer.parseInt(cbbAddMonthIn.getSelectedItem().toString());
         int year = Integer.parseInt(cbbAddYearIn.getSelectedItem().toString());
         cbbAddDayIn.setModel(tdv.getDayByMonth(month, year));
